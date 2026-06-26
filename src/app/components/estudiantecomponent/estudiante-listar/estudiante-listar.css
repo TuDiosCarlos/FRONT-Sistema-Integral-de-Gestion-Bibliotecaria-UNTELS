@@ -1,0 +1,21 @@
+.listar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.filtros {
+  margin-bottom: 20px;
+  max-width: 240px;
+}
+
+.tabla-estudiantes {
+  width: 100%;
+}
+
+.contenedor {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}

@@ -1,0 +1,53 @@
+<mat-card class="form-card">
+  <h2>{{ modoEdicion ? 'Editar estudiante' : 'Nuevo estudiante' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombres</mat-label>
+      <input matInput formControlName="nombres">
+      <mat-error *ngIf="form.get('nombres')?.hasError('required')">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellidos</mat-label>
+      <input matInput formControlName="apellidos">
+      <mat-error *ngIf="form.get('apellidos')?.hasError('required')">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" maxlength="8">
+      <mat-error *ngIf="form.get('dni')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('dni')?.hasError('pattern')">DNI debe tener 8 dígitos</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Código</mat-label>
+      <input matInput formControlName="codigo">
+      <mat-error *ngIf="form.get('codigo')?.hasError('required')">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email">
+      <mat-error *ngIf="form.get('email')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email')">Email inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Carrera</mat-label>
+      <mat-select formControlName="carreraId">
+        <mat-option *ngFor="let c of carreras" [value]="c.id">{{ c.nombre }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('carreraId')?.hasError('required')">Selecciona una carrera</mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-stroked-button type="button" routerLink="/estudiantes/listar">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ modoEdicion ? 'Actualizar' : 'Registrar' }}
+      </button>
+    </div>
+  </form>
+</mat-card>
