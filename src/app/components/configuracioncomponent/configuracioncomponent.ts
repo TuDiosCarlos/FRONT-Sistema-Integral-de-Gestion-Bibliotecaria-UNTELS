@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-configuracioncomponent',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './configuracioncomponent.html',
-  styleUrl: './configuracioncomponent.css',
+  styleUrls: ['./configuracioncomponent.css'],
 })
 export class Configuracioncomponent {}
