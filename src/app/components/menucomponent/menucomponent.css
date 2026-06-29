@@ -1,0 +1,84 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  flex-wrap: nowrap;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: white !important;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.active-link {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-radius: 4px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.avatar-btn {
+  margin-left: 8px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  color: #1565c0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.user-info-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  min-width: 160px;
+}
+
+.user-info-menu small {
+  color: #666;
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .nav-links span {
+    display: none;
+  }
+
+  .brand-name {
+    display: none;
+  }
+}
