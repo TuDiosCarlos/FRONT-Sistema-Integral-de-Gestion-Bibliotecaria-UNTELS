@@ -1,0 +1,49 @@
+.home-container {
+  padding: 48px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  text-align: center;
+  padding: 48px 32px;
+  border-radius: 12px !important;
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.welcome-icon {
+  font-size: 72px;
+  width: 72px;
+  height: 72px;
+  color: #1565c0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a237e;
+}
+
+.rol-badge {
+  display: inline-block;
+  background: #1565c0;
+  color: white;
+  padding: 4px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  color: #666;
+  font-size: 0.95rem;
+}
