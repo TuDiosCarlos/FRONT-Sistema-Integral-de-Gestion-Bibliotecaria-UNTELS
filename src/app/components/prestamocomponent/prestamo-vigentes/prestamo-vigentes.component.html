@@ -1,0 +1,45 @@
+<div class="vigentes-container">
+  <h2>🔄 Panel de Préstamos Vigentes en Circulación</h2>
+  <p>Monitoreo de libros activos y control de alertas de vencimiento.</p>
+
+  <div *ngIf="listaVigentes.length === 0" class="sin-datos">
+    <p>No hay libros en circulación activa en este momento.</p>
+  </div>
+
+  <table mat-table [dataSource]="listaVigentes" class="mat-elevation-z8" *ngIf="listaVigentes.length > 0">
+    
+    <ng-container matColumnDef="idLibro">
+      <th mat-header-cell *matHeaderCellDef> ID Libro </th>
+      <td mat-cell *matCellDef="let element"> {{ element.idLibro }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="idEstudiante">
+      <th mat-header-cell *matHeaderCellDef> ID Estudiante </th>
+      <td mat-cell *matCellDef="let element"> {{ element.idEstudiante }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaAprobacion">
+      <th mat-header-cell *matHeaderCellDef> Fecha Aprobación </th>
+      <td mat-cell *matCellDef="let element"> {{ element.fechaAprobacion | date:'dd/MM/yyyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="diasRestantes">
+      <th mat-header-cell *matHeaderCellDef> Estado de Días </th>
+      <td mat-cell *matCellDef="let element">
+        <span [ngClass]="{'alerta-roja': calcularDiasRestantes(element.fechaAprobacion, element.diasSolicitados) <= 0, 'alerta-verde': calcularDiasRestantes(element.fechaAprobacion, element.diasSolicitados) > 0}">
+          {{ calcularDiasRestantes(element.fechaAprobacion, element.diasSolicitados) }} días restantes
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element">
+        <span class="badge-activo">{{ element.estadoPrestamo }}</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnasMostradas;"></tr>
+  </table>
+</div>

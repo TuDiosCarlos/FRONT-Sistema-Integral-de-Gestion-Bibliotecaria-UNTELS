@@ -18,6 +18,11 @@ import { CatalogoListar } from './components/catalogocomponent/catalogo-listar/c
 import { Misprestamocomponent } from './components/misprestamocomponent/misprestamocomponent';
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
 
+// TUS NUEVAS IMPORTACIONES (MÓDULO DE JAIR)
+import { Prestamocomponent } from './components/prestamocomponent/prestamocomponent';
+import { PrestamoBandejaComponent } from './components/prestamocomponent/prestamo-bandeja/prestamo-bandeja.component';
+import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
+
 export const routes: Routes = [
   { path: '', redirectTo: 'libros', pathMatch: 'full' },
 
@@ -65,6 +70,17 @@ export const routes: Routes = [
       { path: 'listar', component: LibroListar },
       { path: 'nuevo', component: LibroForm },
       { path: 'editar/:id', component: LibroForm },
+    ]
+  },
+
+  // TU NUEVO BLOQUE DE RUTAS (MÓDULO DE JAIR)
+  {
+    path: 'prestamos',
+    component: Prestamocomponent,
+    children: [
+      { path: '', redirectTo: 'bandeja', pathMatch: 'full' },
+      { path: 'bandeja', component: PrestamoBandejaComponent },
+      { path: 'vigentes', component: PrestamoVigentesComponent }
     ]
   }
 ];
