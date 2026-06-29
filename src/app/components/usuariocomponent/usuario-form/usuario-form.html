@@ -1,1 +1,90 @@
-<p>usuario-form works!</p>
+<mat-card class="form-card">
+  <h2>{{ modoEdicion ? 'Editar usuario' : 'Nuevo usuario' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+      <mat-error *ngIf="form.get('username')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('username')?.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ modoEdicion ? 'Nueva contraseña (dejar vacío para no cambiar)' : 'Contraseña' }}</mat-label>
+      <input matInput formControlName="password" type="password">
+      <mat-error *ngIf="form.get('password')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('password')?.hasError('minlength')">Mínimo 6 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre completo</mat-label>
+      <input matInput formControlName="nombre">
+      <mat-error *ngIf="form.get('nombre')?.hasError('required')">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" maxlength="8">
+      <mat-error *ngIf="form.get('dni')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('dni')?.hasError('pattern')">DNI debe tener 8 dígitos</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Código</mat-label>
+      <input matInput formControlName="codigo">
+      <mat-error *ngIf="form.get('codigo')?.hasError('required')">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Carnet</mat-label>
+      <input matInput formControlName="carnet">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email">
+      <mat-error *ngIf="form.get('email')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email')">Email inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="rol">
+        <mat-option *ngFor="let r of roles" [value]="r">{{ r }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('rol')?.hasError('required')">Selecciona un rol</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Carrera</mat-label>
+      <input matInput formControlName="carrera">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ciclo</mat-label>
+      <input matInput formControlName="ciclo" type="number" min="1" max="10">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado">
+        <mat-option *ngFor="let e of estados" [value]="e">{{ e }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('estado')?.hasError('required')">Selecciona un estado</mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-stroked-button type="button" routerLink="/usuarios/listar">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ modoEdicion ? 'Actualizar' : 'Registrar' }}
+      </button>
+    </div>
+
+  </form>
+</mat-card>
