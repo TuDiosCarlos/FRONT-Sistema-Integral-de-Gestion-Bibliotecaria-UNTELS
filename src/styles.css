@@ -1,1 +1,191 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background: #f0f2f5 !important;
+  margin: 0;
+}
+
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+
+/* ── Contenedores ── */
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 40px;
+  box-sizing: border-box;
+}
+
+.contenedor-form {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 36px 40px;
+  box-sizing: border-box;
+}
+
+/* ── Headers ── */
+.listar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.listar-header h2,
+.contenedor-form h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.4px;
+  padding-left: 14px;
+  position: relative;
+}
+
+.listar-header h2::before,
+.contenedor-form h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  height: 80%;
+  width: 4px;
+  background: #4f46e5;
+  border-radius: 4px;
+}
+
+/* ── Botones primarios ── */
+.listar-header .mat-mdc-raised-button,
+.acciones .mat-mdc-raised-button,
+.isbn-autocompletado .mat-mdc-raised-button {
+  background: #4f46e5 !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(79,70,229,0.3) !important;
+}
+
+.listar-header .mat-mdc-raised-button:hover,
+.acciones .mat-mdc-raised-button:hover,
+.isbn-autocompletado .mat-mdc-raised-button:hover {
+  background: #4338ca !important;
+  transform: translateY(-1px);
+}
+
+/* ── Filtros ── */
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* ── Tabla ── */
+.tabla-libros {
+  width: 100%;
+  border-radius: 14px !important;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+}
+
+.tabla-libros th.mat-mdc-header-cell {
+  background: #fff !important;
+  color: #6b7280 !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.7px !important;
+  padding: 16px 20px !important;
+  border-bottom: 2px solid #f0f2f5 !important;
+}
+
+.tabla-libros td.mat-mdc-cell {
+  background: #fff !important;
+  padding: 15px 20px !important;
+  font-size: 0.9rem !important;
+  color: #374151 !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.tabla-libros tr.mat-mdc-row:hover td.mat-mdc-cell {
+  background: #fafbff !important;
+}
+
+.tabla-libros tr.mat-mdc-row:last-child td.mat-mdc-cell {
+  border-bottom: none !important;
+}
+
+/* ── ISBN autocompletado ── */
+.isbn-autocompletado {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: #eef2ff;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+/* ── Card formulario ── */
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* ── Grid del form ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+}
+
+.form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+/* ── Acciones ── */
+.acciones {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1.5px solid #f0f2f5;
+  margin-top: 8px;
+}
+
+/* ── Sin resultados ── */
+.sin-resultados {
+  text-align: center;
+  padding: 56px 24px;
+  color: #9ca3af;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Fix labels de mat-form-field */
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-form-field .mdc-floating-label {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background: #fff !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  height: auto;
+}

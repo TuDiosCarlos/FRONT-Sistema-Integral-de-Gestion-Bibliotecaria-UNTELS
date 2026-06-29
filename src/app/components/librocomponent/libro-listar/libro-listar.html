@@ -1,1 +1,83 @@
-<p>libro-listar works!</p>
+<div class="contenedor">
+
+  <div class="listar-header">
+    <h2>Catálogo de Libros</h2>
+    <button mat-raised-button color="primary" routerLink="/libros/nuevo">
+      <mat-icon>add</mat-icon> Nuevo libro
+    </button>
+  </div>
+
+  <div class="filtros">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por título</mat-label>
+      <input matInput [(ngModel)]="textoBusqueda" (keyup.enter)="buscar()" placeholder="Ej: Redes de computadoras">
+      <button mat-icon-button matSuffix (click)="buscar()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="categoriaFiltro" (selectionChange)="filtrarCategoria()">
+        <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-stroked-button (click)="limpiarFiltros()">
+      <mat-icon>clear</mat-icon> Limpiar
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="libros" class="mat-elevation-z2 tabla-libros">
+
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef>Título</th>
+      <td mat-cell *matCellDef="let l">{{ l.titulo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="autor">
+      <th mat-header-cell *matHeaderCellDef>Autor</th>
+      <td mat-cell *matCellDef="let l">{{ l.autor }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="isbn">
+      <th mat-header-cell *matHeaderCellDef>ISBN</th>
+      <td mat-cell *matCellDef="let l">{{ l.isbn }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="categoria">
+      <th mat-header-cell *matHeaderCellDef>Categoría</th>
+      <td mat-cell *matCellDef="let l">
+        <mat-chip>{{ l.categoria }}</mat-chip>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef>Stock</th>
+      <td mat-cell *matCellDef="let l">
+        <mat-chip [color]="getColorStock(l)" selected>
+          {{ l.stock }} / {{ l.stockTotal }}
+        </mat-chip>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let l">
+        <button mat-icon-button color="primary" (click)="editar(l.idLibro)" matTooltip="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminar(l.idLibro)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+
+  </table>
+
+  <p *ngIf="libros.length === 0" class="sin-resultados">No se encontraron libros.</p>
+
+</div>
