@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-usuariocomponent',
-  imports: [],
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './usuariocomponent.html',
-  styleUrl: './usuariocomponent.css',
+  styleUrl: './usuariocomponent.css'
 })
 export class Usuariocomponent {}

@@ -189,3 +189,12 @@ body {
 .mat-mdc-form-field-subscript-wrapper {
   height: auto;
 }
+
+/* Fix conflicto Bootstrap vs Angular Material */
+.mat-mdc-form-field label {
+  overflow: visible !important;
+}
+
+.mat-mdc-floating-label {
+  overflow: visible !important;
+}
