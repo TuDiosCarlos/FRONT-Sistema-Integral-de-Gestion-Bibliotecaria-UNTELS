@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-librocomponent',
-  imports: [],
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './librocomponent.html',
-  styleUrl: './librocomponent.css',
+  styleUrl: './librocomponent.css'
 })
 export class Librocomponent {}
