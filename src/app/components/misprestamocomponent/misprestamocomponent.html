@@ -1,1 +1,57 @@
-<p>misprestamocomponent works!</p>
+<div class="misprestamos-shell">
+  <div class="misprestamos-header">
+    <div>
+      <h2>Mis Préstamos</h2>
+      <p>Consulta tus préstamos activos, vencidos y el historial de devoluciones.</p>
+    </div>
+    <div class="misprestamos-actions">
+      <select [(ngModel)]="estadoFiltro" class="status-select">
+        <option *ngFor="let estado of estados">{{ estado }}</option>
+      </select>
+      <button class="btn-secondary" type="button" (click)="filtrar()">Filtrar</button>
+      <button class="btn-primary" type="button" (click)="actualizar()">Actualizar</button>
+    </div>
+  </div>
+
+  <div class="status-cards">
+    <div class="status-card card-active">
+      <span>Activos</span>
+      <strong>0</strong>
+    </div>
+    <div class="status-card card-overdue">
+      <span>Vencidos</span>
+      <strong>0</strong>
+    </div>
+    <div class="status-card card-history">
+      <span>Historial</span>
+      <strong>0</strong>
+    </div>
+  </div>
+
+  <div *ngIf="prestamos.length === 0" class="alert-empty">
+    {{ mensaje }}
+  </div>
+
+  <table *ngIf="prestamos.length > 0" class="table-list">
+    <thead>
+      <tr>
+        <th>Libro</th>
+        <th>Fecha de préstamo</th>
+        <th>Fecha límite</th>
+        <th>Estado</th>
+        <th>Días restantes</th>
+        <th>Sanción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prestamo of prestamos">
+        <td>{{ prestamo.libro }}</td>
+        <td>{{ prestamo.fechaPrestamo }}</td>
+        <td>{{ prestamo.fechaDevolucion }}</td>
+        <td>{{ prestamo.estado }}</td>
+        <td>{{ prestamo.dias }}</td>
+        <td>{{ prestamo.sancion || 'Ninguna' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

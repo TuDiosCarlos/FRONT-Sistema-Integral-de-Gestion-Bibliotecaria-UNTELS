@@ -1,1 +1,52 @@
-<p>catalogo-listar works!</p>
+<div class="catalogo-listar">
+  <div class="catalogo-header">
+    <div class="catalogo-title-group">
+      <h3>Catálogo de Libros</h3>
+      <p>Consulta el catálogo de libros disponible para estudiantes.</p>
+    </div>
+    <button class="btn-primary">Solicitar préstamo</button>
+  </div>
+
+  <section class="catalogo-filtros-card">
+    <div class="filtro-item">
+      <label>Buscar por título</label>
+      <input type="text" placeholder="Buscar por título" [(ngModel)]="textoBusqueda" />
+    </div>
+    <div class="filtro-item">
+      <label>Categoría</label>
+      <select [(ngModel)]="categoriaSeleccionada">
+        <option *ngFor="let categoria of categorias">{{ categoria }}</option>
+      </select>
+    </div>
+    <div class="filtro-actions">
+      <button class="btn-secondary" type="button" (click)="limpiarFiltros()">Limpiar</button>
+    </div>
+  </section>
+
+  <div *ngIf="libros.length === 0" class="alert-empty">
+    {{ mensaje }}
+  </div>
+
+  <table *ngIf="libros.length > 0" class="table-list">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>ISBN</th>
+        <th>Categoría</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let libro of libros">
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.isbn }}</td>
+        <td>{{ libro.categoria }}</td>
+        <td>{{ libro.stock }}</td>
+        <td><button class="btn-primary">Solicitar préstamo</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
