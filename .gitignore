@@ -42,3 +42,9 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Carpetas de ejemplo locales (no subir)
+APIBiblioteca/
+demoFrontIS/
+BACKLOG_actualizado.xlsx
+Sprint3_1_Frontend_Angular_SIGBAU (1).docx
