@@ -1,9 +1,132 @@
 <div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <h2>Sanciones</h2>
-            <hr>
-            <p>Módulo de sanciones en construcción...</p>
+
+    <div class="card shadow">
+
+        <div class="card-header">
+            <h3>Gestión de Sanciones</h3>
         </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Filtrar por estado
+                    </label>
+
+                    <select
+                        class="form-select"
+                        [(ngModel)]="estadoFiltro"
+                        (change)="filtrarPorEstado()">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="activa">
+                            Activa
+                        </option>
+
+                        <option value="cumplida">
+                            Cumplida
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            @if(cargando){
+
+                <div class="text-center">
+                    <div class="spinner-border"></div>
+                </div>
+
+            }
+
+            @if(!cargando){
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead class="table-dark">
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Estudiante</th>
+                                <th>Motivo</th>
+                                <th>Días</th>
+                                <th>Multa</th>
+                                <th>Estado</th>
+                                <th>Fecha Fin</th>
+                                <th>Acciones</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @for(item of listaSanciones; track item.idSancion){
+
+                                <tr>
+
+                                    <td>{{item.idSancion}}</td>
+                                    <td>{{item.idEstudiante}}</td>
+                                    <td>{{item.motivo}}</td>
+                                    <td>{{item.diasSuspension}}</td>
+                                    <td>S/. {{item.multa}}</td>
+
+                                    <td>
+
+                                        <span
+                                            class="badge"
+                                            [ngClass]="{
+                                                'bg-danger': item.estado==='activa',
+                                                'bg-success': item.estado==='cumplida'
+                                            }">
+
+                                            {{item.estado}}
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>{{item.fechaFin}}</td>
+
+                                    <td>
+
+                                        @if(item.estado === 'activa'){
+
+                                            <button
+                                                class="btn btn-success btn-sm"
+                                                (click)="cumplir(item.idSancion)">
+
+                                                Cumplir
+
+                                            </button>
+
+                                        }
+
+                                    </td>
+
+                                </tr>
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            }
+
+        </div>
+
     </div>
+
 </div>

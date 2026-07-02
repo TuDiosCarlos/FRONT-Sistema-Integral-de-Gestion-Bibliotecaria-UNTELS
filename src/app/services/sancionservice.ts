@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Service } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { Sancion } from '../models/sancion';
 
+import { environment } from '../../environments/environment';
+import { Sancion } from '../models/sancion';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,9 @@ export class SancionService {
   constructor() { }
 
   listar(): Observable<Sancion[]> {
-    return this.http.get<Sancion[]>(`${this.url}/lista`);
+    return this.http.get<Sancion[]>(
+      `${this.url}/lista`
+    );
   }
 
   buscarPorEstado(estado: string): Observable<Sancion[]> {
