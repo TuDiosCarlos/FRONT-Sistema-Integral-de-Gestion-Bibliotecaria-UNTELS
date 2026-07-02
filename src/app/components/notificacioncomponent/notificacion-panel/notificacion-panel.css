@@ -1,0 +1,17 @@
+.card-header {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.notificacion-nueva {
+    border-left: 6px solid #dc3545;
+}
+
+.notificacion-leida {
+    border-left: 6px solid #198754;
+    opacity: 0.85;
+}
+
+.card {
+    border-radius: 10px;
+}

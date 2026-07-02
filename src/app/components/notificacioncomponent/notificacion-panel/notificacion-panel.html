@@ -1,9 +1,108 @@
 <div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <h2>Notificaciones</h2>
-            <hr>
-            <p>Módulo de notificaciones en construcción...</p>
+
+    <div class="card shadow">
+
+        <div class="card-header d-flex justify-content-between">
+
+            <h3>Notificaciones</h3>
+
+            <button
+                class="btn btn-success"
+                (click)="marcarLeidas()">
+
+                Marcar todas como leídas
+
+            </button>
+
         </div>
+
+        <div class="card-body">
+
+            @if(cargando){
+
+                <div class="text-center">
+                    <div class="spinner-border"></div>
+                </div>
+
+            }
+
+            @if(!cargando){
+
+                @if(listaNotificaciones.length === 0){
+
+                    <div class="alert alert-info">
+
+                        No existen notificaciones.
+
+                    </div>
+
+                }
+
+                @for(item of listaNotificaciones; track item.idNotificacion){
+
+                    <div
+                        class="card mb-3"
+                        [ngClass]="{
+                            'notificacion-nueva': !item.leida,
+                            'notificacion-leida': item.leida
+                        }">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between">
+
+                                <h5>
+
+                                    {{item.tipo}}
+
+                                </h5>
+
+                                <small>
+
+                                    {{item.fecha}}
+
+                                </small>
+
+                            </div>
+
+                            <hr>
+
+                            <p>
+
+                                {{item.mensaje}}
+
+                            </p>
+
+                            @if(!item.leida){
+
+                                <span class="badge bg-danger">
+
+                                    Nueva
+
+                                </span>
+
+                            }
+
+                            @if(item.leida){
+
+                                <span class="badge bg-success">
+
+                                    Leída
+
+                                </span>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                }
+
+            }
+
+        </div>
+
     </div>
+
 </div>
