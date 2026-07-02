@@ -17,11 +17,17 @@ import { Catalogocomponent } from './components/catalogocomponent/catalogocompon
 import { CatalogoListar } from './components/catalogocomponent/catalogo-listar/catalogo-listar';
 import { Misprestamocomponent } from './components/misprestamocomponent/misprestamocomponent';
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
+import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
+import { NotificacionPanel } from './components/notificacioncomponent/notificacion-panel/notificacion-panel';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'libros', pathMatch: 'full' },
 
   { path: 'home', component: Homecomponent },
+  
+  {path: 'sanciones',component: SancionListar},
+
+  {path: 'notificaciones',component: NotificacionPanel},
 
   {
     path: 'catalogo',
