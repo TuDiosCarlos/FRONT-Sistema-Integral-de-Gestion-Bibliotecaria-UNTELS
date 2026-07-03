@@ -1,0 +1,13 @@
+.modal-container {
+  padding: 15px;
+  min-width: 350px;
+}
+.full-width {
+  width: 100%;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+mat-dialog-actions {
+  margin-top: 20px;
+}

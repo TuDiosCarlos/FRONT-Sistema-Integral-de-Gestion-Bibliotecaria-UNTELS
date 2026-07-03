@@ -1,0 +1,32 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>📖 Registro de Devolución y Evaluación Física</h2>
+  
+  <mat-dialog-content class="mat-typography">
+    <p>Por favor, inspeccione las condiciones del texto antes de reincorporarlo al catálogo.</p>
+    
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Estado Físico de Entrega</mat-label>
+        <mat-select [(ngModel)]="estadoDevolucion">
+          <mat-option value="BUENO">Perfecto Estado / Bueno</mat-option>
+          <mat-option value="DAÑADO">Dañado / Hojas Sueltas o Rayado</mat-option>
+          <mat-option value="PERDIDO">Extraviado / No Entregado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Observaciones de Evaluación</mat-label>
+        <textarea matInput rows="3" [(ngModel)]="observaciones" placeholder="Escriba aquí los detalles del estado del libro..."></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="procesarDevolucion()" [disabled]="!estadoDevolucion">
+      Confirmar Retorno
+    </button>
+  </mat-dialog-actions>
+</div>
