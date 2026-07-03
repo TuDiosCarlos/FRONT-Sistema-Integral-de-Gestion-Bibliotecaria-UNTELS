@@ -1,1 +1,45 @@
-<p>configuracioncomponent works!</p>
+<div class="configuracion-shell">
+  <div class="configuracion-header">
+    <div>
+      <h2>Configuración del Sistema</h2>
+      <p>Ajusta los parámetros generales del sistema bibliotecario.</p>
+    </div>
+    <button class="btn-primary">Guardar cambios</button>
+  </div>
+
+  <div class="configuracion-card">
+    <div class="config-row">
+      <label>Días máximos de préstamo</label>
+      <input type="number" placeholder="Ej. 15" />
+    </div>
+    <div class="config-row">
+      <label>Límite de préstamos por estudiante</label>
+      <input type="number" placeholder="Ej. 3" />
+    </div>
+    <div class="config-row">
+      <label>Monto de multa</label>
+      <input type="number" placeholder="Ej. 5" />
+    </div>
+    <div class="config-row">
+      <label>Días de suspensión</label>
+      <input type="number" placeholder="Ej. 7" />
+    </div>
+    <div class="config-row config-row-wide">
+      <label>Notificaciones</label>
+      <select>
+        <option>Activadas</option>
+        <option>Desactivadas</option>
+      </select>
+    </div>
+    <div class="config-row config-row-wide">
+      <label>Solicitudes de préstamo</label>
+      <select>
+        <option>Activadas</option>
+        <option>Desactivadas</option>
+      </select>
+    </div>
+    <div class="config-description">
+      <p>Los valores se cargarán del backend cuando el servicio esté disponible.</p>
+    </div>
+  </div>
+</div>

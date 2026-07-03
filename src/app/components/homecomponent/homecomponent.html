@@ -1,12 +1,37 @@
-<div class="home-container">
-  <mat-card class="welcome-card">
-    <mat-card-content>
-      <div class="welcome-content">
-        <mat-icon class="welcome-icon">local_library</mat-icon>
-        <h1>Bienvenido, {{ nombre }}</h1>
-        <span class="rol-badge">{{ rol }}</span>
-        <p class="subtitle">Sistema Integral de Gestión Bibliotecaria — UNTELS</p>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div class="home-shell">
+  <div class="home-header">
+    <div>
+      <p class="subtitle">Bienvenido al sistema de biblioteca</p>
+      <h2>Panel de control</h2>
+    </div>
+    <button class="btn-primary">Actualizar datos</button>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card card-primary">
+      <span class="card-label">Libros disponibles</span>
+      <strong>—</strong>
+      <p>Los datos se cargarán desde el backend.</p>
+    </div>
+    <div class="dashboard-card card-secondary">
+      <span class="card-label">Préstamos activos</span>
+      <strong>—</strong>
+      <p>Los datos se cargarán desde el backend.</p>
+    </div>
+    <div class="dashboard-card card-warning">
+      <span class="card-label">Préstamos vencidos</span>
+      <strong>—</strong>
+      <p>Los datos se cargarán desde el backend.</p>
+    </div>
+    <div class="dashboard-card card-success">
+      <span class="card-label">Estudiantes registrados</span>
+      <strong>—</strong>
+      <p>Los datos se cargarán desde el backend.</p>
+    </div>
+    <div class="dashboard-card card-alert">
+      <span class="card-label">Sanciones activas</span>
+      <strong>—</strong>
+      <p>Los datos se cargarán desde el backend.</p>
+    </div>
+  </div>
 </div>

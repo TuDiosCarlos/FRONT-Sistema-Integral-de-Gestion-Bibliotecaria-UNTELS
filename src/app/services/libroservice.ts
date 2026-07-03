@@ -11,7 +11,9 @@ export class Libroservice {
   constructor(private http: HttpClient) {}
 
   listar(): Observable<Libro[]> {
-    return this.http.get<Libro[]>(`${this.url}/lista`);
+    const token = localStorage.getItem('token') || localStorage.getItem('authToken') || '';
+    const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+    return this.http.get<Libro[]>(`${this.url}/lista`, headers);
   }
 
   buscarPorId(id: number): Observable<Libro> {

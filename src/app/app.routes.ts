@@ -15,6 +15,12 @@ import { UsuarioForm }            from './components/usuariocomponent/usuario-fo
 import { Librocomponent }         from './components/librocomponent/librocomponent';
 import { LibroListar }            from './components/librocomponent/libro-listar/libro-listar';
 import { LibroForm }              from './components/librocomponent/libro-form/libro-form';
+
+import { Homecomponent } from './components/homecomponent/homecomponent';
+import { Catalogocomponent } from './components/catalogocomponent/catalogocomponent';
+import { CatalogoListar } from './components/catalogocomponent/catalogo-listar/catalogo-listar';
+import { Misprestamocomponent } from './components/misprestamocomponent/misprestamocomponent';
+import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
 import { Catalogocomponent }      from './components/catalogocomponent/catalogocomponent';
 import { Prestamocomponent }      from './components/prestamocomponent/prestamocomponent';
 import { Sancioncomponent }       from './components/sancioncomponent/sancioncomponent';
@@ -23,6 +29,21 @@ import { Misprestamocomponent }   from './components/misprestamocomponent/mispre
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'libros', pathMatch: 'full' },
+
+  { path: 'home', component: Homecomponent },
+
+  {
+    path: 'catalogo',
+    component: Catalogocomponent,
+    children: [
+      { path: '', redirectTo: 'listar', pathMatch: 'full' },
+      { path: 'listar', component: CatalogoListar },
+    ]
+  },
+
+  { path: 'misprestamos', component: Misprestamocomponent },
+  { path: 'configuracion', component: Configuracioncomponent },
   { path: 'login',        component: Logincomponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
 
@@ -77,8 +98,7 @@ export const routes: Routes = [
           { path: 'nuevo',      component: LibroForm },
           { path: 'editar/:id', component: LibroForm },
         ],
-      },
-
+      }
       // ─── BIBLIOTECARIO ────────────────────────────────────────────
       {
         path: 'prestamos',

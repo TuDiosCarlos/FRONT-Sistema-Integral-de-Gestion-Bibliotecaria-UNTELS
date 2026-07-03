@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Authservice } from '../../services/authservice';
@@ -6,9 +7,10 @@ import { Authservice } from '../../services/authservice';
 @Component({
   selector: 'app-homecomponent',
   standalone: true,
-  imports: [MatCardModule, MatIconModule],
+  standalone: true,
+  imports: [CommonModuleMatCardModule, MatIconModule],
   templateUrl: './homecomponent.html',
-  styleUrl: './homecomponent.css',
+  styleUrls: ['./homecomponent.css'],
 })
 export class Homecomponent implements OnInit {
   private authService = inject(Authservice);
