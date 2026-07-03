@@ -15,23 +15,24 @@ import { UsuarioForm }            from './components/usuariocomponent/usuario-fo
 import { Librocomponent }         from './components/librocomponent/librocomponent';
 import { LibroListar }            from './components/librocomponent/libro-listar/libro-listar';
 import { LibroForm }              from './components/librocomponent/libro-form/libro-form';
-
-import { Homecomponent } from './components/homecomponent/homecomponent';
-import { Catalogocomponent } from './components/catalogocomponent/catalogocomponent';
 import { CatalogoListar } from './components/catalogocomponent/catalogo-listar/catalogo-listar';
-import { Misprestamocomponent } from './components/misprestamocomponent/misprestamocomponent';
-import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
 import { Catalogocomponent }      from './components/catalogocomponent/catalogocomponent';
 import { Prestamocomponent }      from './components/prestamocomponent/prestamocomponent';
 import { Sancioncomponent }       from './components/sancioncomponent/sancioncomponent';
 import { Notificacioncomponent }  from './components/notificacioncomponent/notificacioncomponent';
 import { Misprestamocomponent }   from './components/misprestamocomponent/misprestamocomponent';
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
+import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
+import { NotificacionPanel } from './components/notificacioncomponent/notificacion-panel/notificacion-panel';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'libros', pathMatch: 'full' },
 
   { path: 'home', component: Homecomponent },
+  
+  {path: 'sanciones',component: SancionListar},
+
+  {path: 'notificaciones',component: NotificacionPanel},
 
   {
     path: 'catalogo',

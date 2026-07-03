@@ -43,6 +43,11 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Carpetas de ejemplo locales (no subir)
+APIBiblioteca/
+demoFrontIS/
+BACKLOG_actualizado.xlsx
+Sprint3_1_Frontend_Angular_SIGBAU (1).docx
 # Carpetas locales de desarrollo
 APIBiblioteca/
 demoFrontIS/

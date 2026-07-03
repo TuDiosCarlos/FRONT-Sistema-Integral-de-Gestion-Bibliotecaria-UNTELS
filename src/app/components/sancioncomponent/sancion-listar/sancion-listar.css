@@ -1,0 +1,17 @@
+.card {
+    border-radius: 10px;
+}
+
+.card-header {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.badge {
+    font-size: 14px;
+}
