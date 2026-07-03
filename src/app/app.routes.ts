@@ -24,7 +24,6 @@ import { Misprestamocomponent }   from './components/misprestamocomponent/mispre
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
 
 // TUS NUEVAS IMPORTACIONES (MÓDULO DE JAIR)
-import { Prestamocomponent } from './components/prestamocomponent/prestamocomponent';
 import { PrestamoBandejaComponent } from './components/prestamocomponent/prestamo-bandeja/prestamo-bandeja.component';
 import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
 import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
