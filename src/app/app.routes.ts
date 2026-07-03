@@ -99,7 +99,7 @@ export const routes: Routes = [
           { path: 'nuevo',      component: LibroForm },
           { path: 'editar/:id', component: LibroForm },
         ],
-      }
+      },
       // ─── BIBLIOTECARIO ────────────────────────────────────────────
       {
         path: 'prestamos',

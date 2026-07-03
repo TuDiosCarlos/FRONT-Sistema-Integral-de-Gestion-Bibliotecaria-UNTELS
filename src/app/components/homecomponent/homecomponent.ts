@@ -7,8 +7,7 @@ import { Authservice } from '../../services/authservice';
 @Component({
   selector: 'app-homecomponent',
   standalone: true,
-  standalone: true,
-  imports: [CommonModuleMatCardModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatIconModule],
   templateUrl: './homecomponent.html',
   styleUrls: ['./homecomponent.css'],
 })
