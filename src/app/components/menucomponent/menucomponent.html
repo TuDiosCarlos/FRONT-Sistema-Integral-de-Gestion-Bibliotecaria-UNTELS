@@ -1,1 +1,71 @@
-<p>menucomponent works!</p>
+<mat-toolbar color="primary" class="navbar">
+
+  <div class="brand">
+    <mat-icon>local_library</mat-icon>
+    <span class="brand-name">BiblioUNTELS</span>
+  </div>
+
+  <nav class="nav-links">
+    <a mat-button routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+      <mat-icon>home</mat-icon><span>Home</span>
+    </a>
+
+    @if (esAdmin) {
+      <a mat-button routerLink="/usuarios" routerLinkActive="active-link">
+        <mat-icon>manage_accounts</mat-icon><span>Usuarios</span>
+      </a>
+      <a mat-button routerLink="/estudiantes" routerLinkActive="active-link">
+        <mat-icon>school</mat-icon><span>Estudiantes</span>
+      </a>
+      <a mat-button routerLink="/libros" routerLinkActive="active-link">
+        <mat-icon>menu_book</mat-icon><span>Libros</span>
+      </a>
+      <a mat-button routerLink="/configuracion" routerLinkActive="active-link">
+        <mat-icon>settings</mat-icon><span>Configuración</span>
+      </a>
+    }
+
+    @if (esBibliotecario) {
+      <a mat-button routerLink="/libros" routerLinkActive="active-link">
+        <mat-icon>menu_book</mat-icon><span>Libros</span>
+      </a>
+      <a mat-button routerLink="/prestamos" routerLinkActive="active-link">
+        <mat-icon>swap_horiz</mat-icon><span>Préstamos</span>
+      </a>
+      <a mat-button routerLink="/sanciones" routerLinkActive="active-link">
+        <mat-icon>gavel</mat-icon><span>Sanciones</span>
+      </a>
+      <a mat-button routerLink="/notificaciones" routerLinkActive="active-link">
+        <mat-icon>notifications</mat-icon><span>Notificaciones</span>
+      </a>
+    }
+
+    @if (esEstudiante) {
+      <a mat-button routerLink="/catalogo" routerLinkActive="active-link">
+        <mat-icon>search</mat-icon><span>Catálogo</span>
+      </a>
+      <a mat-button routerLink="/misprestamos" routerLinkActive="active-link">
+        <mat-icon>book</mat-icon><span>Mis Préstamos</span>
+      </a>
+    }
+  </nav>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="userMenu" class="avatar-btn" aria-label="Menú de usuario">
+    <div class="avatar">{{ iniciales }}</div>
+  </button>
+
+  <mat-menu #userMenu="matMenu">
+    <div class="user-info-menu">
+      <strong>{{ nombre }}</strong>
+      <small>{{ rol }}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar sesión</span>
+    </button>
+  </mat-menu>
+
+</mat-toolbar>

@@ -1,32 +1,42 @@
 import { Routes } from '@angular/router';
+import { authguardGuard } from './guards/authguard';
 
-import { Estudiantecomponent } from './components/estudiantecomponent/estudiantecomponent';
-import { EstudianteListar } from './components/estudiantecomponent/estudiante-listar/estudiante-listar';
-import { EstudianteForm } from './components/estudiantecomponent/estudiante-form/estudiante-form';
+import { Logincomponent }        from './components/logincomponent/logincomponent';
+import { MainLayoutComponent }   from './components/mainlayout/mainlayout';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized';
 
-import { Usuariocomponent } from './components/usuariocomponent/usuariocomponent';
-import { UsuarioListar } from './components/usuariocomponent/usuario-listar/usuario-listar';
-import { UsuarioForm } from './components/usuariocomponent/usuario-form/usuario-form';
-
-import { Librocomponent } from './components/librocomponent/librocomponent';
-import { LibroListar } from './components/librocomponent/libro-listar/libro-listar';
-import { LibroForm } from './components/librocomponent/libro-form/libro-form';
-
-import { Homecomponent } from './components/homecomponent/homecomponent';
-import { Catalogocomponent } from './components/catalogocomponent/catalogocomponent';
+import { Homecomponent }          from './components/homecomponent/homecomponent';
+import { Estudiantecomponent }    from './components/estudiantecomponent/estudiantecomponent';
+import { EstudianteListar }       from './components/estudiantecomponent/estudiante-listar/estudiante-listar';
+import { EstudianteForm }         from './components/estudiantecomponent/estudiante-form/estudiante-form';
+import { Usuariocomponent }       from './components/usuariocomponent/usuariocomponent';
+import { UsuarioListar }          from './components/usuariocomponent/usuario-listar/usuario-listar';
+import { UsuarioForm }            from './components/usuariocomponent/usuario-form/usuario-form';
+import { Librocomponent }         from './components/librocomponent/librocomponent';
+import { LibroListar }            from './components/librocomponent/libro-listar/libro-listar';
+import { LibroForm }              from './components/librocomponent/libro-form/libro-form';
 import { CatalogoListar } from './components/catalogocomponent/catalogo-listar/catalogo-listar';
-import { Misprestamocomponent } from './components/misprestamocomponent/misprestamocomponent';
+import { Catalogocomponent }      from './components/catalogocomponent/catalogocomponent';
+import { Prestamocomponent }      from './components/prestamocomponent/prestamocomponent';
+import { Sancioncomponent }       from './components/sancioncomponent/sancioncomponent';
+import { Notificacioncomponent }  from './components/notificacioncomponent/notificacioncomponent';
+import { Misprestamocomponent }   from './components/misprestamocomponent/misprestamocomponent';
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
 
 // TUS NUEVAS IMPORTACIONES (MÓDULO DE JAIR)
-import { Prestamocomponent } from './components/prestamocomponent/prestamocomponent';
 import { PrestamoBandejaComponent } from './components/prestamocomponent/prestamo-bandeja/prestamo-bandeja.component';
 import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
+import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
+import { NotificacionPanel } from './components/notificacioncomponent/notificacion-panel/notificacion-panel';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'libros', pathMatch: 'full' },
 
   { path: 'home', component: Homecomponent },
+  
+  {path: 'sanciones',component: SancionListar},
+
+  {path: 'notificaciones',component: NotificacionPanel},
 
   {
     path: 'catalogo',
@@ -39,48 +49,99 @@ export const routes: Routes = [
 
   { path: 'misprestamos', component: Misprestamocomponent },
   { path: 'configuracion', component: Configuracioncomponent },
+  { path: 'login',        component: Logincomponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
 
   {
-    path: 'estudiantes',
-    component: Estudiantecomponent,
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [authguardGuard],
     children: [
-      { path: '', redirectTo: 'listar', pathMatch: 'full' },
-      { path: 'listar', component: EstudianteListar },
-      { path: 'nuevo', component: EstudianteForm },
-      { path: 'editar/:id', component: EstudianteForm },
-    ]
+      { path: 'home', component: Homecomponent },
+
+      // ─── ADMIN ───────────────────────────────────────────────────
+      {
+        path: 'usuarios',
+        component: Usuariocomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['ADMIN'] },
+        children: [
+          { path: '',           redirectTo: 'listar', pathMatch: 'full' },
+          { path: 'listar',     component: UsuarioListar },
+          { path: 'nuevo',      component: UsuarioForm },
+          { path: 'editar/:id', component: UsuarioForm },
+        ],
+      },
+      {
+        path: 'estudiantes',
+        component: Estudiantecomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['ADMIN'] },
+        children: [
+          { path: '',           redirectTo: 'listar', pathMatch: 'full' },
+          { path: 'listar',     component: EstudianteListar },
+          { path: 'nuevo',      component: EstudianteForm },
+          { path: 'editar/:id', component: EstudianteForm },
+        ],
+      },
+      {
+        path: 'configuracion',
+        component: Configuracioncomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['ADMIN'] },
+      },
+
+      // ─── ADMIN + BIBLIOTECARIO ────────────────────────────────────
+      {
+        path: 'libros',
+        component: Librocomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['ADMIN', 'BIBLIOTECARIO'] },
+        children: [
+          { path: '',           redirectTo: 'listar', pathMatch: 'full' },
+          { path: 'listar',     component: LibroListar },
+          { path: 'nuevo',      component: LibroForm },
+          { path: 'editar/:id', component: LibroForm },
+        ],
+      },
+      // ─── BIBLIOTECARIO ────────────────────────────────────────────
+      {
+        path: 'prestamos',
+        component: Prestamocomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['BIBLIOTECARIO'] },
+      },
+      {
+        path: 'sanciones',
+        component: Sancioncomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['BIBLIOTECARIO'] },
+      },
+      {
+        path: 'notificaciones',
+        component: Notificacioncomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['BIBLIOTECARIO'] },
+      },
+
+      // ─── ESTUDIANTE ───────────────────────────────────────────────
+      {
+        path: 'catalogo',
+        component: Catalogocomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['ESTUDIANTE', 'BIBLIOTECARIO'] },
+      },
+      {
+        path: 'misprestamos',
+        component: Misprestamocomponent,
+        canActivate: [authguardGuard],
+        data: { roles: ['ESTUDIANTE'] },
+      },
+
+      { path: '',   redirectTo: 'home', pathMatch: 'full' },
+      { path: '**', redirectTo: 'home' },
+    ],
   },
 
-  {
-    path: 'usuarios',
-    component: Usuariocomponent,
-    children: [
-      { path: '', redirectTo: 'listar', pathMatch: 'full' },
-      { path: 'listar', component: UsuarioListar },
-      { path: 'nuevo', component: UsuarioForm },
-      { path: 'editar/:id', component: UsuarioForm },
-    ]
-  },
-
-  {
-    path: 'libros',
-    component: Librocomponent,
-    children: [
-      { path: '', redirectTo: 'listar', pathMatch: 'full' },
-      { path: 'listar', component: LibroListar },
-      { path: 'nuevo', component: LibroForm },
-      { path: 'editar/:id', component: LibroForm },
-    ]
-  },
-
-  // TU NUEVO BLOQUE DE RUTAS (MÓDULO DE JAIR)
-  {
-    path: 'prestamos',
-    component: Prestamocomponent,
-    children: [
-      { path: '', redirectTo: 'bandeja', pathMatch: 'full' },
-      { path: 'bandeja', component: PrestamoBandejaComponent },
-      { path: 'vigentes', component: PrestamoVigentesComponent }
-    ]
-  }
+  { path: '**', redirectTo: 'login' },
 ];

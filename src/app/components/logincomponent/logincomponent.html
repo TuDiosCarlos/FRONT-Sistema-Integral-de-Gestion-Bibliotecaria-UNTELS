@@ -1,1 +1,66 @@
-<p>logincomponent works!</p>
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-content>
+
+      <div class="logo-area">
+        <mat-icon class="logo-icon">local_library</mat-icon>
+        <h1 class="app-title">BiblioUNTELS</h1>
+        <p class="app-subtitle">Sistema Integral de Gestión Bibliotecaria</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="login()">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" autocomplete="username" placeholder="Ingresa tu usuario" />
+          <mat-icon matSuffix>person</mat-icon>
+          @if (form.get('username')?.hasError('required') && form.get('username')?.touched) {
+            <mat-error>El usuario es requerido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="mostrarPassword ? 'text' : 'password'"
+            formControlName="password"
+            autocomplete="current-password"
+            placeholder="Ingresa tu contraseña"
+          />
+          <button mat-icon-button matSuffix type="button" (click)="togglePassword()" [attr.aria-label]="'Mostrar contraseña'">
+            <mat-icon>{{ mostrarPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+            <mat-error>La contraseña es requerida</mat-error>
+          }
+        </mat-form-field>
+
+        @if (errorMsg) {
+          <div class="error-banner">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{ errorMsg }}</span>
+          </div>
+        }
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width login-btn"
+          [disabled]="cargando"
+        >
+          @if (cargando) {
+            <mat-spinner diameter="22" color="accent"></mat-spinner>
+          } @else {
+            <ng-container>
+              <mat-icon>login</mat-icon>
+              <span>INGRESAR</span>
+            </ng-container>
+          }
+        </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
