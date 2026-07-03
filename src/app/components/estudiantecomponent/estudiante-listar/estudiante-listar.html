@@ -1,88 +1,106 @@
 <div class="contenedor">
 
   <div class="listar-header">
-  <h2>Padrón de Estudiantes</h2>
-  <button mat-raised-button color="primary" routerLink="/estudiantes/nuevo">
-    <mat-icon>add</mat-icon> Nuevo estudiante
-  </button>
-</div>
+    <div>
+      <h2>Padrón de Estudiantes</h2>
+      <span>Total: {{ totalElementos }} estudiantes</span>
+    </div>
 
-<div class="filtros">
-  <mat-form-field appearance="outline">
-    <mat-label>Estado</mat-label>
-    <mat-select [(ngModel)]="filtroEstado" (selectionChange)="aplicarFiltroEstado()">
-      <mat-option value="TODOS">Todos</mat-option>
-      <mat-option value="true">Activos</mat-option>
-      <mat-option value="false">Inactivos</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
+    <button mat-raised-button color="primary" routerLink="/estudiantes/nuevo">
+      <mat-icon>person_add</mat-icon>
+      Nuevo estudiante
+    </button>
+  </div>
 
-<table mat-table [dataSource]="estudiantes" class="mat-elevation-z2 tabla-estudiantes">
+  <div class="filtros">
 
-  <ng-container matColumnDef="codigo">
-    <th mat-header-cell *matHeaderCellDef>Código</th>
-    <td mat-cell *matCellDef="let e">{{ e.codigo }}</td>
-  </ng-container>
+    <span class="filtro-titulo">Filtrar por estado:</span>
 
-  <ng-container matColumnDef="nombres">
-    <th mat-header-cell *matHeaderCellDef>Nombres</th>
-    <td mat-cell *matCellDef="let e">{{ e.nombres }}</td>
-  </ng-container>
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select [(ngModel)]="filtroEstado" (selectionChange)="aplicarFiltroEstado()">
+        <mat-option value="TODOS">Todos</mat-option>
+        <mat-option value="true">Activos</mat-option>
+        <mat-option value="false">Inactivos</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <ng-container matColumnDef="apellidos">
-    <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-    <td mat-cell *matCellDef="let e">{{ e.apellidos }}</td>
-  </ng-container>
+  </div>
 
-  <ng-container matColumnDef="dni">
-    <th mat-header-cell *matHeaderCellDef>DNI</th>
-    <td mat-cell *matCellDef="let e">{{ e.dni }}</td>
-  </ng-container>
+  <table mat-table [dataSource]="estudiantes" class="mat-elevation-z2 tabla-estudiantes">
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let e">{{ e.email }}</td>
-  </ng-container>
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef>Código</th>
+      <td mat-cell *matCellDef="let e">{{ e.codigo }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="carrera">
-    <th mat-header-cell *matHeaderCellDef>Carrera</th>
-    <td mat-cell *matCellDef="let e">{{ e.carrera?.nombre || '-' }}</td>
-  </ng-container>
+    <ng-container matColumnDef="nombres">
+      <th mat-header-cell *matHeaderCellDef>Nombres</th>
+      <td mat-cell *matCellDef="let e">{{ e.nombres }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="estado">
-    <th mat-header-cell *matHeaderCellDef>Estado</th>
-    <td mat-cell *matCellDef="let e">
-      <mat-chip [color]="e.estado ? 'primary' : 'warn'" selected>
-        {{ e.estado ? 'ACTIVO' : 'INACTIVO' }}
-      </mat-chip>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+      <td mat-cell *matCellDef="let e">{{ e.apellidos }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="acciones">
-    <th mat-header-cell *matHeaderCellDef>Acciones</th>
-    <td mat-cell *matCellDef="let e">
-      <button mat-icon-button color="primary" (click)="editarEstudiante(e.id)" matTooltip="Editar">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button [color]="e.estado ? 'warn' : 'primary'"
-              (click)="toggleEstado(e)"
-              [matTooltip]="e.estado ? 'Desactivar' : 'Activar'">
-        <mat-icon>{{ e.estado ? 'block' : 'check_circle' }}</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="dni">
+      <th mat-header-cell *matHeaderCellDef>DNI</th>
+      <td mat-cell *matCellDef="let e">{{ e.dni }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
-</table>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let e">{{ e.email }}</td>
+    </ng-container>
 
-<mat-paginator
-  [length]="totalElementos"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 25, 50]"
-  (page)="onPageChange($event)"
-  showFirstLastButtons>
-</mat-paginator>
+    <ng-container matColumnDef="carrera">
+      <th mat-header-cell *matHeaderCellDef>Carrera</th>
+      <td mat-cell *matCellDef="let e">{{ e.carrera?.nombre || '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let e">
+        <mat-chip [color]="e.estado ? 'primary' : 'warn'" selected>
+          {{ e.estado ? 'ACTIVO' : 'INACTIVO' }}
+        </mat-chip>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let e">
+
+        <button mat-icon-button color="primary"
+                (click)="editarEstudiante(e.id)"
+                matTooltip="Editar">
+          <mat-icon>edit_square</mat-icon>
+        </button>
+
+        <button mat-icon-button
+                [color]="e.estado ? 'warn' : 'primary'"
+                (click)="toggleEstado(e)"
+                [matTooltip]="e.estado ? 'Desactivar estudiante' : 'Activar estudiante'">
+
+          <mat-icon>{{ e.estado ? 'block' : 'check_circle' }}</mat-icon>
+
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+
+  </table>
+
+  <mat-paginator
+    [length]="totalElementos"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5,10,25,50]"
+    showFirstLastButtons
+    (page)="onPageChange($event)">
+  </mat-paginator>
 
 </div>
