@@ -3,7 +3,7 @@
   <div class="listar-header">
     <div>
       <h2>Padrón de Estudiantes</h2>
-      <span>Total: {{ totalElementos }} estudiantes</span>
+      <span>Total: {{ estudiantesFiltrados.length }} estudiantes</span>
     </div>
 
     <button mat-raised-button color="primary" routerLink="/estudiantes/nuevo">
@@ -13,35 +13,34 @@
   </div>
 
   <div class="filtros">
-
-    <span class="filtro-titulo">Filtrar por estado:</span>
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por nombre, código o DNI</mat-label>
+      <input matInput [(ngModel)]="textoBusqueda" (keyup.enter)="buscar()">
+      <button mat-icon-button matSuffix (click)="buscar()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Estado</mat-label>
       <mat-select [(ngModel)]="filtroEstado" (selectionChange)="aplicarFiltroEstado()">
         <mat-option value="TODOS">Todos</mat-option>
-        <mat-option value="true">Activos</mat-option>
-        <mat-option value="false">Inactivos</mat-option>
+        <mat-option value="ACTIVO">Activos</mat-option>
+        <mat-option value="INACTIVO">Inactivos</mat-option>
       </mat-select>
     </mat-form-field>
-
   </div>
 
-  <table mat-table [dataSource]="estudiantes" class="mat-elevation-z2 tabla-estudiantes">
+  <table mat-table [dataSource]="estudiantesFiltrados" class="mat-elevation-z2 tabla-estudiantes">
 
     <ng-container matColumnDef="codigo">
       <th mat-header-cell *matHeaderCellDef>Código</th>
       <td mat-cell *matCellDef="let e">{{ e.codigo }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="nombres">
-      <th mat-header-cell *matHeaderCellDef>Nombres</th>
-      <td mat-cell *matCellDef="let e">{{ e.nombres }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="apellidos">
-      <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-      <td mat-cell *matCellDef="let e">{{ e.apellidos }}</td>
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let e">{{ e.nombre }}</td>
     </ng-container>
 
     <ng-container matColumnDef="dni">
@@ -56,14 +55,19 @@
 
     <ng-container matColumnDef="carrera">
       <th mat-header-cell *matHeaderCellDef>Carrera</th>
-      <td mat-cell *matCellDef="let e">{{ e.carrera?.nombre || '-' }}</td>
+      <td mat-cell *matCellDef="let e">{{ e.carrera || '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ciclo">
+      <th mat-header-cell *matHeaderCellDef>Ciclo</th>
+      <td mat-cell *matCellDef="let e">{{ e.ciclo || '-' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="estado">
       <th mat-header-cell *matHeaderCellDef>Estado</th>
       <td mat-cell *matCellDef="let e">
-        <mat-chip [color]="e.estado ? 'primary' : 'warn'" selected>
-          {{ e.estado ? 'ACTIVO' : 'INACTIVO' }}
+        <mat-chip [color]="e.estado === 'ACTIVO' ? 'primary' : 'warn'" selected>
+          {{ e.estado }}
         </mat-chip>
       </td>
     </ng-container>
@@ -73,18 +77,22 @@
       <td mat-cell *matCellDef="let e">
 
         <button mat-icon-button color="primary"
-                (click)="editarEstudiante(e.id)"
+                (click)="editarEstudiante(e.idUsuario)"
                 matTooltip="Editar">
           <mat-icon>edit_square</mat-icon>
         </button>
 
         <button mat-icon-button
-                [color]="e.estado ? 'warn' : 'primary'"
+                [color]="e.estado === 'ACTIVO' ? 'warn' : 'primary'"
                 (click)="toggleEstado(e)"
-                [matTooltip]="e.estado ? 'Desactivar estudiante' : 'Activar estudiante'">
+                [matTooltip]="e.estado === 'ACTIVO' ? 'Desactivar estudiante' : 'Activar estudiante'">
+          <mat-icon>{{ e.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</mat-icon>
+        </button>
 
-          <mat-icon>{{ e.estado ? 'block' : 'check_circle' }}</mat-icon>
-
+        <button mat-icon-button color="warn"
+                (click)="eliminar(e.idUsuario)"
+                matTooltip="Eliminar">
+          <mat-icon>delete_outline</mat-icon>
         </button>
 
       </td>
@@ -95,12 +103,8 @@
 
   </table>
 
-  <mat-paginator
-    [length]="totalElementos"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[5,10,25,50]"
-    showFirstLastButtons
-    (page)="onPageChange($event)">
-  </mat-paginator>
+  <p *ngIf="estudiantesFiltrados.length === 0" class="sin-datos">
+    No se encontraron estudiantes.
+  </p>
 
 </div>

@@ -1,0 +1,34 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>Solicitar préstamo: {{ data.tituloLibro }}</h2>
+
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Fecha límite de devolución</mat-label>
+        <input matInput type="date" formControlName="fechaEntrega">
+        <mat-error *ngIf="form.get('fechaEntrega')?.hasError('required')">Campo requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Motivo</mat-label>
+        <textarea matInput rows="2" formControlName="motivo" placeholder="¿Para qué necesitas el libro?"></textarea>
+        <mat-error *ngIf="form.get('motivo')?.hasError('required')">Campo requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Curso (opcional)</mat-label>
+        <input matInput formControlName="curso">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Observaciones (opcional)</mat-label>
+        <textarea matInput rows="2" formControlName="observaciones"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="confirmar()">Enviar solicitud</button>
+  </mat-dialog-actions>
+</div>

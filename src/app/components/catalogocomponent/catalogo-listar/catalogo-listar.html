@@ -4,17 +4,16 @@
       <h3>Catálogo de Libros</h3>
       <p>Consulta el catálogo de libros disponible para estudiantes.</p>
     </div>
-    <button class="btn-primary">Solicitar préstamo</button>
   </div>
 
   <section class="catalogo-filtros-card">
     <div class="filtro-item">
       <label>Buscar por título</label>
-      <input type="text" placeholder="Buscar por título" [(ngModel)]="textoBusqueda" />
+      <input type="text" placeholder="Buscar por título" [(ngModel)]="textoBusqueda" (ngModelChange)="aplicarFiltros()" />
     </div>
     <div class="filtro-item">
       <label>Categoría</label>
-      <select [(ngModel)]="categoriaSeleccionada">
+      <select [(ngModel)]="categoriaSeleccionada" (ngModelChange)="aplicarFiltros()">
         <option *ngFor="let categoria of categorias">{{ categoria }}</option>
       </select>
     </div>
@@ -23,11 +22,11 @@
     </div>
   </section>
 
-  <div *ngIf="libros.length === 0" class="alert-empty">
-    {{ mensaje }}
+  <div *ngIf="librosFiltrados.length === 0" class="alert-empty">
+    {{ mensaje || 'No se encontraron libros con esos filtros.' }}
   </div>
 
-  <table *ngIf="libros.length > 0" class="table-list">
+  <table *ngIf="librosFiltrados.length > 0" class="table-list">
     <thead>
       <tr>
         <th>Título</th>
@@ -39,13 +38,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let libro of libros">
+      <tr *ngFor="let libro of librosFiltrados">
         <td>{{ libro.titulo }}</td>
         <td>{{ libro.autor }}</td>
         <td>{{ libro.isbn }}</td>
         <td>{{ libro.categoria }}</td>
         <td>{{ libro.stock }}</td>
-        <td><button class="btn-primary">Solicitar préstamo</button></td>
+        <td>
+          <button class="btn-primary" [disabled]="libro.stock <= 0" (click)="solicitar(libro)">
+            {{ libro.stock <= 0 ? 'Sin stock' : 'Solicitar préstamo' }}
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

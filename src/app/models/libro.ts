@@ -11,13 +11,3 @@ export interface Libro {
   descripcion?: string;
   recurso?: string;
 }
-
-export interface LibroApiExterna {
-  isbn: string;
-  titulo: string;
-  autor: string;
-  editorial?: string;
-  anio?: number;
-  descripcion?: string;
-  portada?: string;
-}

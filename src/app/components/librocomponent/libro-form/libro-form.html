@@ -3,24 +3,13 @@
 
   <form [formGroup]="form">
 
-    <div class="isbn-autocompletado" *ngIf="!esEdicion">
-      <mat-form-field appearance="outline" class="field-isbn">
-        <mat-label>ISBN</mat-label>
-        <input matInput formControlName="isbn" placeholder="Ej: 9786123456789">
-      </mat-form-field>
-      <button mat-raised-button color="accent" (click)="buscarPorIsbn()" [disabled]="cargandoIsbn">
-        <mat-spinner diameter="20" *ngIf="cargandoIsbn"></mat-spinner>
-        <mat-icon *ngIf="!cargandoIsbn">auto_awesome</mat-icon>
-        {{ cargandoIsbn ? 'Buscando...' : 'Autocompletar con ISBN' }}
-      </button>
-    </div>
-
     <div class="form-card">
       <div class="form-grid">
 
-        <mat-form-field appearance="outline" *ngIf="esEdicion">
+        <mat-form-field appearance="outline">
           <mat-label>ISBN</mat-label>
-          <input matInput formControlName="isbn">
+          <input matInput formControlName="isbn" placeholder="Ej: 9786123456789">
+          <mat-error *ngIf="form.get('isbn')?.hasError('required')">Obligatorio</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">

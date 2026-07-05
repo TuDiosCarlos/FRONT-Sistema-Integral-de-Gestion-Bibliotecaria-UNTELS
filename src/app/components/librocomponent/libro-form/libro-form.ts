@@ -7,7 +7,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Libroservice } from '../../../services/libroservice';
@@ -19,7 +18,7 @@ import { Libro } from '../../../models/libro';
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule,
     MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatButtonModule, MatIconModule, MatProgressSpinnerModule,
+    MatButtonModule, MatIconModule,
     MatSnackBarModule, MatTooltipModule
   ],
   templateUrl: './libro-form.html',
@@ -30,7 +29,6 @@ export class LibroForm implements OnInit {
   form!: FormGroup;
   esEdicion = false;
   idLibro?: number;
-  cargandoIsbn = false;
   categorias: string[] = ['TECNICO', 'REFERENCIA', 'FICCION'];
 
   constructor(
@@ -69,30 +67,6 @@ export class LibroForm implements OnInit {
     this.libroService.buscarPorId(id).subscribe({
       next: (libro) => this.form.patchValue(libro),
       error: (err) => console.error('Error al cargar libro', err)
-    });
-  }
-
-  buscarPorIsbn(): void {
-    const isbn = this.form.get('isbn')?.value?.trim();
-    if (!isbn) {
-      this.snackBar.open('Ingresa un ISBN primero', 'Cerrar', { duration: 2000 });
-      return;
-    }
-
-    this.cargandoIsbn = true;
-    this.libroService.registrarPorIsbn(isbn).subscribe({
-      next: (libro) => {
-        this.cargandoIsbn = false;
-        this.form.patchValue(libro);
-        this.snackBar.open('Datos cargados desde API externa ✓', 'Cerrar', { duration: 3000 });
-        // Redirigir al listado ya que el backend guardó el libro
-        setTimeout(() => this.router.navigate(['/libros/listar']), 1500);
-      },
-      error: (err) => {
-        this.cargandoIsbn = false;
-        this.snackBar.open('ISBN no encontrado en API externa, completa el formulario manualmente', 'Cerrar', { duration: 4000 });
-        console.error(err);
-      }
     });
   }
 

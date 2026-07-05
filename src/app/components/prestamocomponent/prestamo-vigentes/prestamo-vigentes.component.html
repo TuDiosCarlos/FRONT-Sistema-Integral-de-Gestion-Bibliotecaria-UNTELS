@@ -7,7 +7,7 @@
   </div>
 
   <table mat-table [dataSource]="listaVigentes" class="mat-elevation-z8" *ngIf="listaVigentes.length > 0">
-    
+
     <ng-container matColumnDef="idLibro">
       <th mat-header-cell *matHeaderCellDef> ID Libro </th>
       <td mat-cell *matCellDef="let element"> {{ element.idLibro }} </td>
@@ -18,16 +18,16 @@
       <td mat-cell *matCellDef="let element"> {{ element.idEstudiante }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fechaAprobacion">
-      <th mat-header-cell *matHeaderCellDef> Fecha Aprobación </th>
-      <td mat-cell *matCellDef="let element"> {{ element.fechaAprobacion | date:'dd/MM/yyyy' }} </td>
+    <ng-container matColumnDef="fechaEntrega">
+      <th mat-header-cell *matHeaderCellDef> Fecha Límite </th>
+      <td mat-cell *matCellDef="let element"> {{ element.fechaEntrega | date:'dd/MM/yyyy' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="diasRestantes">
       <th mat-header-cell *matHeaderCellDef> Estado de Días </th>
       <td mat-cell *matCellDef="let element">
-        <span [ngClass]="{'alerta-roja': calcularDiasRestantes(element.fechaAprobacion, element.diasSolicitados) <= 0, 'alerta-verde': calcularDiasRestantes(element.fechaAprobacion, element.diasSolicitados) > 0}">
-          {{ calcularDiasRestantes(element.fechaAprobacion, element.diasSolicitados) }} días restantes
+        <span [ngClass]="{'alerta-roja': calcularDiasRestantes(element.fechaEntrega) <= 0, 'alerta-verde': calcularDiasRestantes(element.fechaEntrega) > 0}">
+          {{ calcularDiasRestantes(element.fechaEntrega) }} días restantes
         </span>
       </td>
     </ng-container>
@@ -35,7 +35,16 @@
     <ng-container matColumnDef="estado">
       <th mat-header-cell *matHeaderCellDef> Estado </th>
       <td mat-cell *matCellDef="let element">
-        <span class="badge-activo">{{ element.estadoPrestamo }}</span>
+        <span class="badge-activo">{{ element.estado }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="abrirDevolucion(element.idPrestamo)">
+          <mat-icon>assignment_return</mat-icon> Devolver
+        </button>
       </td>
     </ng-container>
 

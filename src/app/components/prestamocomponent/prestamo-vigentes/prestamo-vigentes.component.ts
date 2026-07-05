@@ -1,32 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { forkJoin } from 'rxjs';
 import { Prestamoservice } from '../../../services/prestamoservice';
 import { Prestamo } from '../../../models/prestamo';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PrestamoDevolverComponent } from '../prestamo-devolver/prestamo-devolver.component';
 
 @Component({
   selector: 'app-prestamo-vigentes',
-  standalone: true, // Regla de Oro #3: Siempre standalone
+  standalone: true,
   imports: [
     CommonModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   templateUrl: './prestamo-vigentes.component.html',
-  styleUrls: ['./prestamo-vigentes.component.css']
+  styleUrls: ['./prestamo-vigentes.component.css'],
 })
 export class PrestamoVigentesComponent implements OnInit {
   listaVigentes: Prestamo[] = [];
-  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'fechaAprobacion', 'diasRestantes', 'estado'];
+  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'fechaEntrega', 'diasRestantes', 'estado', 'acciones'];
 
   constructor(
     private prestamoService: Prestamoservice,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -34,25 +39,39 @@ export class PrestamoVigentesComponent implements OnInit {
   }
 
   cargarPrestamosVigentes(): void {
-    // Listar préstamos con estado ACTIVO o VENCIDO
-    this.prestamoService.listarPorEstado('ACTIVO').subscribe({
-      next: (data) => {
-        this.listaVigentes = data;
+    forkJoin({
+      vigentes: this.prestamoService.listarPorEstado('vigente'),
+      vencidos: this.prestamoService.listarPorEstado('vencido'),
+    }).subscribe({
+      next: ({ vigentes, vencidos }) => {
+        this.listaVigentes = [...vigentes, ...vencidos];
       },
-      error: () => this.mostrarMensaje('Error al cargar préstamos vigentes.')
+      error: () => this.mostrarMensaje('Error al cargar préstamos vigentes.'),
     });
   }
 
-  // Lógica dinámica para calcular los días restantes o de retraso
-  calcularDiasRestantes(fechaAprobacionStr: string | undefined, diasSolicitados: number): number {
-    if (!fechaAprobacionStr) return 0;
-    
-    const fechaAprobacion = new Date(fechaAprobacionStr);
-    const fechaVencimiento = new Date(fechaAprobacion.getTime() + (diasSolicitados * 24 * 60 * 60 * 1000));
+  calcularDiasRestantes(fechaEntregaStr: string | undefined): number {
+    if (!fechaEntregaStr) return 0;
+
+    const fechaEntrega = new Date(fechaEntregaStr);
     const hoy = new Date();
-    
-    const diferenciaTiempo = fechaVencimiento.getTime() - hoy.getTime();
+
+    const diferenciaTiempo = fechaEntrega.getTime() - hoy.getTime();
     return Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
+  }
+
+  abrirDevolucion(idPrestamo: number | undefined): void {
+    if (idPrestamo == null) return;
+
+    const dialogRef = this.dialog.open(PrestamoDevolverComponent, {
+      data: { idPrestamo },
+    });
+
+    dialogRef.afterClosed().subscribe((exito: boolean) => {
+      if (exito) {
+        this.cargarPrestamosVigentes();
+      }
+    });
   }
 
   private mostrarMensaje(msg: string): void {

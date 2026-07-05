@@ -5,7 +5,7 @@
       <p>Consulta tus préstamos activos, vencidos y el historial de devoluciones.</p>
     </div>
     <div class="misprestamos-actions">
-      <select [(ngModel)]="estadoFiltro" class="status-select">
+      <select [(ngModel)]="estadoFiltro" class="status-select" (change)="filtrar()">
         <option *ngFor="let estado of estados">{{ estado }}</option>
       </select>
       <button class="btn-secondary" type="button" (click)="filtrar()">Filtrar</button>
@@ -15,42 +15,44 @@
 
   <div class="status-cards">
     <div class="status-card card-active">
-      <span>Activos</span>
-      <strong>0</strong>
+      <span>Vigentes</span>
+      <strong>{{ contarPorEstado('vigente') }}</strong>
     </div>
     <div class="status-card card-overdue">
       <span>Vencidos</span>
-      <strong>0</strong>
+      <strong>{{ contarPorEstado('vencido') }}</strong>
     </div>
     <div class="status-card card-history">
-      <span>Historial</span>
-      <strong>0</strong>
+      <span>Devueltos</span>
+      <strong>{{ contarPorEstado('devuelto') }}</strong>
     </div>
   </div>
 
-  <div *ngIf="prestamos.length === 0" class="alert-empty">
+  <div *ngIf="sancionActiva() as sancion" class="alert-empty">
+    Tienes una sanción activa: {{ sancion.motivo }} (multa: S/ {{ sancion.multa }})
+  </div>
+
+  <div *ngIf="prestamosFiltrados.length === 0" class="alert-empty">
     {{ mensaje }}
   </div>
 
-  <table *ngIf="prestamos.length > 0" class="table-list">
+  <table *ngIf="prestamosFiltrados.length > 0" class="table-list">
     <thead>
       <tr>
-        <th>Libro</th>
-        <th>Fecha de préstamo</th>
+        <th>ID Libro</th>
+        <th>Motivo</th>
         <th>Fecha límite</th>
         <th>Estado</th>
         <th>Días restantes</th>
-        <th>Sanción</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let prestamo of prestamos">
-        <td>{{ prestamo.libro }}</td>
-        <td>{{ prestamo.fechaPrestamo }}</td>
-        <td>{{ prestamo.fechaDevolucion }}</td>
+      <tr *ngFor="let prestamo of prestamosFiltrados">
+        <td>{{ prestamo.idLibro }}</td>
+        <td>{{ prestamo.motivo }}</td>
+        <td>{{ prestamo.fechaEntrega | date:'dd/MM/yyyy' }}</td>
         <td>{{ prestamo.estado }}</td>
-        <td>{{ prestamo.dias }}</td>
-        <td>{{ prestamo.sancion || 'Ninguna' }}</td>
+        <td>{{ diasRestantes(prestamo.fechaEntrega) }}</td>
       </tr>
     </tbody>
   </table>

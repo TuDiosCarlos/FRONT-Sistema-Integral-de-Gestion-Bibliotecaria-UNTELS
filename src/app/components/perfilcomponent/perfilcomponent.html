@@ -1,0 +1,47 @@
+<mat-card class="form-card">
+  <h2>Mi Perfil</h2>
+
+  <div class="datos-lectura" *ngIf="datosSoloLectura">
+    <p><strong>Usuario:</strong> {{ datosSoloLectura.username }}</p>
+    <p><strong>Código:</strong> {{ datosSoloLectura.codigo }}</p>
+    <p><strong>DNI:</strong> {{ datosSoloLectura.dni }}</p>
+    <p *ngIf="datosSoloLectura.carrera"><strong>Carrera:</strong> {{ datosSoloLectura.carrera }} (Ciclo {{ datosSoloLectura.ciclo }})</p>
+    <p><strong>Rol:</strong> {{ datosSoloLectura.rol }}</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre completo</mat-label>
+      <input matInput formControlName="nombre">
+      <mat-error *ngIf="form.get('nombre')?.hasError('required')">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email">
+      <mat-error *ngIf="form.get('email')?.hasError('required')">Campo requerido</mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email')">Email inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nueva contraseña (opcional)</mat-label>
+      <input matInput formControlName="passwordNueva" type="password">
+      <mat-error *ngIf="form.get('passwordNueva')?.hasError('minlength')">Mínimo 6 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Confirmar nueva contraseña</mat-label>
+      <input matInput formControlName="passwordConfirmar" type="password">
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Guardar cambios</button>
+    </div>
+  </form>
+</mat-card>

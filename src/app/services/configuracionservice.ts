@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
+import { Configuracion } from '../models/configuracion';
 
 @Injectable({ providedIn: 'root' })
-export class ConfiguracionService {
-	constructor(private http: HttpClient) {}
+export class Configuracionservice {
+  private url = `${environment.baseUrl}/api/configuracion`;
 
-	getConfiguracion(): Observable<any> {
-		return this.http.get<any>(`${environment.baseUrl}/configuracion`);
-	}
+  constructor(private http: HttpClient) {}
 
-	updateConfiguracion(config: any): Observable<any> {
-		return this.http.put<any>(`${environment.baseUrl}/configuracion`, config);
-	}
+  getConfiguracion(): Observable<Configuracion> {
+    return this.http.get<Configuracion>(this.url);
+  }
+
+  updateConfiguracion(config: Configuracion): Observable<string> {
+    return this.http.put<string>(`${this.url}/actualiza`, config);
+  }
 }

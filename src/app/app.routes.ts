@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 
+import { authguardGuard } from './guards/authguard-guard';
+import { Logincomponent } from './components/logincomponent/logincomponent';
+
 import { Estudiantecomponent } from './components/estudiantecomponent/estudiantecomponent';
 import { EstudianteListar } from './components/estudiantecomponent/estudiante-listar/estudiante-listar';
 import { EstudianteForm } from './components/estudiantecomponent/estudiante-form/estudiante-form';
@@ -23,26 +26,54 @@ import { Prestamocomponent } from './components/prestamocomponent/prestamocompon
 import { PrestamoBandejaComponent } from './components/prestamocomponent/prestamo-bandeja/prestamo-bandeja.component';
 import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
 
-export const routes: Routes = [
-  { path: '', redirectTo: 'libros', pathMatch: 'full' },
+import { Sancioncomponent } from './components/sancioncomponent/sancioncomponent';
+import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
 
-  { path: 'home', component: Homecomponent },
+import { Notificacioncomponent } from './components/notificacioncomponent/notificacioncomponent';
+import { NotificacionPanel } from './components/notificacioncomponent/notificacion-panel/notificacion-panel';
+
+import { Perfilcomponent } from './components/perfilcomponent/perfilcomponent';
+
+const ADMIN = 'ADMIN';
+const BIBLIOTECARIO = 'BIBLIOTECARIO';
+const ESTUDIANTE = 'ESTUDIANTE';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: Logincomponent },
+
+  { path: 'home', component: Homecomponent, canActivate: [authguardGuard] },
+  { path: 'perfil', component: Perfilcomponent, canActivate: [authguardGuard] },
 
   {
     path: 'catalogo',
     component: Catalogocomponent,
+    canActivate: [authguardGuard],
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: CatalogoListar },
     ]
   },
 
-  { path: 'misprestamos', component: Misprestamocomponent },
-  { path: 'configuracion', component: Configuracioncomponent },
+  {
+    path: 'misprestamos',
+    component: Misprestamocomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ESTUDIANTE] }
+  },
+
+  {
+    path: 'configuracion',
+    component: Configuracioncomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ADMIN, BIBLIOTECARIO] }
+  },
 
   {
     path: 'estudiantes',
     component: Estudiantecomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ADMIN, BIBLIOTECARIO] },
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: EstudianteListar },
@@ -54,6 +85,8 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: Usuariocomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ADMIN] },
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: UsuarioListar },
@@ -65,6 +98,8 @@ export const routes: Routes = [
   {
     path: 'libros',
     component: Librocomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ADMIN, BIBLIOTECARIO] },
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: LibroListar },
@@ -77,10 +112,33 @@ export const routes: Routes = [
   {
     path: 'prestamos',
     component: Prestamocomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ADMIN, BIBLIOTECARIO] },
     children: [
       { path: '', redirectTo: 'bandeja', pathMatch: 'full' },
       { path: 'bandeja', component: PrestamoBandejaComponent },
       { path: 'vigentes', component: PrestamoVigentesComponent }
     ]
-  }
+  },
+
+  {
+    path: 'sanciones',
+    component: Sancioncomponent,
+    canActivate: [authguardGuard],
+    data: { roles: [ADMIN, BIBLIOTECARIO] },
+    children: [
+      { path: '', redirectTo: 'listar', pathMatch: 'full' },
+      { path: 'listar', component: SancionListar },
+    ]
+  },
+
+  {
+    path: 'notificaciones',
+    component: Notificacioncomponent,
+    canActivate: [authguardGuard],
+    children: [
+      { path: '', redirectTo: 'panel', pathMatch: 'full' },
+      { path: 'panel', component: NotificacionPanel },
+    ]
+  },
 ];

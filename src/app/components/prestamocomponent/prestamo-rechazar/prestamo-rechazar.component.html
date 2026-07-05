@@ -1,0 +1,17 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>Rechazar solicitud de préstamo</h2>
+
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Motivo del rechazo</mat-label>
+      <textarea matInput rows="3" [(ngModel)]="motivo" placeholder="Explique brevemente el motivo..."></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="warn" (click)="confirmar()" [disabled]="!motivo.trim()">
+      Rechazar
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,13 @@
+.titulo {
+  font-weight: 600;
+  margin-right: 16px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.usuario-actual {
+  margin-right: 12px;
+  font-size: 0.9rem;
+}

@@ -1,47 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { Estudianteservice } from '../../../services/estudianteservice';
-import { Student } from '../../../models/student';
-import { CdkTableModule } from "@angular/cdk/table";
-import { RouterLink } from '@angular/router';
+import { Usuario } from '../../../models/usuario';
+
 @Component({
   selector: 'app-estudiante-listar',
   standalone: true,
   imports: [
     CommonModule, RouterModule, FormsModule,
     MatTableModule, MatButtonModule, MatIconModule,
-    MatPaginatorModule, MatChipsModule, MatFormFieldModule,
-    MatInputModule, MatSelectModule, MatTooltipModule,
-    CdkTableModule, RouterLink
-],
+    MatChipsModule, MatFormFieldModule, MatInputModule,
+    MatSelectModule, MatTooltipModule, MatSnackBarModule
+  ],
   templateUrl: './estudiante-listar.html',
   styleUrl: './estudiante-listar.css'
 })
 export class EstudianteListar implements OnInit {
 
-  estudiantes: Student[] = [];
-  columnas: string[] = ['codigo', 'nombres', 'apellidos', 'dni', 'email', 'carrera', 'estado', 'acciones'];
+  estudiantes: Usuario[] = [];
+  estudiantesFiltrados: Usuario[] = [];
+  columnas: string[] = ['codigo', 'nombre', 'dni', 'email', 'carrera', 'ciclo', 'estado', 'acciones'];
 
-  totalElementos = 0;
-  pageSize = 10;
-  pageIndex = 0;
-
-  filtroEstado: string = 'TODOS'; // TODOS | true | false
+  textoBusqueda: string = '';
+  filtroEstado: string = 'TODOS';
 
   constructor(
     private estudianteService: Estudianteservice,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -49,49 +47,64 @@ export class EstudianteListar implements OnInit {
   }
 
   cargarEstudiantes(): void {
-    this.estudianteService.listar(this.pageIndex, this.pageSize).subscribe({
-      next: (resp) => {
-        this.estudiantes = resp.content;
-        this.totalElementos = resp.totalElements;
+    this.estudianteService.listar().subscribe({
+      next: (data) => {
+        this.estudiantes = data;
+        this.aplicarFiltroEstado();
       },
-      error: (err) => console.error('Error al listar estudiantes', err)
+      error: () => this.snackBar.open('Error al listar estudiantes', 'Cerrar', { duration: 3000 })
+    });
+  }
+
+  buscar(): void {
+    if (!this.textoBusqueda.trim()) {
+      this.cargarEstudiantes();
+      return;
+    }
+
+    this.estudianteService.buscar(this.textoBusqueda.trim()).subscribe({
+      next: (data) => {
+        this.estudiantes = data.filter(u => u.rol === 'ESTUDIANTE');
+        this.aplicarFiltroEstado();
+      },
+      error: () => this.snackBar.open('Error al buscar estudiantes', 'Cerrar', { duration: 3000 })
     });
   }
 
   aplicarFiltroEstado(): void {
-    if (this.filtroEstado === 'TODOS') {
-      this.cargarEstudiantes();
-      return;
-    }
-    const estadoBool = this.filtroEstado === 'true';
-    this.estudianteService.filtrarPorEstado(estadoBool).subscribe({
-      next: (data) => {
-        this.estudiantes = data;
-        this.totalElementos = data.length;
-      },
-      error: (err) => console.error('Error al filtrar por estado', err)
-    });
-  }
-
-  onPageChange(event: PageEvent): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.cargarEstudiantes();
+    this.estudiantesFiltrados = this.estudiantes.filter(e =>
+      this.filtroEstado === 'TODOS' || e.estado === this.filtroEstado
+    );
   }
 
   editarEstudiante(id: number | undefined): void {
     if (id != null) {
-      this.router.navigate(['/app/estudiantes/editar', id]);
+      this.router.navigate(['/estudiantes/editar', id]);
     }
   }
 
-  toggleEstado(estudiante: Student): void {
-    if (estudiante.id == null) return;
-    this.estudianteService.toggleEstado(estudiante.id).subscribe({
+  toggleEstado(estudiante: Usuario): void {
+    if (estudiante.idUsuario == null) return;
+
+    this.estudianteService.cambiarEstado(estudiante.idUsuario).subscribe({
       next: (actualizado) => {
         estudiante.estado = actualizado.estado;
+        this.aplicarFiltroEstado();
       },
-      error: (err) => console.error('Error al cambiar estado', err)
+      error: () => this.snackBar.open('Error al cambiar estado', 'Cerrar', { duration: 3000 })
+    });
+  }
+
+  eliminar(id: number | undefined): void {
+    if (id == null) return;
+    if (!confirm('¿Dar de baja a este estudiante del padrón?')) return;
+
+    this.estudianteService.eliminar(id).subscribe({
+      next: () => {
+        this.snackBar.open('Estudiante eliminado correctamente', 'Cerrar', { duration: 3000 });
+        this.cargarEstudiantes();
+      },
+      error: () => this.snackBar.open('Error al eliminar', 'Cerrar', { duration: 3000 })
     });
   }
 }

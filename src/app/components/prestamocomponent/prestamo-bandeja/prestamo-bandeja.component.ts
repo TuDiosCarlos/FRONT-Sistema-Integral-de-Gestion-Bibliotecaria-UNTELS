@@ -7,21 +7,24 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PrestamoRechazarComponent } from '../prestamo-rechazar/prestamo-rechazar.component';
 
 @Component({
   selector: 'app-prestamo-bandeja', // Cumple regla 'app-' + nombre carpeta
   standalone: true, // Regla de Oro #3: Siempre standalone
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatDialogModule],
   templateUrl: './prestamo-bandeja.component.html',
   styleUrls: ['./prestamo-bandeja.component.css'],
 })
 export class PrestamoBandejaComponent implements OnInit {
   listaPendientes: Prestamo[] = [];
-  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'diasSolicitados', 'acciones'];
+  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'motivo', 'acciones'];
 
   constructor(
     private prestamoService: Prestamoservice,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -29,9 +32,9 @@ export class PrestamoBandejaComponent implements OnInit {
   }
 
   cargarSolicitudesPendientes(): void {
-    this.prestamoService.listarPorEstado('PENDIENTE').subscribe({
+    this.prestamoService.listarPorEstado('solicitado').subscribe({
       next: (data) => (this.listaPendientes = data),
-      error: (err) => this.mostrarMensaje('Error al obtener solicitudes pendientes.'),
+      error: () => this.mostrarMensaje('Error al obtener solicitudes pendientes.'),
     });
   }
 
@@ -46,15 +49,20 @@ export class PrestamoBandejaComponent implements OnInit {
   }
 
   rechazarSolicitud(id: number): void {
-    const motivo = prompt('Por favor, especifique el motivo del rechazo:');
-    if (!motivo) return;
+    const dialogRef = this.dialog.open(PrestamoRechazarComponent, {
+      data: { idPrestamo: id },
+    });
 
-    this.prestamoService.rechazar(id, motivo).subscribe({
-      next: () => {
-        this.mostrarMensaje('El préstamo ha sido RECHAZADO.');
-        this.cargarSolicitudesPendientes();
-      },
-      error: () => this.mostrarMensaje('No se pudo rechazar el préstamo.'),
+    dialogRef.afterClosed().subscribe((motivo: string | null) => {
+      if (!motivo) return;
+
+      this.prestamoService.rechazar(id, motivo).subscribe({
+        next: () => {
+          this.mostrarMensaje('El préstamo ha sido RECHAZADO.');
+          this.cargarSolicitudesPendientes();
+        },
+        error: () => this.mostrarMensaje('No se pudo rechazar el préstamo.'),
+      });
     });
   }
 

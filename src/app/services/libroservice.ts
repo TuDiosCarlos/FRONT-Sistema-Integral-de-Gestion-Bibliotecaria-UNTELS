@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { Libro, LibroApiExterna } from '../models/libro';
+import { Libro } from '../models/libro';
 
 @Injectable({ providedIn: 'root' })
 export class Libroservice {
@@ -11,9 +11,7 @@ export class Libroservice {
   constructor(private http: HttpClient) {}
 
   listar(): Observable<Libro[]> {
-    const token = localStorage.getItem('token') || localStorage.getItem('authToken') || '';
-    const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-    return this.http.get<Libro[]>(`${this.url}/lista`, headers);
+    return this.http.get<Libro[]>(`${this.url}/lista`);
   }
 
   buscarPorId(id: number): Observable<Libro> {
@@ -29,13 +27,17 @@ export class Libroservice {
     return this.http.get<Libro[]>(`${this.url}/categoria/${categoria}`);
   }
 
-  registrar(libro: Libro): Observable<Libro> {
-    return this.http.post<Libro>(`${this.url}/nuevo`, libro);
+  buscarPorAutor(autor: string): Observable<Libro[]> {
+    const params = new HttpParams().set('autor', autor);
+    return this.http.get<Libro[]>(`${this.url}/autor`, { params });
   }
 
-  registrarPorIsbn(isbn: string): Observable<Libro> {
-    const params = new HttpParams().set('isbn', isbn);
-    return this.http.post<Libro>(`${this.url}/registrar-por-isbn`, null, { params });
+  buscarPorIsbn(isbn: string): Observable<Libro> {
+    return this.http.get<Libro>(`${this.url}/isbn/${isbn}`);
+  }
+
+  registrar(libro: Libro): Observable<Libro> {
+    return this.http.post<Libro>(`${this.url}/nuevo`, libro);
   }
 
   actualizar(libro: Libro): Observable<string> {

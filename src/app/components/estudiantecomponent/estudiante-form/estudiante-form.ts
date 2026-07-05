@@ -4,22 +4,19 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { Estudianteservice } from '../../../services/estudianteservice';
-import { Carreraservice } from '../../../services/carreraservice';
-import { StudentDTO } from '../../../models/student';
-import { Carrera } from '../../../models/carrera';
+import { UsuarioDTO } from '../../../models/usuario';
 
 @Component({
   selector: 'app-estudiante-form',
   standalone: true,
   imports: [
     CommonModule, RouterModule, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule,
+    MatFormFieldModule, MatInputModule,
     MatButtonModule, MatCardModule, MatSnackBarModule
   ],
   templateUrl: './estudiante-form.html',
@@ -28,14 +25,12 @@ import { Carrera } from '../../../models/carrera';
 export class EstudianteForm implements OnInit {
 
   form!: FormGroup;
-  carreras: Carrera[] = [];
   modoEdicion = false;
   estudianteId?: number;
 
   constructor(
     private fb: FormBuilder,
     private estudianteService: Estudianteservice,
-    private carreraService: Carreraservice,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
@@ -43,53 +38,52 @@ export class EstudianteForm implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nombres:   ['', [Validators.required, Validators.minLength(2)]],
-      apellidos: ['', [Validators.required, Validators.minLength(2)]],
+      username:  ['', [Validators.required, Validators.minLength(3)]],
+      password:  [''],
+      nombre:    ['', [Validators.required]],
       dni:       ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
       codigo:    ['', [Validators.required]],
+      carnet:    [''],
       email:     ['', [Validators.required, Validators.email]],
-      carreraId: [null, [Validators.required]],
+      telefono:  [''],
+      carrera:   ['', [Validators.required]],
+      ciclo:     [null],
+      estado:    ['ACTIVO', [Validators.required]],
     });
-
-    this.cargarCarreras();
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.modoEdicion = true;
       this.estudianteId = +id;
       this.cargarEstudiante(this.estudianteId);
+      this.form.get('password')?.clearValidators();
+      this.form.get('password')?.updateValueAndValidity();
+    } else {
+      this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)]);
+      this.form.get('password')?.updateValueAndValidity();
     }
   }
 
-  cargarCarreras(): void {
-    this.carreraService.listar().subscribe({
-      next: (data) => this.carreras = data,
-      error: (err) => console.error('Error al cargar carreras', err)
-    });
-  }
-
-  // FIX: implementación correcta del método que estaba vacío
   cargarEstudiante(id: number): void {
-    // Buscamos el estudiante por su página (no hay endpoint getById en el servicio actual,
-    // usamos buscarPorCodigo no aplica aquí, así que listamos y filtramos)
-    this.estudianteService.listar(0, 1000).subscribe({
-      next: (page) => {
-        const est = page.content.find(e => e.id === id);
-        if (est) {
-          this.form.patchValue({
-            nombres:   est.nombres,
-            apellidos: est.apellidos,
-            dni:       est.dni,
-            codigo:    est.codigo,
-            email:     est.email,
-            carreraId: est.carrera?.id ?? null,
-          });
-        } else {
-          this.snackBar.open('Estudiante no encontrado', 'Cerrar', { duration: 3000 });
-          this.router.navigate(['/estudiantes/listar']);
-        }
+    this.estudianteService.buscarPorId(id).subscribe({
+      next: (e) => {
+        this.form.patchValue({
+          username: e.username,
+          nombre:   e.nombre,
+          dni:      e.dni,
+          codigo:   e.codigo,
+          carnet:   e.carnet,
+          email:    e.email,
+          telefono: e.telefono,
+          carrera:  e.carrera,
+          ciclo:    e.ciclo,
+          estado:   e.estado,
+        });
       },
-      error: () => this.snackBar.open('Error al cargar el estudiante', 'Cerrar', { duration: 3000 })
+      error: () => {
+        this.snackBar.open('Estudiante no encontrado', 'Cerrar', { duration: 3000 });
+        this.router.navigate(['/estudiantes/listar']);
+      }
     });
   }
 
@@ -99,24 +93,33 @@ export class EstudianteForm implements OnInit {
       return;
     }
 
-    const dto: StudentDTO = this.form.value;
+    const dto: UsuarioDTO = { ...this.form.value, rol: 'ESTUDIANTE' };
 
-    const peticion = this.modoEdicion && this.estudianteId
-      ? this.estudianteService.actualizar(this.estudianteId, dto)
-      : this.estudianteService.registrar(dto);
+    if (this.modoEdicion && this.estudianteId) {
+      dto.idUsuario = this.estudianteId;
+      if (!dto.password) delete dto.password;
 
-    peticion.subscribe({
-      next: () => {
-        this.snackBar.open(
-          this.modoEdicion ? 'Estudiante actualizado correctamente' : 'Estudiante registrado correctamente',
-          'Cerrar', { duration: 3000 }
-        );
-        this.router.navigate(['/estudiantes/listar']);
-      },
-      error: (err) => {
-        const msg = err?.error?.message || 'Error al guardar el estudiante';
-        this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
-      }
-    });
+      this.estudianteService.actualizar(dto).subscribe({
+        next: () => {
+          this.snackBar.open('Estudiante actualizado correctamente', 'Cerrar', { duration: 3000 });
+          this.router.navigate(['/estudiantes/listar']);
+        },
+        error: (err) => {
+          const msg = err?.error || 'Error al actualizar el estudiante';
+          this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
+        }
+      });
+    } else {
+      this.estudianteService.registrar(dto).subscribe({
+        next: () => {
+          this.snackBar.open('Estudiante registrado correctamente', 'Cerrar', { duration: 3000 });
+          this.router.navigate(['/estudiantes/listar']);
+        },
+        error: (err) => {
+          const msg = err?.error || 'Error al registrar el estudiante';
+          this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
+        }
+      });
+    }
   }
 }

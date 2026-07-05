@@ -1,13 +1,16 @@
 export interface Prestamo {
-  idPrestamo?: number; // Opcional, generado por la base de datos automáticamente
-  idLibro: number; // Mapeo exacto DTO Java (idLibro)
-  idUsuario?: number; // Mapeo exacto DTO Java (idUsuario)
-  idEstudiante: number; // Mapeo exacto DTO Java (idEstudiante)
-  fechaSolicitud?: string; // Guardado en formato de texto ISO (YYYY-MM-DD)
-  fechaAprobacion?: string;
+  idPrestamo?: number;
+  idLibro: number;
+  idEstudiante: number;
+  fecha?: string;
+  fechaRecojo?: string;
+  fechaEntrega?: string;
+  fechaConfirmacion?: string;
   fechaDevolucion?: string;
-  diasSolicitados: number; // Mapeo exacto DTO Java (diasSolicitados)
-  estadoPrestamo: 'PENDIENTE' | 'ACTIVO' | 'RECHAZADO' | 'DEVUELTO' | 'VENCIDO';
-  estadoDevolucion?: string; // Mapeo exacto DTO Java (estadoDevolucion)
+  estado?: 'solicitado' | 'vigente' | 'rechazado' | 'devuelto' | 'vencido';
+  motivo: string;
+  curso?: string;
   observaciones?: string;
+  estadoDevolucion?: string;
+  observacionesDev?: string;
 }

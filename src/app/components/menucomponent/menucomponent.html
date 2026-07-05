@@ -1,1 +1,37 @@
-<p>menucomponent works!</p>
+<mat-toolbar color="primary" *ngIf="autenticado">
+  <span class="titulo">SIGBAU</span>
+
+  <a mat-button routerLink="/home">Home</a>
+
+  <ng-container *ngIf="esAdmin">
+    <a mat-button routerLink="/usuarios">Usuarios</a>
+    <a mat-button routerLink="/configuracion">Configuración</a>
+  </ng-container>
+
+  <ng-container *ngIf="esBibliotecario || esAdmin">
+    <a mat-button routerLink="/estudiantes">Estudiantes</a>
+    <a mat-button routerLink="/libros">Libros</a>
+    <a mat-button routerLink="/prestamos">Préstamos</a>
+    <a mat-button routerLink="/sanciones">Sanciones</a>
+  </ng-container>
+
+  <ng-container *ngIf="esEstudiante">
+    <a mat-button routerLink="/catalogo">Catálogo</a>
+    <a mat-button routerLink="/misprestamos">Mis Préstamos</a>
+  </ng-container>
+
+  <a mat-button routerLink="/notificaciones">
+    <mat-icon>notifications</mat-icon>
+  </a>
+
+  <a mat-button routerLink="/perfil">
+    <mat-icon>account_circle</mat-icon> Mi Perfil
+  </a>
+
+  <span class="spacer"></span>
+
+  <span class="usuario-actual" *ngIf="nombre">{{ nombre }} ({{ rol }})</span>
+  <button mat-button (click)="cerrarSesion()">
+    <mat-icon>logout</mat-icon> Cerrar sesión
+  </button>
+</mat-toolbar>

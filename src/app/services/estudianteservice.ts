@@ -2,48 +2,44 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { Student, StudentDTO } from '../models/student';
-import { Page } from '../models/page';
+import { Usuario, UsuarioDTO } from '../models/usuario';
 
+const ROL_ESTUDIANTE = 'ESTUDIANTE';
 
 @Injectable({ providedIn: 'root' })
 export class Estudianteservice {
-  private url = `${environment.baseUrl}/students`;
+  private url = `${environment.baseUrl}/api/usuarios`;
 
   constructor(private http: HttpClient) {}
 
-  registrar(dto: StudentDTO): Observable<Student> {
-    return this.http.post<Student>(this.url, dto);
+  listar(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.url}/rol/${ROL_ESTUDIANTE}`);
   }
 
-  listar(page: number = 0, size: number = 10): Observable<Page<Student>> {
-    const params = new HttpParams()
-      .set('page', page)
-      .set('size', size);
-    return this.http.get<Page<Student>>(this.url, { params });
+  buscarPorId(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.url}/${id}`);
   }
 
-  actualizar(id: number, dto: StudentDTO): Observable<Student> {
-    return this.http.put<Student>(`${this.url}/${id}`, dto);
+  buscar(texto: string): Observable<Usuario[]> {
+    const params = new HttpParams().set('q', texto);
+    return this.http.get<Usuario[]>(`${this.url}/buscar`, { params });
   }
 
-  toggleEstado(id: number): Observable<Student> {
-    return this.http.patch<Student>(`${this.url}/${id}/toggle`, {});
+  registrar(dto: UsuarioDTO): Observable<Usuario> {
+    dto.rol = ROL_ESTUDIANTE;
+    return this.http.post<Usuario>(`${this.url}/nuevo`, dto);
   }
 
-  buscarPorDni(dni: string): Observable<Student> {
-    return this.http.get<Student>(`${this.url}/dni/${dni}`);
+  actualizar(dto: UsuarioDTO): Observable<string> {
+    dto.rol = ROL_ESTUDIANTE;
+    return this.http.put<string>(`${this.url}/actualiza`, dto, { responseType: 'text' as 'json' });
   }
 
-  buscarPorCodigo(codigo: string): Observable<Student> {
-    return this.http.get<Student>(`${this.url}/codigo/${codigo}`);
+  cambiarEstado(id: number): Observable<Usuario> {
+    return this.http.patch<Usuario>(`${this.url}/${id}/estado`, {});
   }
 
-  filtrarPorCarrera(carreraId: number): Observable<Student[]> {
-    return this.http.get<Student[]>(`${this.url}/carrera/${carreraId}`);
-  }
-
-  filtrarPorEstado(estado: boolean): Observable<Student[]> {
-    return this.http.get<Student[]>(`${this.url}/estado/${estado}`);
+  eliminar(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.url}/${id}`, { responseType: 'text' as 'json' });
   }
 }
