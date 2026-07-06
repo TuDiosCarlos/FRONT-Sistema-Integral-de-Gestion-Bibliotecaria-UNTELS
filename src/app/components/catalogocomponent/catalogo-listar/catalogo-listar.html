@@ -20,6 +20,14 @@
         <option *ngFor="let categoria of categorias">{{ categoria }}</option>
       </select>
     </div>
+    <div class="filtro-item">
+      <label>Ordenar por</label>
+      <select [(ngModel)]="ordenarPor" (change)="filtrar()">
+        <option value="titulo">Título</option>
+        <option value="autor">Autor</option>
+        <option value="categoria">Categoría</option>
+      </select>
+    </div>
     <div class="filtro-actions">
       <button class="btn-secondary" type="button" (click)="limpiarFiltros()">Limpiar</button>
     </div>
@@ -34,10 +42,11 @@
       <tr>
         <th>Título</th>
         <th>Autor</th>
+        <th>Editorial</th>
         <th>ISBN</th>
         <th>Categoría</th>
         <th>Tipo</th>
-        <th>Stock</th>
+        <th>Disponibilidad</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -45,10 +54,11 @@
       <tr *ngFor="let libro of librosFiltrados">
         <td>{{ libro.titulo }}</td>
         <td>{{ libro.autor }}</td>
+        <td>{{ libro.editorial || '—' }}</td>
         <td>{{ libro.isbn }}</td>
         <td>{{ libro.categoria }}</td>
         <td><span class="badge" [ngClass]="obtenerTipoLibro(libro).toLowerCase()">{{ obtenerTipoLibro(libro) }}</span></td>
-        <td>{{ libro.stock }}</td>
+        <td [ngClass]="{'texto-sin-stock': libro.stock === 0}">{{ textoDisponibilidad(libro) }}</td>
         <td>
           <a *ngIf="libro.recurso" [href]="libro.recurso" target="_blank" rel="noopener" class="btn-secondary">
             Ver recurso

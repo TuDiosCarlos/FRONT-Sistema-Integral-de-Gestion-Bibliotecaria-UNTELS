@@ -1,1 +1,47 @@
-<p>sancion-listar works!</p>
+<div class="sancion-shell">
+  <div class="sancion-header">
+    <div>
+      <h2>Sanciones a estudiantes</h2>
+      <p>Se generan automáticamente cuando un préstamo se devuelve fuera de la fecha límite.</p>
+    </div>
+    <select [(ngModel)]="estadoFiltro" (change)="cargar()" class="status-select">
+      <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="sanciones.length === 0" class="sin-datos">
+    <p>No hay sanciones con estado "{{ estadoFiltro }}".</p>
+  </div>
+
+  <table *ngIf="sanciones.length > 0" class="table-list">
+    <thead>
+      <tr>
+        <th>Estudiante</th>
+        <th>Motivo</th>
+        <th>Días suspensión</th>
+        <th>Multa (S/)</th>
+        <th>Estado</th>
+        <th>Fecha creación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of sanciones">
+        <td>{{ s.idEstudiante }}</td>
+        <td>{{ s.motivo }}</td>
+        <td>{{ s.diasSuspension }}</td>
+        <td>{{ s.multa | number:'1.2-2' }}</td>
+        <td><span class="badge" [ngClass]="'badge-' + s.estado">{{ s.estado }}</span></td>
+        <td>{{ s.fechaCreacion | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button
+            *ngIf="s.estado === 'activa'"
+            class="btn-primary"
+            (click)="marcarCumplida(s.idSancion)">
+            Marcar cumplida
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

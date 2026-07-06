@@ -1,0 +1,139 @@
+.notificacion-panel-wrapper {
+  position: relative;
+}
+
+.campana-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #c7d2fe;
+  padding: 8px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.campana-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.badge-contador {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.panel-desplegable {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: -8px;
+  width: 320px;
+  max-height: 420px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+  overflow: hidden;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #4338ca;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link-btn:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.panel-lista {
+  overflow-y: auto;
+  max-height: 360px;
+}
+
+.sin-notificaciones {
+  padding: 24px 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.notificacion-item {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.notificacion-item.no-leida {
+  background: #eef2ff;
+}
+
+.notificacion-item mat-icon {
+  color: #6366f1;
+  flex-shrink: 0;
+}
+
+.notificacion-item .icono-vencido {
+  color: #dc2626;
+}
+
+.notificacion-item .icono-recordatorio {
+  color: #d97706;
+}
+
+.notificacion-item .icono-confirmacion {
+  color: #059669;
+}
+
+.notificacion-item .icono-rechazo {
+  color: #6b7280;
+}
+
+.notificacion-item .icono-sancion {
+  color: #b91c1c;
+}
+
+.notificacion-item .icono-nueva_solicitud {
+  color: #2563eb;
+}
+
+.notificacion-texto p {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #0f172a;
+  line-height: 1.4;
+}
+
+.notificacion-texto small {
+  color: #94a3b8;
+  font-size: 11px;
+}

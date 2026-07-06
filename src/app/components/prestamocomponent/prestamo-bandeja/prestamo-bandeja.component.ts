@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
+import { interval, startWith } from 'rxjs';
 import { Prestamoservice } from '../../../services/prestamoservice';
 import { Prestamo } from '../../../models/prestamo';
 import { MatTableModule } from '@angular/material/table';
@@ -17,6 +19,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class PrestamoBandejaComponent implements OnInit {
   listaPendientes: Prestamo[] = [];
   columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'fecha', 'acciones'];
+  cargando = false;
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private prestamoService: Prestamoservice,
@@ -24,13 +29,24 @@ export class PrestamoBandejaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cargarSolicitudesPendientes();
+    // Refresca automaticamente cada 15s para que las nuevas solicitudes de
+    // los estudiantes aparezcan sin depender de que el bibliotecario recargue la pagina.
+    interval(15000)
+      .pipe(startWith(0), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.cargarSolicitudesPendientes());
   }
 
   cargarSolicitudesPendientes(): void {
+    this.cargando = true;
     this.prestamoService.listarPorEstado('solicitado').subscribe({
-      next: (data) => (this.listaPendientes = data),
-      error: () => this.mostrarMensaje('Error al obtener solicitudes pendientes.'),
+      next: (data) => {
+        this.cargando = false;
+        this.listaPendientes = data;
+      },
+      error: () => {
+        this.cargando = false;
+        this.mostrarMensaje('Error al obtener solicitudes pendientes.');
+      },
     });
   }
 

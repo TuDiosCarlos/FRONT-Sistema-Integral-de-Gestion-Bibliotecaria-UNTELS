@@ -33,7 +33,7 @@ export class Prestamoservice {
   }
 
   rechazar(idPrestamo: number, motivo: string): Observable<string> {
-    return this.http.put<string>(`${this.apiUrl}/rechazar/${idPrestamo}`, {});
+    return this.http.put<string>(`${this.apiUrl}/rechazar/${idPrestamo}`, { motivo });
   }
 
   devolver(

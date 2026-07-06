@@ -7,10 +7,11 @@ import { Libroservice } from '../../services/libroservice';
 import { Usuarioservice } from '../../services/usuarioservice';
 import { Prestamoservice } from '../../services/prestamoservice';
 import { Sancionservice } from '../../services/sancionservice';
+import { ConfiguracionService } from '../../services/configuracionservice';
 
 interface TarjetaDashboard {
   etiqueta: string;
-  valor: number;
+  valor: number | string;
   descripcion: string;
   clase: string;
 }
@@ -33,7 +34,8 @@ export class Homecomponent implements OnInit {
     private libroService: Libroservice,
     private usuarioService: Usuarioservice,
     private prestamoService: Prestamoservice,
-    private sancionService: Sancionservice
+    private sancionService: Sancionservice,
+    private configuracionService: ConfiguracionService
   ) {}
 
   ngOnInit(): void {
@@ -50,47 +52,62 @@ export class Homecomponent implements OnInit {
     if (this.rolUsuario === 'ESTUDIANTE') {
       this.cargarDashboardEstudiante(idEstudiante);
     } else if (this.rolUsuario === 'BIBLIOTECARIO') {
-      this.cargarDashboardStaff(false);
+      this.cargarDashboardBibliotecario();
     } else {
-      // ADMINISTRADOR u otros: panel completo
-      this.cargarDashboardStaff(true);
+      // ADMIN u otros: panel de administracion (usuarios y configuracion)
+      this.cargarDashboardAdmin();
     }
   }
 
-  private cargarDashboardStaff(esAdministrador: boolean): void {
+  private cargarDashboardBibliotecario(): void {
     forkJoin({
       libros: this.libroService.listar().pipe(catchError(() => of([]))),
       vigentes: this.prestamoService.listarPorEstado('vigente').pipe(catchError(() => of([]))),
       vencidos: this.prestamoService.listarPorEstado('vencido').pipe(catchError(() => of([]))),
-      estudiantes: this.usuarioService.buscarPorRol('ESTUDIANTE').pipe(catchError(() => of([]))),
+      solicitados: this.prestamoService.listarPorEstado('solicitado').pipe(catchError(() => of([]))),
       sancionesActivas: this.sancionService.listarPorEstado('activa').pipe(catchError(() => of([]))),
-      usuarios: esAdministrador ? this.usuarioService.listar().pipe(catchError(() => of([]))) : of(null),
     }).subscribe((r) => {
       this.cargando = false;
       const stockTotal = r.libros.reduce((acc, l) => acc + (l.stock ?? 0), 0);
 
       this.tarjetas = [
         { etiqueta: 'Libros disponibles', valor: stockTotal, descripcion: `${r.libros.length} títulos en catálogo`, clase: 'card-primary' },
-        { etiqueta: 'Préstamos vigentes', valor: r.vigentes.length, descripcion: 'Préstamos actualmente prestados', clase: 'card-secondary' },
+        { etiqueta: 'Solicitudes pendientes', valor: r.solicitados.length, descripcion: 'Esperando tu confirmación', clase: 'card-secondary' },
+        { etiqueta: 'Préstamos vigentes', valor: r.vigentes.length, descripcion: 'Préstamos actualmente entregados', clase: 'card-secondary' },
         { etiqueta: 'Préstamos vencidos', valor: r.vencidos.length, descripcion: 'Con fecha de entrega superada', clase: 'card-warning' },
-        { etiqueta: 'Estudiantes registrados', valor: r.estudiantes.length, descripcion: 'Con cuenta activa en el sistema', clase: 'card-success' },
+        { etiqueta: 'Sanciones activas', valor: r.sancionesActivas.length, descripcion: 'Estudiantes actualmente suspendidos', clase: 'card-alert' },
       ];
+    });
+  }
 
-      if (esAdministrador && r.usuarios) {
-        this.tarjetas.push({
-          etiqueta: 'Usuarios del sistema',
-          valor: r.usuarios.length,
-          descripcion: 'Administradores, bibliotecarios y estudiantes',
-          clase: 'card-alert',
-        });
-      } else {
-        this.tarjetas.push({
-          etiqueta: 'Sanciones activas',
-          valor: r.sancionesActivas.length,
-          descripcion: 'Estudiantes actualmente suspendidos',
-          clase: 'card-alert',
-        });
-      }
+  private cargarDashboardAdmin(): void {
+    forkJoin({
+      usuarios: this.usuarioService.listar().pipe(catchError(() => of([]))),
+      sancionesActivas: this.sancionService.listarPorEstado('activa').pipe(catchError(() => of([]))),
+      configuracion: this.configuracionService.obtener().pipe(catchError(() => of(null))),
+    }).subscribe((r) => {
+      this.cargando = false;
+
+      const administradores = r.usuarios.filter((u) => u.rol === 'ADMIN').length;
+      const bibliotecarios = r.usuarios.filter((u) => u.rol === 'BIBLIOTECARIO').length;
+      const estudiantes = r.usuarios.filter((u) => u.rol === 'ESTUDIANTE').length;
+      const activos = r.usuarios.filter((u) => u.estado === 'ACTIVO').length;
+      const inactivos = r.usuarios.length - activos;
+      const enMantenimiento = r.configuracion?.modoMant ?? false;
+
+      this.tarjetas = [
+        { etiqueta: 'Usuarios totales', valor: r.usuarios.length, descripcion: `${activos} activos · ${inactivos} inactivos`, clase: 'card-primary' },
+        { etiqueta: 'Bibliotecarios', valor: bibliotecarios, descripcion: 'Gestionan libros y préstamos', clase: 'card-secondary' },
+        { etiqueta: 'Estudiantes', valor: estudiantes, descripcion: 'Registrados en el sistema', clase: 'card-success' },
+        { etiqueta: 'Administradores', valor: administradores, descripcion: 'Con acceso total al sistema', clase: 'card-success' },
+        { etiqueta: 'Sanciones activas', valor: r.sancionesActivas.length, descripcion: 'Estudiantes actualmente suspendidos', clase: 'card-warning' },
+        {
+          etiqueta: 'Modo mantenimiento',
+          valor: enMantenimiento ? 'Activado' : 'Desactivado',
+          descripcion: enMantenimiento ? 'El sistema no admite login de estudiantes' : 'El sistema funciona con normalidad',
+          clase: enMantenimiento ? 'card-alert' : 'card-secondary',
+        },
+      ];
     });
   }
 

@@ -30,6 +30,9 @@ import { PrestamoBandejaComponent } from './components/prestamocomponent/prestam
 import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
 import { PrestamoHistorialComponent } from './components/prestamocomponent/prestamo-historial/prestamo-historial.component';
 
+import { Sancioncomponent } from './components/sancioncomponent/sancioncomponent';
+import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
+
 const ADMIN = 'ADMIN';
 const BIBLIOTECARIO = 'BIBLIOTECARIO';
 const ESTUDIANTE = 'ESTUDIANTE';
@@ -47,7 +50,7 @@ export const routes: Routes = [
   {
     path: 'catalogo',
     component: Catalogocomponent,
-    canActivate: [authguardGuard],
+    canActivate: [authguardGuard, roleGuard([ESTUDIANTE])],
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: CatalogoListar },
@@ -92,7 +95,7 @@ export const routes: Routes = [
   {
     path: 'libros',
     component: Librocomponent,
-    canActivate: [authguardGuard, roleGuard([ADMIN, BIBLIOTECARIO])],
+    canActivate: [authguardGuard, roleGuard([BIBLIOTECARIO])],
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: LibroListar },
@@ -105,12 +108,22 @@ export const routes: Routes = [
   {
     path: 'prestamos',
     component: Prestamocomponent,
-    canActivate: [authguardGuard, roleGuard([ADMIN, BIBLIOTECARIO])],
+    canActivate: [authguardGuard, roleGuard([BIBLIOTECARIO])],
     children: [
       { path: '', redirectTo: 'bandeja', pathMatch: 'full' },
       { path: 'bandeja', component: PrestamoBandejaComponent },
       { path: 'vigentes', component: PrestamoVigentesComponent },
       { path: 'historial', component: PrestamoHistorialComponent }
+    ]
+  },
+
+  {
+    path: 'sanciones',
+    component: Sancioncomponent,
+    canActivate: [authguardGuard, roleGuard([BIBLIOTECARIO])],
+    children: [
+      { path: '', redirectTo: 'listar', pathMatch: 'full' },
+      { path: 'listar', component: SancionListar },
     ]
   }
 ];

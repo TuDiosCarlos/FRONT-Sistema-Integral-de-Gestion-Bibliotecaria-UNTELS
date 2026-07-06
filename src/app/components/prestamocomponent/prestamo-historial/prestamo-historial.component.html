@@ -14,13 +14,13 @@
   <table mat-table [dataSource]="listaFiltrada" class="mat-elevation-z8" *ngIf="listaFiltrada.length > 0">
 
     <ng-container matColumnDef="idLibro">
-      <th mat-header-cell *matHeaderCellDef> ID Libro </th>
-      <td mat-cell *matCellDef="let element"> {{ element.idLibro }} </td>
+      <th mat-header-cell *matHeaderCellDef> Libro </th>
+      <td mat-cell *matCellDef="let element"> {{ element.tituloLibro || ('ID ' + element.idLibro) }} </td>
     </ng-container>
 
     <ng-container matColumnDef="idEstudiante">
       <th mat-header-cell *matHeaderCellDef> Estudiante </th>
-      <td mat-cell *matCellDef="let element"> {{ element.idEstudiante }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.nombreEstudiante || ('ID ' + element.idEstudiante) }} </td>
     </ng-container>
 
     <ng-container matColumnDef="fecha">

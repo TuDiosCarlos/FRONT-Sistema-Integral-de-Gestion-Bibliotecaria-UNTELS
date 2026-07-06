@@ -1,1 +1,32 @@
-<p>notificacion-panel works!</p>
+<div class="notificacion-panel-wrapper">
+  <button class="campana-btn" type="button" (click)="togglePanel()" title="Notificaciones">
+    <mat-icon>notifications</mat-icon>
+    <span class="badge-contador" *ngIf="noLeidas > 0">{{ noLeidas > 9 ? '9+' : noLeidas }}</span>
+  </button>
+
+  <div class="panel-desplegable" *ngIf="panelAbierto">
+    <div class="panel-header">
+      <strong>Notificaciones</strong>
+      <button class="link-btn" type="button" (click)="marcarTodasLeidas()" [disabled]="noLeidas === 0">
+        Marcar todas como leídas
+      </button>
+    </div>
+
+    <div class="panel-lista">
+      <div *ngIf="notificaciones.length === 0" class="sin-notificaciones">
+        No tienes notificaciones.
+      </div>
+
+      <div
+        *ngFor="let n of notificaciones"
+        class="notificacion-item"
+        [class.no-leida]="!n.leida">
+        <mat-icon [ngClass]="'icono-' + n.tipo">{{ iconoPorTipo(n.tipo) }}</mat-icon>
+        <div class="notificacion-texto">
+          <p>{{ n.mensaje }}</p>
+          <small>{{ n.fecha | date:'dd/MM/yyyy HH:mm' }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

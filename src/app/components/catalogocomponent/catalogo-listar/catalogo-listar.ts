@@ -24,6 +24,7 @@ export class CatalogoListar implements OnInit {
   textoBusqueda = '';
   categoriaSeleccionada = 'TODAS';
   categorias = ['TODAS', 'Programación', 'Administración', 'Ciencia'];
+  ordenarPor: 'titulo' | 'autor' | 'categoria' = 'titulo';
   cargando = false;
 
   constructor(
@@ -44,7 +45,7 @@ export class CatalogoListar implements OnInit {
       .subscribe((data) => {
         this.cargando = false;
         this.libros = data || [];
-        this.librosFiltrados = this.libros;
+        this.filtrar();
         this.mensaje = this.libros.length ? '' : 'No hay libros disponibles en el catálogo.';
       });
   }
@@ -56,13 +57,17 @@ export class CatalogoListar implements OnInit {
   }
 
   filtrar(): void {
-    this.librosFiltrados = this.libros.filter(libro => {
+    const filtrados = this.libros.filter(libro => {
       const tituloOk = !this.textoBusqueda ||
         libro.titulo.toLowerCase().includes(this.textoBusqueda.toLowerCase());
       const categoriaOk = this.categoriaSeleccionada === 'TODAS' ||
         libro.categoria === this.categoriaSeleccionada;
       return tituloOk && categoriaOk;
     });
+
+    this.librosFiltrados = filtrados.sort((a, b) =>
+      (a[this.ordenarPor] || '').toString().localeCompare((b[this.ordenarPor] || '').toString())
+    );
   }
 
   solicitarPrestamo(libro: Libro): void {
@@ -98,5 +103,9 @@ export class CatalogoListar implements OnInit {
     // "recurso" guarda el enlace/URL al material digital (PDF, repositorio, etc).
     // Si el bibliotecario cargo un enlace, el libro es Virtual; si esta vacio, es Fisico.
     return libro.recurso && libro.recurso.trim().length > 0 ? 'Virtual' : 'Físico';
+  }
+
+  textoDisponibilidad(libro: Libro): string {
+    return libro.stock > 0 ? `Disponible: ${libro.stock} ejemplar${libro.stock === 1 ? '' : 'es'}` : 'Disponible: 0';
   }
 }

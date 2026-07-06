@@ -1,6 +1,13 @@
 .vigentes-container {
   padding: 20px;
 }
+
+.vigentes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
 table {
   width: 100%;
   margin-top: 15px;

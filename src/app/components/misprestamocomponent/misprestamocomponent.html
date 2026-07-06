@@ -44,18 +44,20 @@
   <table *ngIf="prestamos.length > 0" class="table-list">
     <thead>
       <tr>
-        <th>ID Libro</th>
+        <th>Libro</th>
         <th>Fecha de préstamo</th>
         <th>Fecha límite</th>
         <th>Estado</th>
+        <th>Observaciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let prestamo of prestamos" [ngClass]="'estado-' + prestamo.estado?.toLowerCase()">
-        <td>{{ prestamo.idLibro }}</td>
+        <td>{{ prestamo.tituloLibro || ('ID ' + prestamo.idLibro) }}</td>
         <td>{{ prestamo.fecha | date:'dd/MM/yyyy' }}</td>
         <td>{{ prestamo.fechaEntrega | date:'dd/MM/yyyy' }}</td>
         <td><span class="badge" [ngClass]="'badge-' + prestamo.estado?.toLowerCase()">{{ prestamo.estado }}</span></td>
+        <td>{{ prestamo.observaciones || '—' }}</td>
       </tr>
     </tbody>
   </table>

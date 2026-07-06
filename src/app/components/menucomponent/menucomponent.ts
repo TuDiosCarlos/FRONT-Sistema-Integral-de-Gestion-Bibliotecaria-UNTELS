@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { Authservice } from '../../services/authservice';
+import { NotificacionPanel } from '../notificacioncomponent/notificacion-panel/notificacion-panel';
 
 interface ItemMenu {
   ruta: string;
@@ -16,9 +17,10 @@ interface ItemMenu {
 
 const ITEMS_MENU: ItemMenu[] = [
   { ruta: '/home', etiqueta: 'Inicio', icono: 'home', roles: ['ADMIN', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
-  { ruta: '/catalogo', etiqueta: 'Catálogo', icono: 'auto_stories', roles: ['ADMIN', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
-  { ruta: '/libros', etiqueta: 'Libros', icono: 'menu_book', roles: ['ADMIN', 'BIBLIOTECARIO'] },
-  { ruta: '/prestamos', etiqueta: 'Préstamos', icono: 'swap_horiz', roles: ['ADMIN', 'BIBLIOTECARIO'] },
+  { ruta: '/catalogo', etiqueta: 'Catálogo', icono: 'auto_stories', roles: ['ESTUDIANTE'] },
+  { ruta: '/libros', etiqueta: 'Libros', icono: 'menu_book', roles: ['BIBLIOTECARIO'] },
+  { ruta: '/prestamos', etiqueta: 'Préstamos', icono: 'swap_horiz', roles: ['BIBLIOTECARIO'] },
+  { ruta: '/sanciones', etiqueta: 'Sanciones', icono: 'gavel', roles: ['BIBLIOTECARIO'] },
   { ruta: '/misprestamos', etiqueta: 'Mis préstamos', icono: 'assignment', roles: ['ESTUDIANTE'] },
   { ruta: '/estudiantes', etiqueta: 'Estudiantes', icono: 'school', roles: ['ADMIN', 'BIBLIOTECARIO'] },
   { ruta: '/usuarios', etiqueta: 'Usuarios', icono: 'manage_accounts', roles: ['ADMIN'] },
@@ -28,7 +30,7 @@ const ITEMS_MENU: ItemMenu[] = [
 @Component({
   selector: 'app-menucomponent',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, MatListModule, MatTooltipModule],
+  imports: [CommonModule, RouterModule, MatIconModule, MatListModule, MatTooltipModule, NotificacionPanel],
   templateUrl: './menucomponent.html',
   styleUrl: './menucomponent.css',
 })
