@@ -1,1 +1,9 @@
-<p>prestamocomponent works!</p>
+<div class="prestamo-shell">
+  <nav class="prestamo-tabs">
+    <a routerLink="bandeja" routerLinkActive="tab-activo">Solicitudes pendientes</a>
+    <a routerLink="vigentes" routerLinkActive="tab-activo">Préstamos vigentes</a>
+    <a routerLink="historial" routerLinkActive="tab-activo">Historial completo</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>

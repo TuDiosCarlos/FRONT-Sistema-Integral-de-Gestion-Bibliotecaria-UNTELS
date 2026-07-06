@@ -5,26 +5,35 @@
       <p>Consulta tus préstamos activos, vencidos y el historial de devoluciones.</p>
     </div>
     <div class="misprestamos-actions">
-      <select [(ngModel)]="estadoFiltro" class="status-select">
+      <select [(ngModel)]="estadoFiltro" (change)="filtrar()" class="status-select">
         <option *ngFor="let estado of estados">{{ estado }}</option>
       </select>
-      <button class="btn-secondary" type="button" (click)="filtrar()">Filtrar</button>
-      <button class="btn-primary" type="button" (click)="actualizar()">Actualizar</button>
+      <button class="btn-primary" type="button" (click)="actualizar()" [disabled]="cargando">
+        {{ cargando ? 'Actualizando...' : 'Actualizar' }}
+      </button>
     </div>
   </div>
 
   <div class="status-cards">
     <div class="status-card card-active">
-      <span>Activos</span>
-      <strong>0</strong>
+      <span>Solicitados</span>
+      <strong>{{ contadores.solicitado }}</strong>
+    </div>
+    <div class="status-card card-active">
+      <span>Vigentes</span>
+      <strong>{{ contadores.vigente }}</strong>
     </div>
     <div class="status-card card-overdue">
       <span>Vencidos</span>
-      <strong>0</strong>
+      <strong>{{ contadores.vencido }}</strong>
     </div>
     <div class="status-card card-history">
-      <span>Historial</span>
-      <strong>0</strong>
+      <span>Devueltos</span>
+      <strong>{{ contadores.devuelto }}</strong>
+    </div>
+    <div class="status-card card-overdue">
+      <span>Rechazados</span>
+      <strong>{{ contadores.rechazado }}</strong>
     </div>
   </div>
 
@@ -35,22 +44,18 @@
   <table *ngIf="prestamos.length > 0" class="table-list">
     <thead>
       <tr>
-        <th>Libro</th>
+        <th>ID Libro</th>
         <th>Fecha de préstamo</th>
         <th>Fecha límite</th>
         <th>Estado</th>
-        <th>Días restantes</th>
-        <th>Sanción</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let prestamo of prestamos">
-        <td>{{ prestamo.libro }}</td>
-        <td>{{ prestamo.fechaPrestamo }}</td>
-        <td>{{ prestamo.fechaDevolucion }}</td>
-        <td>{{ prestamo.estado }}</td>
-        <td>{{ prestamo.dias }}</td>
-        <td>{{ prestamo.sancion || 'Ninguna' }}</td>
+      <tr *ngFor="let prestamo of prestamos" [ngClass]="'estado-' + prestamo.estado?.toLowerCase()">
+        <td>{{ prestamo.idLibro }}</td>
+        <td>{{ prestamo.fecha | date:'dd/MM/yyyy' }}</td>
+        <td>{{ prestamo.fechaEntrega | date:'dd/MM/yyyy' }}</td>
+        <td><span class="badge" [ngClass]="'badge-' + prestamo.estado?.toLowerCase()">{{ prestamo.estado }}</span></td>
       </tr>
     </tbody>
   </table>

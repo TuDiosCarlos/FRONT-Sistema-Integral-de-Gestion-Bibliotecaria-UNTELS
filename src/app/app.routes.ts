@@ -28,8 +28,9 @@ import { Landingcomponent } from './components/landingcomponent/landingcomponent
 import { Prestamocomponent } from './components/prestamocomponent/prestamocomponent';
 import { PrestamoBandejaComponent } from './components/prestamocomponent/prestamo-bandeja/prestamo-bandeja.component';
 import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
+import { PrestamoHistorialComponent } from './components/prestamocomponent/prestamo-historial/prestamo-historial.component';
 
-const ADMIN = 'ADMINISTRADOR';
+const ADMIN = 'ADMIN';
 const BIBLIOTECARIO = 'BIBLIOTECARIO';
 const ESTUDIANTE = 'ESTUDIANTE';
 
@@ -108,7 +109,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'bandeja', pathMatch: 'full' },
       { path: 'bandeja', component: PrestamoBandejaComponent },
-      { path: 'vigentes', component: PrestamoVigentesComponent }
+      { path: 'vigentes', component: PrestamoVigentesComponent },
+      { path: 'historial', component: PrestamoHistorialComponent }
     ]
   }
 ];

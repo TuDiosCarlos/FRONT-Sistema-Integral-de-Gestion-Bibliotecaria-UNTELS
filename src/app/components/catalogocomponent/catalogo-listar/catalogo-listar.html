@@ -4,17 +4,19 @@
       <h3>Catálogo de Libros</h3>
       <p>Consulta el catálogo de libros disponible para estudiantes.</p>
     </div>
-    <button class="btn-primary">Solicitar préstamo</button>
+    <button class="btn-primary" (click)="cargarLibros()" [disabled]="cargando">
+      {{ cargando ? 'Cargando...' : 'Actualizar' }}
+    </button>
   </div>
 
   <section class="catalogo-filtros-card">
     <div class="filtro-item">
       <label>Buscar por título</label>
-      <input type="text" placeholder="Buscar por título" [(ngModel)]="textoBusqueda" />
+      <input type="text" placeholder="Buscar por título" [(ngModel)]="textoBusqueda" (input)="filtrar()" />
     </div>
     <div class="filtro-item">
       <label>Categoría</label>
-      <select [(ngModel)]="categoriaSeleccionada">
+      <select [(ngModel)]="categoriaSeleccionada" (change)="filtrar()">
         <option *ngFor="let categoria of categorias">{{ categoria }}</option>
       </select>
     </div>
@@ -23,29 +25,41 @@
     </div>
   </section>
 
-  <div *ngIf="libros.length === 0" class="alert-empty">
+  <div *ngIf="librosFiltrados.length === 0" class="alert-empty">
     {{ mensaje }}
   </div>
 
-  <table *ngIf="libros.length > 0" class="table-list">
+  <table *ngIf="librosFiltrados.length > 0" class="table-list">
     <thead>
       <tr>
         <th>Título</th>
         <th>Autor</th>
         <th>ISBN</th>
         <th>Categoría</th>
+        <th>Tipo</th>
         <th>Stock</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let libro of libros">
+      <tr *ngFor="let libro of librosFiltrados">
         <td>{{ libro.titulo }}</td>
         <td>{{ libro.autor }}</td>
         <td>{{ libro.isbn }}</td>
         <td>{{ libro.categoria }}</td>
+        <td><span class="badge" [ngClass]="obtenerTipoLibro(libro).toLowerCase()">{{ obtenerTipoLibro(libro) }}</span></td>
         <td>{{ libro.stock }}</td>
-        <td><button class="btn-primary">Solicitar préstamo</button></td>
+        <td>
+          <a *ngIf="libro.recurso" [href]="libro.recurso" target="_blank" rel="noopener" class="btn-secondary">
+            Ver recurso
+          </a>
+          <button
+            class="btn-primary"
+            (click)="solicitarPrestamo(libro)"
+            [disabled]="libro.stock === 0">
+            {{ libro.stock > 0 ? 'Solicitar' : 'Sin stock' }}
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

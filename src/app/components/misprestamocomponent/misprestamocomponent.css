@@ -46,9 +46,21 @@
 
 .status-cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
   margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .status-cards {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .status-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .status-card {
@@ -128,6 +140,60 @@
   border: 1px solid #cbd5e1;
 }
 
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-solicitado {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-vigente {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-vencido {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.badge-devuelto {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge-rechazado {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.estado-solicitado {
+  background: #fefce8;
+}
+
+.estado-vigente {
+  background: #f0f9ff;
+}
+
+.estado-vencido {
+  background: #fef2f2;
+}
+
+.estado-devuelto {
+  background: #f0fdf4;
+}
+
+.estado-rechazado {
+  background: #f9fafb;
+}
+
 .alert-empty {
   padding: 18px 20px;
   border-radius: 14px;
@@ -135,4 +201,13 @@
   color: #475569;
   border: 1px solid #e2e8f0;
   margin-bottom: 20px;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary:disabled:hover {
+  background: #4338ca;
 }

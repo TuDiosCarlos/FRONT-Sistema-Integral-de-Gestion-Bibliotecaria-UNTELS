@@ -155,6 +155,31 @@
   border: 1px solid #e2e8f0;
 }
 
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge.físico {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge.virtual {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (max-width: 920px) {
   .catalogo-filtros-card {
     grid-template-columns: 1fr;

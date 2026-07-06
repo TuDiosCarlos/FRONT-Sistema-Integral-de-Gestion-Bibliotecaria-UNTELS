@@ -1,15 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { catchError, of } from 'rxjs';
 
-interface PrestamoMock {
-  libro: string;
-  fechaPrestamo: string;
-  fechaDevolucion: string;
-  estado: string;
-  dias: number;
-  sancion?: string;
-}
+import { Authservice } from '../../services/authservice';
+import { Prestamoservice } from '../../services/prestamoservice';
+import { Prestamo } from '../../models/prestamo';
 
 @Component({
   selector: 'app-misprestamocomponent',
@@ -18,36 +14,76 @@ interface PrestamoMock {
   templateUrl: './misprestamocomponent.html',
   styleUrls: ['./misprestamocomponent.css'],
 })
-export class Misprestamocomponent {
-  prestamos: PrestamoMock[] = [];
-  mensaje = 'Los datos de tus préstamos se cargarán desde el backend.';
-  estadoFiltro = 'Todos';
-  estados = ['Todos', 'Activos', 'Vencidos', 'Devueltos', 'Rechazados'];
+export class Misprestamocomponent implements OnInit {
+  prestamosTodos: Prestamo[] = [];
+  prestamos: Prestamo[] = [];
+  mensaje = 'Cargando tus préstamos...';
+  estadoFiltro = 'todos';
+  estados = ['todos', 'solicitado', 'vigente', 'vencido', 'devuelto', 'rechazado'];
+  cargando = false;
+  contadores = { solicitado: 0, vigente: 0, vencido: 0, devuelto: 0, rechazado: 0 };
 
-  filtrar(): void {
-    if (this.prestamos.length === 0) {
-      this.mensaje = `Filtrando por estado: ${this.estadoFiltro}. El backend completará los datos más adelante.`;
+  constructor(
+    private authService: Authservice,
+    private prestamoService: Prestamoservice
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarPrestamos();
+  }
+
+  cargarPrestamos(): void {
+    this.cargando = true;
+    const idEstudiante = this.authService.getUsuarioActual()?.idUsuario;
+
+    if (!idEstudiante) {
+      this.mensaje = 'No se pudo obtener tu ID de estudiante.';
+      this.cargando = false;
       return;
     }
 
-    const filtrados = this.prestamos.filter(prestamo =>
-      this.estadoFiltro === 'Todos' || prestamo.estado === this.estadoFiltro
+    this.prestamoService.buscarPorEstudiante(idEstudiante)
+      .pipe(catchError(() => of([])))
+      .subscribe((data) => {
+        this.cargando = false;
+        this.prestamosTodos = data;
+        this.actualizarContadores();
+
+        if (this.prestamosTodos.length === 0) {
+          this.mensaje = 'No tienes préstamos registrados.';
+          this.prestamos = [];
+        } else {
+          this.filtrar();
+        }
+      });
+  }
+
+  actualizarContadores(): void {
+    this.contadores = {
+      solicitado: this.prestamosTodos.filter(p => p.estado?.toLowerCase() === 'solicitado').length,
+      vigente: this.prestamosTodos.filter(p => p.estado?.toLowerCase() === 'vigente').length,
+      vencido: this.prestamosTodos.filter(p => p.estado?.toLowerCase() === 'vencido').length,
+      devuelto: this.prestamosTodos.filter(p => p.estado?.toLowerCase() === 'devuelto').length,
+      rechazado: this.prestamosTodos.filter(p => p.estado?.toLowerCase() === 'rechazado').length,
+    };
+  }
+
+  filtrar(): void {
+    const filtrados = this.prestamosTodos.filter(prestamo =>
+      this.estadoFiltro === 'todos' || prestamo.estado?.toLowerCase() === this.estadoFiltro.toLowerCase()
     );
 
     if (filtrados.length === 0) {
       this.mensaje = `No hay préstamos con estado ${this.estadoFiltro}.`;
+      this.prestamos = [];
     } else {
-      this.mensaje = `Mostrando ${filtrados.length} préstamo(s) con estado ${this.estadoFiltro}.`;
+      this.mensaje = ``;
+      this.prestamos = filtrados;
     }
-
-    this.prestamos = filtrados;
   }
 
   actualizar(): void {
-    this.mensaje = 'Actualizando datos...';
-    setTimeout(() => {
-      this.mensaje = 'Los datos se cargarán desde el backend.';
-    }, 700);
+    this.cargarPrestamos();
   }
 }
 

@@ -49,6 +49,24 @@
   </div>
 </section>
 
+<section class="team">
+  <div class="team-container">
+    <h2>Nuestro Equipo</h2>
+    <p class="team-subtitle">Conoce a los profesionales que hicieron posible este proyecto</p>
+    <div class="team-grid">
+      <div class="team-card" *ngFor="let integrante of integrantes">
+        <div class="team-image">
+          <img [src]="integrante.imagen" [alt]="integrante.nombre" loading="lazy" />
+        </div>
+        <div class="team-info">
+          <h3>{{ integrante.nombre }}</h3>
+          <p>{{ integrante.rol }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="footer-content">
     <p>&copy; 2026 SIGBAU - Sistema Integral de Gestión Bibliotecaria. UNTELS.</p>

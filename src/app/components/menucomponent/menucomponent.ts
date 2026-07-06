@@ -15,14 +15,14 @@ interface ItemMenu {
 }
 
 const ITEMS_MENU: ItemMenu[] = [
-  { ruta: '/home', etiqueta: 'Inicio', icono: 'home', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
-  { ruta: '/catalogo', etiqueta: 'Catálogo', icono: 'auto_stories', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
-  { ruta: '/libros', etiqueta: 'Libros', icono: 'menu_book', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO'] },
-  { ruta: '/prestamos', etiqueta: 'Préstamos', icono: 'swap_horiz', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO'] },
+  { ruta: '/home', etiqueta: 'Inicio', icono: 'home', roles: ['ADMIN', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
+  { ruta: '/catalogo', etiqueta: 'Catálogo', icono: 'auto_stories', roles: ['ADMIN', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
+  { ruta: '/libros', etiqueta: 'Libros', icono: 'menu_book', roles: ['ADMIN', 'BIBLIOTECARIO'] },
+  { ruta: '/prestamos', etiqueta: 'Préstamos', icono: 'swap_horiz', roles: ['ADMIN', 'BIBLIOTECARIO'] },
   { ruta: '/misprestamos', etiqueta: 'Mis préstamos', icono: 'assignment', roles: ['ESTUDIANTE'] },
-  { ruta: '/estudiantes', etiqueta: 'Estudiantes', icono: 'school', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO'] },
-  { ruta: '/usuarios', etiqueta: 'Usuarios', icono: 'manage_accounts', roles: ['ADMINISTRADOR'] },
-  { ruta: '/configuracion', etiqueta: 'Configuración', icono: 'settings', roles: ['ADMINISTRADOR'] },
+  { ruta: '/estudiantes', etiqueta: 'Estudiantes', icono: 'school', roles: ['ADMIN', 'BIBLIOTECARIO'] },
+  { ruta: '/usuarios', etiqueta: 'Usuarios', icono: 'manage_accounts', roles: ['ADMIN'] },
+  { ruta: '/configuracion', etiqueta: 'Configuración', icono: 'settings', roles: ['ADMIN'] },
 ];
 
 @Component({
