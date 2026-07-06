@@ -35,6 +35,9 @@ export class UsuarioListar implements OnInit {
 
   filtroRol: string = 'TODOS';
   filtroEstado: string = 'TODOS';
+  // HUF01.6: buscar por nombre, username, código o DNI (en cliente, sobre
+  // la lista completa que ya se trae con /lista).
+  textoBusqueda: string = '';
 
   constructor(
     private usuarioService: Usuarioservice,
@@ -57,10 +60,17 @@ export class UsuarioListar implements OnInit {
   }
 
   aplicarFiltros(): void {
+    const texto = this.textoBusqueda.trim().toLowerCase();
+
     this.usuariosFiltrados = this.usuarios.filter(u => {
       const rolOk = this.filtroRol === 'TODOS' || u.rol === this.filtroRol;
       const estadoOk = this.filtroEstado === 'TODOS' || u.estado === this.filtroEstado;
-      return rolOk && estadoOk;
+      const textoOk = !texto ||
+        u.nombre?.toLowerCase().includes(texto) ||
+        u.username?.toLowerCase().includes(texto) ||
+        u.codigo?.toLowerCase().includes(texto) ||
+        u.dni?.toLowerCase().includes(texto);
+      return rolOk && estadoOk && textoOk;
     });
   }
 

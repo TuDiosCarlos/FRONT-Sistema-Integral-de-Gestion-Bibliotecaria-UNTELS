@@ -1,0 +1,70 @@
+<div class="detalle-shell">
+  <div class="detalle-header">
+    <button mat-icon-button routerLink="/estudiantes">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Detalle del Estudiante</h2>
+  </div>
+
+  <div *ngIf="!estudiante" class="sin-datos">Estudiante no encontrado.</div>
+
+  <mat-card *ngIf="estudiante" class="detalle-card">
+    <div class="detalle-info-grid">
+      <div class="detalle-info-item">
+        <span>Nombre</span>
+        <strong>{{ estudiante.nombre }}</strong>
+      </div>
+      <div class="detalle-info-item">
+        <span>Código</span>
+        <strong>{{ estudiante.codigo }}</strong>
+      </div>
+      <div class="detalle-info-item">
+        <span>DNI</span>
+        <strong>{{ estudiante.dni }}</strong>
+      </div>
+      <div class="detalle-info-item">
+        <span>Email</span>
+        <strong>{{ estudiante.email }}</strong>
+      </div>
+      <div class="detalle-info-item">
+        <span>Carrera</span>
+        <strong>{{ estudiante.carrera || '-' }}</strong>
+      </div>
+      <div class="detalle-info-item">
+        <span>Ciclo</span>
+        <strong>{{ estudiante.ciclo || '-' }}</strong>
+      </div>
+      <div class="detalle-info-item">
+        <span>Estado</span>
+        <mat-chip [color]="estudiante.estado === 'ACTIVO' ? 'primary' : 'warn'" selected>
+          {{ estudiante.estado }}
+        </mat-chip>
+      </div>
+    </div>
+  </mat-card>
+
+  <h3 class="historial-titulo">Historial de préstamos</h3>
+
+  <div *ngIf="!cargando && prestamos.length === 0" class="sin-datos">
+    Este estudiante no tiene préstamos registrados.
+  </div>
+
+  <table *ngIf="prestamos.length > 0" class="table-list">
+    <thead>
+      <tr>
+        <th>Libro</th>
+        <th>Fecha solicitud</th>
+        <th>Fecha límite</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prestamo of prestamos">
+        <td>{{ prestamo.tituloLibro || ('ID ' + prestamo.idLibro) }}</td>
+        <td>{{ prestamo.fecha | date:'dd/MM/yyyy' }}</td>
+        <td>{{ prestamo.fechaEntrega | date:'dd/MM/yyyy' }}</td>
+        <td><span class="badge" [ngClass]="'badge-' + prestamo.estado">{{ prestamo.estado }}</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -2,7 +2,7 @@
   <div class="listar-header">
     <div>
       <h2>Padrón de Estudiantes</h2>
-      <span>Total: {{ estudiantes.length }} estudiantes</span>
+      <span>Total: {{ estudiantesFiltrados.length }} estudiantes</span>
     </div>
     <button mat-raised-button color="primary" routerLink="/estudiantes/nuevo">
       <mat-icon>person_add</mat-icon>
@@ -10,7 +10,39 @@
     </button>
   </div>
 
-  <table mat-table [dataSource]="estudiantes" class="mat-elevation-z2 tabla-estudiantes">
+  <div class="filtros">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+      <input matInput [(ngModel)]="textoBusqueda" (ngModelChange)="aplicarFiltros()" placeholder="Nombre, código, carnet o DNI">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Carrera</mat-label>
+      <mat-select [(ngModel)]="filtroCarrera" (selectionChange)="aplicarFiltros()">
+        <mat-option *ngFor="let carrera of carreras" [value]="carrera">{{ carrera }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ciclo</mat-label>
+      <mat-select [(ngModel)]="filtroCiclo" (selectionChange)="aplicarFiltros()">
+        <mat-option value="TODOS">Todos</mat-option>
+        <mat-option *ngFor="let c of ciclos" [value]="c">{{ c }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select [(ngModel)]="filtroEstado" (selectionChange)="aplicarFiltros()">
+        <mat-option value="TODOS">Todos</mat-option>
+        <mat-option value="ACTIVO">Activos</mat-option>
+        <mat-option value="INACTIVO">Inactivos</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="estudiantesFiltrados" class="mat-elevation-z2 tabla-estudiantes">
 
     <ng-container matColumnDef="codigo">
       <th mat-header-cell *matHeaderCellDef>Código</th>
@@ -49,6 +81,11 @@
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef>Acciones</th>
       <td mat-cell *matCellDef="let e">
+        <button mat-icon-button color="primary"
+                [routerLink]="['/estudiantes/detalle', e.idUsuario]"
+                matTooltip="Ver detalle e historial de préstamos">
+          <mat-icon>visibility</mat-icon>
+        </button>
         <button mat-icon-button color="primary"
                 (click)="editarEstudiante(e.idUsuario)"
                 matTooltip="Editar">

@@ -4,12 +4,13 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 
 import { Menucomponent } from './components/menucomponent/menucomponent';
+import { NotificacionPanel } from './components/notificacioncomponent/notificacion-panel/notificacion-panel';
 import { Authservice } from './services/authservice';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, Menucomponent],
+  imports: [CommonModule, RouterOutlet, Menucomponent, NotificacionPanel],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

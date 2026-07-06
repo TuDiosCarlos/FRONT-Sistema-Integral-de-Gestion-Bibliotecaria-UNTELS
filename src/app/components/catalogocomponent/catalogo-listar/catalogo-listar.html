@@ -9,6 +9,10 @@
     </button>
   </div>
 
+  <div *ngIf="!puedeSolicitar" class="alert-bloqueo">
+    {{ motivoBloqueo }}
+  </div>
+
   <section class="catalogo-filtros-card">
     <div class="filtro-item">
       <label>Buscar por título</label>
@@ -60,17 +64,46 @@
         <td><span class="badge" [ngClass]="obtenerTipoLibro(libro).toLowerCase()">{{ obtenerTipoLibro(libro) }}</span></td>
         <td [ngClass]="{'texto-sin-stock': libro.stock === 0}">{{ textoDisponibilidad(libro) }}</td>
         <td>
-          <a *ngIf="libro.recurso" [href]="libro.recurso" target="_blank" rel="noopener" class="btn-secondary">
+          <a *ngIf="libro.recurso && puedeSolicitar" [href]="libro.recurso" target="_blank" rel="noopener" class="btn-secondary">
             Ver recurso
           </a>
           <button
             class="btn-primary"
-            (click)="solicitarPrestamo(libro)"
-            [disabled]="libro.stock === 0">
+            (click)="abrirFormularioSolicitud(libro)"
+            [disabled]="libro.stock === 0 || !puedeSolicitar">
             {{ libro.stock > 0 ? 'Solicitar' : 'Sin stock' }}
           </button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="modalAbierto" class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <h3>Solicitar préstamo</h3>
+      <p class="modal-subtitulo">{{ libroSeleccionado?.titulo }}</p>
+
+      <div class="filtro-item">
+        <label>Motivo *</label>
+        <input type="text" [(ngModel)]="formSolicitud.motivo" placeholder="Ej: Trabajo del curso de..." />
+      </div>
+
+      <div class="filtro-item">
+        <label>Curso (opcional)</label>
+        <input type="text" [(ngModel)]="formSolicitud.curso" placeholder="Ej: Ingeniería de Software" />
+      </div>
+
+      <div class="filtro-item">
+        <label>Observaciones (opcional)</label>
+        <input type="text" [(ngModel)]="formSolicitud.observaciones" placeholder="Comentarios adicionales" />
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" type="button" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-primary" type="button" (click)="confirmarSolicitud()" [disabled]="enviandoSolicitud">
+          {{ enviandoSolicitud ? 'Enviando...' : 'Confirmar solicitud' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

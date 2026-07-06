@@ -63,10 +63,6 @@
   letter-spacing: 0.5px;
 }
 
-.menu-usuario app-notificacion-panel {
-  margin-left: auto;
-}
-
 .menu-items {
   flex: 1;
   padding-top: 12px !important;

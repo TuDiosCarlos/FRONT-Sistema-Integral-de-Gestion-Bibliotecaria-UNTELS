@@ -3,6 +3,23 @@ body {
   margin: 0;
 }
 
+/* Cualquier <select> nativo del proyecto (fuera de mat-select) queda con
+   fondo y texto explícitos y forzados a esquema claro. Sin esto, un
+   <select> sin background/color propio (como los de sancion-listar y
+   prestamo-historial) se renderiza con los controles nativos del
+   sistema operativo/navegador, que pueden pintarlo oscuro sobre oscuro
+   si el usuario tiene el modo oscuro del SO activado. */
+select {
+  background: #ffffff !important;
+  color: #111827 !important;
+  color-scheme: light;
+}
+
+select option {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
 .mdc-notched-outline__notch {
   border-right: none !important;
 }

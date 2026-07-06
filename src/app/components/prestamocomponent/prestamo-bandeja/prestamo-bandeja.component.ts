@@ -7,19 +7,23 @@ import { Prestamo } from '../../../models/prestamo';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-prestamo-bandeja',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule, MatSnackBarModule],
   templateUrl: './prestamo-bandeja.component.html',
   styleUrls: ['./prestamo-bandeja.component.css'],
 })
 export class PrestamoBandejaComponent implements OnInit {
   listaPendientes: Prestamo[] = [];
-  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'fecha', 'acciones'];
+  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'fecha', 'detalle', 'acciones'];
   cargando = false;
+
+  // HUF05.2: detalle completo de la solicitud (motivo, curso, observaciones)
+  solicitudDetalle: Prestamo | null = null;
 
   private destroyRef = inject(DestroyRef);
 
@@ -71,6 +75,14 @@ export class PrestamoBandejaComponent implements OnInit {
       },
       error: () => this.mostrarMensaje('No se pudo rechazar el préstamo.'),
     });
+  }
+
+  verDetalle(prestamo: Prestamo): void {
+    this.solicitudDetalle = prestamo;
+  }
+
+  cerrarDetalle(): void {
+    this.solicitudDetalle = null;
   }
 
   private mostrarMensaje(msg: string): void {

@@ -7,6 +7,7 @@ import { Logincomponent } from './components/logincomponent/logincomponent';
 import { Estudiantecomponent } from './components/estudiantecomponent/estudiantecomponent';
 import { EstudianteListar } from './components/estudiantecomponent/estudiante-listar/estudiante-listar';
 import { EstudianteForm } from './components/estudiantecomponent/estudiante-form/estudiante-form';
+import { EstudianteDetalle } from './components/estudiantecomponent/estudiante-detalle/estudiante-detalle';
 
 import { Usuariocomponent } from './components/usuariocomponent/usuariocomponent';
 import { UsuarioListar } from './components/usuariocomponent/usuario-listar/usuario-listar';
@@ -33,6 +34,8 @@ import { PrestamoHistorialComponent } from './components/prestamocomponent/prest
 import { Sancioncomponent } from './components/sancioncomponent/sancioncomponent';
 import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
 
+import { Perfilcomponent } from './components/perfilcomponent/perfilcomponent';
+
 const ADMIN = 'ADMIN';
 const BIBLIOTECARIO = 'BIBLIOTECARIO';
 const ESTUDIANTE = 'ESTUDIANTE';
@@ -46,6 +49,8 @@ export const routes: Routes = [
   { path: '403', component: Accesodenegadocomponent, canActivate: [authguardGuard] },
 
   { path: 'home', component: Homecomponent, canActivate: [authguardGuard] },
+
+  { path: 'perfil', component: Perfilcomponent, canActivate: [authguardGuard] },
 
   {
     path: 'catalogo',
@@ -77,6 +82,7 @@ export const routes: Routes = [
       { path: 'listar', component: EstudianteListar },
       { path: 'nuevo', component: EstudianteForm },
       { path: 'editar/:id', component: EstudianteForm },
+      { path: 'detalle/:id', component: EstudianteDetalle },
     ]
   },
 

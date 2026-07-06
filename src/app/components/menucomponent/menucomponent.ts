@@ -6,7 +6,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { Authservice } from '../../services/authservice';
-import { NotificacionPanel } from '../notificacioncomponent/notificacion-panel/notificacion-panel';
 
 interface ItemMenu {
   ruta: string;
@@ -25,12 +24,13 @@ const ITEMS_MENU: ItemMenu[] = [
   { ruta: '/estudiantes', etiqueta: 'Estudiantes', icono: 'school', roles: ['ADMIN', 'BIBLIOTECARIO'] },
   { ruta: '/usuarios', etiqueta: 'Usuarios', icono: 'manage_accounts', roles: ['ADMIN'] },
   { ruta: '/configuracion', etiqueta: 'Configuración', icono: 'settings', roles: ['ADMIN'] },
+  { ruta: '/perfil', etiqueta: 'Mi perfil', icono: 'person', roles: ['ADMIN', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
 ];
 
 @Component({
   selector: 'app-menucomponent',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, MatListModule, MatTooltipModule, NotificacionPanel],
+  imports: [CommonModule, RouterModule, MatIconModule, MatListModule, MatTooltipModule],
   templateUrl: './menucomponent.html',
   styleUrl: './menucomponent.css',
 })

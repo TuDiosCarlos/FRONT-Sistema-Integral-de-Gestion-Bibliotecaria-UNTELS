@@ -1,0 +1,94 @@
+<div class="perfil-shell">
+  <h2>Mi Perfil</h2>
+
+  <mat-card class="perfil-card">
+    <h3>Información académica</h3>
+    <p class="perfil-hint">Estos datos son de solo lectura. Si necesitas corregirlos, contacta a un administrador.</p>
+
+    <div class="perfil-info-grid">
+      <div class="perfil-info-item">
+        <span>Usuario</span>
+        <strong>{{ usuario?.username || '—' }}</strong>
+      </div>
+      <div class="perfil-info-item">
+        <span>Código</span>
+        <strong>{{ usuario?.codigo || '—' }}</strong>
+      </div>
+      <div class="perfil-info-item">
+        <span>DNI</span>
+        <strong>{{ usuario?.dni || '—' }}</strong>
+      </div>
+      <div class="perfil-info-item">
+        <span>Rol</span>
+        <strong>{{ usuario?.rol || '—' }}</strong>
+      </div>
+      <div class="perfil-info-item" *ngIf="usuario?.rol === 'ESTUDIANTE'">
+        <span>Carrera</span>
+        <strong>{{ usuario?.carrera || '—' }}</strong>
+      </div>
+      <div class="perfil-info-item" *ngIf="usuario?.rol === 'ESTUDIANTE'">
+        <span>Ciclo</span>
+        <strong>{{ usuario?.ciclo || '—' }}</strong>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="perfil-card">
+    <h3>Datos de contacto</h3>
+    <form [formGroup]="formContacto" (ngSubmit)="guardarContacto()" class="perfil-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre completo</mat-label>
+        <input matInput formControlName="nombre">
+        <mat-error *ngIf="formContacto.get('nombre')?.hasError('required')">Campo requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="formContacto.get('email')?.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="formContacto.get('email')?.hasError('email')">Email inválido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono">
+      </mat-form-field>
+
+      <div class="perfil-form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="guardandoContacto">
+          {{ guardandoContacto ? 'Guardando...' : 'Guardar cambios' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card class="perfil-card">
+    <h3>Cambiar contraseña</h3>
+    <form [formGroup]="formPassword" (ngSubmit)="cambiarPassword()" class="perfil-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña actual</mat-label>
+        <input matInput formControlName="passwordActual" type="password">
+        <mat-error *ngIf="formPassword.get('passwordActual')?.hasError('required')">Campo requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nueva contraseña</mat-label>
+        <input matInput formControlName="passwordNueva" type="password">
+        <mat-error *ngIf="formPassword.get('passwordNueva')?.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="formPassword.get('passwordNueva')?.hasError('minlength')">Mínimo 6 caracteres</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmar nueva contraseña</mat-label>
+        <input matInput formControlName="confirmarPassword" type="password">
+        <mat-error *ngIf="formPassword.get('confirmarPassword')?.hasError('required')">Campo requerido</mat-error>
+      </mat-form-field>
+
+      <div class="perfil-form-actions">
+        <button mat-raised-button color="warn" type="submit" [disabled]="cambiandoPassword">
+          {{ cambiandoPassword ? 'Actualizando...' : 'Cambiar contraseña' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

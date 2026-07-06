@@ -50,7 +50,7 @@ export class NotificacionPanel implements OnInit {
     return this.authService.getUsuarioActual()?.idUsuario;
   }
 
-  cargarNotificaciones(): void {
+  cargarNotificaciones(alTerminar?: () => void): void {
     const idUsuario = this.idUsuarioActual();
     if (!idUsuario) return;
 
@@ -60,13 +60,16 @@ export class NotificacionPanel implements OnInit {
         this.notificaciones = (data || []).sort(
           (a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
         );
+        alTerminar?.();
       });
   }
 
   togglePanel(): void {
     this.panelAbierto = !this.panelAbierto;
     if (this.panelAbierto) {
-      this.cargarNotificaciones();
+      // HUF11.5: al abrir el panel se marcan como leídas automáticamente,
+      // ya que el usuario las está viendo en este momento.
+      this.cargarNotificaciones(() => this.marcarTodasLeidas());
     }
   }
 

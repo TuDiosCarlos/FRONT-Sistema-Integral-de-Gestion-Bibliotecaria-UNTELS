@@ -4,19 +4,20 @@
 
 .campana-btn {
   position: relative;
-  background: transparent;
+  background: #ffffff;
   border: none;
   cursor: pointer;
-  color: #c7d2fe;
+  color: #4338ca;
   padding: 8px;
   border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .campana-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: #eef2ff;
 }
 
 .badge-contador {

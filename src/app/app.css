@@ -6,4 +6,12 @@
 .app-contenido {
   flex: 1;
   min-width: 0;
+  position: relative;
+}
+
+.notificaciones-flotante {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  z-index: 20;
 }

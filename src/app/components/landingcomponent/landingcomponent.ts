@@ -17,6 +17,7 @@ interface Integrante {
 })
 export class Landingcomponent {
   integrantes: Integrante[] = [
+    { nombre: 'Cesar', rol: 'Backend Developer', imagen: '/integrantes/cesar.jpg' },
     { nombre: 'Carlos', rol: 'Backend Developer', imagen: '/integrantes/carlos.jpg' },
     { nombre: 'Christopher', rol: 'Backend Developer', imagen: '/integrantes/christopher.jpg' },
     { nombre: 'Jair', rol: 'Frontend Developer', imagen: '/integrantes/jair.jpg' },

@@ -211,3 +211,48 @@
 .btn-primary:disabled:hover {
   background: #4338ca;
 }
+
+.texto-restante {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.texto-vencido {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.sanciones-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.sanciones-section h3 {
+  margin: 0 0 16px;
+  color: #0f172a;
+}
+
+.sancion-activa {
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.sancion-activa p {
+  margin: 6px 0 0;
+}
+
+.sin-sanciones {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #f0fdf4;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+}
+
+.sanciones-historial {
+  margin-top: 20px;
+}

@@ -17,6 +17,12 @@
     <span class="texto-filtro">Filtrar por:</span>
 
     <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+      <input matInput [(ngModel)]="textoBusqueda" (ngModelChange)="aplicarFiltros()" placeholder="Nombre, username, código o DNI">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Rol</mat-label>
       <mat-select [(ngModel)]="filtroRol" (selectionChange)="aplicarFiltros()">
         <mat-option value="TODOS">Todos</mat-option>

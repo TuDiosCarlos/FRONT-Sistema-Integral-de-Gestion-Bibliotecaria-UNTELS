@@ -1,6 +1,7 @@
 <div class="app-shell">
   <app-menucomponent *ngIf="mostrarMenu"></app-menucomponent>
   <main class="app-contenido">
+    <app-notificacion-panel *ngIf="mostrarMenu" class="notificaciones-flotante"></app-notificacion-panel>
     <router-outlet></router-outlet>
   </main>
 </div>

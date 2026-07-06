@@ -9,17 +9,24 @@
 
   <div class="filtros">
     <mat-form-field appearance="outline">
-      <mat-label>Buscar por título</mat-label>
-      <input matInput [(ngModel)]="textoBusqueda" (keyup.enter)="buscar()" placeholder="Ej: Redes de computadoras">
-      <button mat-icon-button matSuffix (click)="buscar()">
-        <mat-icon>search</mat-icon>
-      </button>
+      <mat-label>Buscar por título, autor o ISBN</mat-label>
+      <input matInput [(ngModel)]="textoBusqueda" (ngModelChange)="aplicarFiltros()" placeholder="Ej: Redes de computadoras">
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Categoría</mat-label>
-      <mat-select [(ngModel)]="categoriaFiltro" (selectionChange)="filtrarCategoria()">
+      <mat-select [(ngModel)]="categoriaFiltro" (selectionChange)="aplicarFiltros()">
         <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Disponibilidad</mat-label>
+      <mat-select [(ngModel)]="disponibilidadFiltro" (selectionChange)="aplicarFiltros()">
+        <mat-option value="TODOS">Todos</mat-option>
+        <mat-option value="DISPONIBLES">Disponibles</mat-option>
+        <mat-option value="AGOTADOS">Agotados</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -28,7 +35,7 @@
     </button>
   </div>
 
-  <table mat-table [dataSource]="libros" class="mat-elevation-z2 tabla-libros">
+  <table mat-table [dataSource]="librosFiltrados" class="mat-elevation-z2 tabla-libros">
 
     <ng-container matColumnDef="titulo">
       <th mat-header-cell *matHeaderCellDef>Título</th>
@@ -78,6 +85,6 @@
 
   </table>
 
-  <p *ngIf="libros.length === 0" class="sin-resultados">No se encontraron libros.</p>
+  <p *ngIf="librosFiltrados.length === 0" class="sin-resultados">No se encontraron libros.</p>
 
 </div>

@@ -39,4 +39,18 @@ export class Usuarioservice {
   eliminar(id: number): Observable<string> {
     return this.http.delete<string>(`${this.url}/${id}`, { responseType: 'text' as 'json' });
   }
+
+  // PUT /api/usuarios/mi-perfil
+  actualizarMiPerfil(datos: { nombre: string; email: string; telefono: string }): Observable<string> {
+    return this.http.put<string>(`${this.url}/mi-perfil`, datos, { responseType: 'text' as 'json' });
+  }
+
+  // PUT /api/usuarios/cambiar-password
+  cambiarPassword(passwordActual: string, passwordNueva: string): Observable<string> {
+    return this.http.put<string>(
+      `${this.url}/cambiar-password`,
+      { passwordActual, passwordNueva },
+      { responseType: 'text' as 'json' }
+    );
+  }
 }

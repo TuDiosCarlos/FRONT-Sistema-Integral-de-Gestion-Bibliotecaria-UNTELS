@@ -47,6 +47,7 @@
         <th>Libro</th>
         <th>Fecha de préstamo</th>
         <th>Fecha límite</th>
+        <th>Días</th>
         <th>Estado</th>
         <th>Observaciones</th>
       </tr>
@@ -56,9 +57,50 @@
         <td>{{ prestamo.tituloLibro || ('ID ' + prestamo.idLibro) }}</td>
         <td>{{ prestamo.fecha | date:'dd/MM/yyyy' }}</td>
         <td>{{ prestamo.fechaEntrega | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <span [class]="(diasRestantes(prestamo) ?? 0) < 0 ? 'texto-vencido' : 'texto-restante'">
+            {{ textoDias(prestamo) }}
+          </span>
+        </td>
         <td><span class="badge" [ngClass]="'badge-' + prestamo.estado?.toLowerCase()">{{ prestamo.estado }}</span></td>
         <td>{{ prestamo.observaciones || '—' }}</td>
       </tr>
     </tbody>
   </table>
+
+  <div class="sanciones-section">
+    <h3>Mis Sanciones</h3>
+
+    <div *ngIf="sancionActiva" class="sancion-activa">
+      <strong>Tienes una sanción activa</strong>
+      <p><b>Motivo:</b> {{ sancionActiva.motivo }}</p>
+      <p><b>Multa acumulada:</b> S/ {{ sancionActiva.multa | number:'1.2-2' }}</p>
+      <p><b>Días de suspensión:</b> {{ sancionActiva.diasSuspension }}</p>
+      <p *ngIf="diasRestantesSancion(sancionActiva) as diasRestantesS">
+        <b>Días restantes:</b> {{ diasRestantesS }}
+      </p>
+    </div>
+    <div *ngIf="!sancionActiva" class="sin-sanciones">
+      No tienes sanciones activas.
+    </div>
+
+    <table *ngIf="historialSanciones.length > 0" class="table-list sanciones-historial">
+      <thead>
+        <tr>
+          <th>Motivo</th>
+          <th>Multa</th>
+          <th>Días de suspensión</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sancion of historialSanciones">
+          <td>{{ sancion.motivo }}</td>
+          <td>S/ {{ sancion.multa | number:'1.2-2' }}</td>
+          <td>{{ sancion.diasSuspension }}</td>
+          <td><span class="badge badge-devuelto">{{ sancion.estado }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

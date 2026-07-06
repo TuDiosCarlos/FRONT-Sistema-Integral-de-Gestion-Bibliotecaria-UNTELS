@@ -29,11 +29,17 @@ import { Libro } from '../../../models/libro';
 export class LibroListar implements OnInit {
 
   libros: Libro[] = [];
+  librosFiltrados: Libro[] = [];
   columnas: string[] = ['titulo', 'autor', 'isbn', 'categoria', 'stock', 'acciones'];
 
+  // HUF04.6: la búsqueda se hace en cliente sobre título, autor e ISBN
+  // (el backend solo soporta búsqueda por título; el catálogo completo ya
+  // se trae con /lista, así que filtrar en cliente cubre los tres criterios
+  // sin necesidad de tocar el backend).
   textoBusqueda: string = '';
   categoriaFiltro: string = 'TODAS';
   categorias: string[] = ['TODAS', 'TECNICO', 'REFERENCIA', 'FICCION'];
+  disponibilidadFiltro: 'TODOS' | 'DISPONIBLES' | 'AGOTADOS' = 'TODOS';
 
   constructor(
     private libroService: Libroservice,
@@ -47,37 +53,39 @@ export class LibroListar implements OnInit {
 
   cargarLibros(): void {
     this.libroService.listar().subscribe({
-      next: (data) => this.libros = data,
+      next: (data) => {
+        this.libros = data;
+        this.aplicarFiltros();
+      },
       error: (err) => console.error('Error al listar libros', err)
     });
   }
 
-  buscar(): void {
-    if (this.textoBusqueda.trim()) {
-      this.libroService.buscarPorTitulo(this.textoBusqueda.trim()).subscribe({
-        next: (data) => this.libros = data,
-        error: (err) => console.error('Error al buscar', err)
-      });
-    } else {
-      this.cargarLibros();
-    }
-  }
+  aplicarFiltros(): void {
+    const texto = this.textoBusqueda.trim().toLowerCase();
 
-  filtrarCategoria(): void {
-    if (this.categoriaFiltro === 'TODAS') {
-      this.cargarLibros();
-    } else {
-      this.libroService.buscarPorCategoria(this.categoriaFiltro).subscribe({
-        next: (data) => this.libros = data,
-        error: (err) => console.error('Error al filtrar', err)
-      });
-    }
+    this.librosFiltrados = this.libros.filter(libro => {
+      const textoOk = !texto ||
+        libro.titulo?.toLowerCase().includes(texto) ||
+        libro.autor?.toLowerCase().includes(texto) ||
+        libro.isbn?.toLowerCase().includes(texto);
+
+      const categoriaOk = this.categoriaFiltro === 'TODAS' || libro.categoria === this.categoriaFiltro;
+
+      const disponibilidadOk =
+        this.disponibilidadFiltro === 'TODOS' ||
+        (this.disponibilidadFiltro === 'DISPONIBLES' && libro.stock > 0) ||
+        (this.disponibilidadFiltro === 'AGOTADOS' && libro.stock === 0);
+
+      return textoOk && categoriaOk && disponibilidadOk;
+    });
   }
 
   limpiarFiltros(): void {
     this.textoBusqueda = '';
     this.categoriaFiltro = 'TODAS';
-    this.cargarLibros();
+    this.disponibilidadFiltro = 'TODOS';
+    this.aplicarFiltros();
   }
 
   editar(id: number | undefined): void {

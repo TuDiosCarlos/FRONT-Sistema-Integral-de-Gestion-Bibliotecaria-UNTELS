@@ -6,6 +6,7 @@ import { catchError, of } from 'rxjs';
 
 import { Libroservice } from '../../../services/libroservice';
 import { Prestamoservice } from '../../../services/prestamoservice';
+import { Sancionservice } from '../../../services/sancionservice';
 import { Authservice } from '../../../services/authservice';
 import { Libro } from '../../../models/libro';
 import { Prestamo } from '../../../models/prestamo';
@@ -27,15 +28,52 @@ export class CatalogoListar implements OnInit {
   ordenarPor: 'titulo' | 'autor' | 'categoria' = 'titulo';
   cargando = false;
 
+  // HUF08.6 / HUF09.4: bloquear solicitud y acceso a recursos si el
+  // estudiante está sancionado o inactivo.
+  puedeSolicitar = true;
+  motivoBloqueo = '';
+
+  // HUF08.4: formulario real de solicitud (motivo, curso, observaciones)
+  modalAbierto = false;
+  libroSeleccionado: Libro | null = null;
+  formSolicitud = { motivo: '', curso: '', observaciones: '' };
+  enviandoSolicitud = false;
+
   constructor(
     private libroService: Libroservice,
     private prestamoService: Prestamoservice,
+    private sancionService: Sancionservice,
     private authService: Authservice,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.cargarLibros();
+    this.verificarEstadoEstudiante();
+  }
+
+  private verificarEstadoEstudiante(): void {
+    const usuario = this.authService.getUsuarioActual();
+
+    if (!usuario) return;
+
+    if (usuario.estado !== 'ACTIVO') {
+      this.puedeSolicitar = false;
+      this.motivoBloqueo = 'Tu cuenta está inactiva. No puedes solicitar préstamos ni acceder a recursos virtuales.';
+      return;
+    }
+
+    if (!usuario.idUsuario) return;
+
+    this.sancionService.buscarPorEstudiante(usuario.idUsuario)
+      .pipe(catchError(() => of([])))
+      .subscribe((sanciones) => {
+        const tieneSancionActiva = sanciones.some(s => s.estado === 'activa');
+        if (tieneSancionActiva) {
+          this.puedeSolicitar = false;
+          this.motivoBloqueo = 'Tienes una sanción activa. No puedes solicitar préstamos ni acceder a recursos virtuales hasta que se resuelva.';
+        }
+      });
   }
 
   cargarLibros(): void {
@@ -70,31 +108,54 @@ export class CatalogoListar implements OnInit {
     );
   }
 
-  solicitarPrestamo(libro: Libro): void {
-    const idEstudiante = this.authService.getUsuarioActual()?.idUsuario;
+  abrirFormularioSolicitud(libro: Libro): void {
+    if (!this.puedeSolicitar) {
+      this.snackBar.open(this.motivoBloqueo, 'Cerrar', { duration: 4000 });
+      return;
+    }
+    this.libroSeleccionado = libro;
+    this.formSolicitud = { motivo: '', curso: '', observaciones: '' };
+    this.modalAbierto = true;
+  }
 
-    if (!idEstudiante) {
-      this.snackBar.open('No se pudo identificar tu usuario', 'Cerrar', { duration: 3000 });
+  cerrarModal(): void {
+    this.modalAbierto = false;
+    this.libroSeleccionado = null;
+  }
+
+  confirmarSolicitud(): void {
+    const idEstudiante = this.authService.getUsuarioActual()?.idUsuario;
+    const libro = this.libroSeleccionado;
+
+    if (!idEstudiante || !libro?.idLibro) {
+      this.snackBar.open('No se pudo identificar tu usuario o el libro', 'Cerrar', { duration: 3000 });
       return;
     }
 
-    if (!libro.idLibro) {
-      this.snackBar.open('Error con la información del libro', 'Cerrar', { duration: 3000 });
+    if (!this.formSolicitud.motivo.trim()) {
+      this.snackBar.open('Indica el motivo de la solicitud', 'Cerrar', { duration: 3000 });
       return;
     }
 
     const prestamo: Prestamo = {
       idLibro: libro.idLibro,
       idEstudiante: idEstudiante,
-      motivo: 'Préstamo académico',
+      motivo: this.formSolicitud.motivo.trim(),
+      curso: this.formSolicitud.curso.trim() || undefined,
+      observaciones: this.formSolicitud.observaciones.trim() || undefined,
     };
 
+    this.enviandoSolicitud = true;
     this.prestamoService.solicitar(prestamo).subscribe({
       next: () => {
+        this.enviandoSolicitud = false;
         this.snackBar.open('Préstamo solicitado correctamente', 'Cerrar', { duration: 3000 });
+        this.cerrarModal();
       },
-      error: () => {
-        this.snackBar.open('Error al solicitar el préstamo', 'Cerrar', { duration: 3000 });
+      error: (err) => {
+        this.enviandoSolicitud = false;
+        const msg = typeof err?.error === 'string' ? err.error : 'Error al solicitar el préstamo';
+        this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
       }
     });
   }

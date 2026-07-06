@@ -20,3 +20,55 @@ table {
   border: 1px dashed #ccc;
   color: #777;
 }
+
+.detalle-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.detalle-card {
+  width: 100%;
+  max-width: 460px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.3);
+}
+
+.detalle-card h3 {
+  margin: 0 0 16px;
+  color: #0f172a;
+}
+
+.detalle-card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+}
+
+.detalle-card dt {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.detalle-card dd {
+  margin: 0 0 6px;
+  color: #111827;
+  font-size: 15px;
+}
+
+.detalle-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}

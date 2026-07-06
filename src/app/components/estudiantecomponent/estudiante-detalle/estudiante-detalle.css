@@ -1,0 +1,108 @@
+.detalle-shell {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 24px 24px;
+}
+
+.detalle-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.detalle-header h2 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.detalle-card {
+  padding: 24px !important;
+  border-radius: 16px !important;
+  margin-bottom: 28px;
+}
+
+.detalle-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.detalle-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.detalle-info-item span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.detalle-info-item strong {
+  color: #111827;
+  font-size: 15px;
+}
+
+.historial-titulo {
+  margin: 0 0 16px;
+  color: #0f172a;
+}
+
+.sin-datos {
+  padding: 20px;
+  text-align: center;
+  background-color: #fafafa;
+  border: 1px dashed #ccc;
+  color: #777;
+  border-radius: 12px;
+}
+
+.table-list {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.table-list th,
+.table-list td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.table-list th {
+  color: #64748b;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.table-list td {
+  color: #0f172a;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-solicitado { background: #fef3c7; color: #92400e; }
+.badge-vigente    { background: #dbeafe; color: #1e40af; }
+.badge-vencido    { background: #fecaca; color: #991b1b; }
+.badge-devuelto   { background: #d1fae5; color: #065f46; }
+.badge-rechazado  { background: #f3f4f6; color: #374151; }

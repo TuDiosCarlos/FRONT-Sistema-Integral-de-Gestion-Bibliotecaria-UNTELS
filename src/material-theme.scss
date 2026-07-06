@@ -7,6 +7,11 @@
 
 html {
   height: 100%;
+  // Fuerza esquema claro a nivel de documento: sin esto, controles nativos
+  // del navegador (select, inputs de fecha, scrollbars, etc.) pueden seguir
+  // el modo oscuro del sistema operativo aunque el body declare su propio
+  // color-scheme, resultando en texto oscuro sobre fondo oscuro.
+  color-scheme: light;
   @include mat.theme(
     (
       color: (
