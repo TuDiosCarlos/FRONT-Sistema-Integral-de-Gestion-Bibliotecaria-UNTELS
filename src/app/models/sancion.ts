@@ -4,7 +4,7 @@ export interface Sancion {
   motivo: string;
   diasSuspension: number;
   multa: number;
-  estado: 'activa' | 'cumplida';
+  estado: string;
   fechaCreacion?: string;
   fechaFin?: string;
 }

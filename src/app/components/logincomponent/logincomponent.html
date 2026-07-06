@@ -1,30 +1,49 @@
-<div class="login-container">
+<div class="login-shell">
   <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>Sistema Integral de Gestión Bibliotecaria</mat-card-title>
-      <mat-card-subtitle>Inicia sesión para continuar</mat-card-subtitle>
-    </mat-card-header>
+    <div class="login-marca">
+      <mat-icon>local_library</mat-icon>
+      <h1>Biblioteca UNTELS</h1>
+      <p>Ingresa tus credenciales para continuar</p>
+    </div>
 
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="ingresar()">
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Usuario</mat-label>
-          <input matInput formControlName="username" autocomplete="username">
-          <mat-error *ngIf="form.get('username')?.hasError('required')">El usuario es obligatorio</mat-error>
-        </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="ingresar()" class="login-form">
+      <div class="login-error" *ngIf="errorMensaje">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{ errorMensaje }}</span>
+      </div>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Contraseña</mat-label>
-          <input matInput type="password" formControlName="password" autocomplete="current-password">
-          <mat-error *ngIf="form.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username" autocomplete="username" />
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="username?.hasError('required')">El usuario es requerido</mat-error>
+      </mat-form-field>
 
-        <p class="mensaje-error" *ngIf="mensajeError">{{ mensajeError }}</p>
-
-        <button mat-raised-button color="primary" class="full-width" type="submit" [disabled]="cargando">
-          Iniciar sesión
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="ocultarPassword ? 'password' : 'text'"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="ocultarPassword = !ocultarPassword"
+          [attr.aria-label]="'Ocultar contraseña'"
+          [attr.aria-pressed]="ocultarPassword"
+        >
+          <mat-icon>{{ ocultarPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-      </form>
-    </mat-card-content>
+        <mat-error *ngIf="password?.hasError('required')">La contraseña es requerida</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" class="login-boton" [disabled]="cargando">
+        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+    </form>
   </mat-card>
 </div>

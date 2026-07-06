@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - contextLoads()</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<div class="breadcrumbs">
+<a class="breadcrumb" href="../index.html">all</a> &gt; 
+<a class="breadcrumb" href="index.html">pe.edu.untels.ApiBibliotecaApplicationTests</a> &gt; 
+<span class="breadcrumb">contextLoads()</span>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="failureGroup" href="#">Gradle Test Run :test</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Gradle Test Run :test</h2>
+<h1>contextLoads()</h1>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a class="" href="#">summary</a>
+</li>
+</ul>
+<div class="tab">
+<h2>summary</h2>
+<div>
+<div class="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox">
+<div class="counter">0</div>
+<p>skipped</p>
+</div>
+</td>
+<td>
+<div class="infoBox duration">
+<div class="counter">0.039s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures successRate">
+<div class="percent">0%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="result-details">
+<h3>Failure details</h3>
+<span class="code">
+<pre id="root-0-test-failure-contextLoads()">java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@10c9bd51 testClass = pe.edu.untels.ApiBibliotecaApplicationTests, locations = [], classes = [pe.edu.untels.ApiBibliotecaApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = [&quot;org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true&quot;], contextCustomizers = [org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@602c4656, org.springframework.boot.test.context.PropertyMappingContextCustomizer@0, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@39aa45a1, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@77bb0ab5, org.springframework.boot.web.server.context.SpringBootTestRandomPortContextCustomizer@7bc9e6ab, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@88d77697], resourceBasePath = &quot;src/main/webapp&quot;, contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.lambda$loadContext$0(DefaultCacheAwareContextLoaderDelegate.java:195)
+	at org.springframework.test.context.cache.DefaultContextCache.put(DefaultContextCache.java:214)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:160)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:128)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:210)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'filterChain' defined in class path resource [pe/edu/untels/securities/WebSecurityConfig.class]: Unsatisfied dependency expressed through method 'filterChain' parameter 0: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration': Unsatisfied dependency expressed through method 'setContentNegotiationStrategy' parameter 0: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:872)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:827)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1184)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$2(SpringBootContextLoader.java:155)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1465)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:600)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:155)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:114)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:247)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.lambda$loadContext$0(DefaultCacheAwareContextLoaderDelegate.java:167)
+	... 21 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'filterChain' defined in class path resource [pe/edu/untels/securities/WebSecurityConfig.class]: Unsatisfied dependency expressed through method 'filterChain' parameter 0: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration': Unsatisfied dependency expressed through method 'setContentNegotiationStrategy' parameter 0: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2008)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1971)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:864)
+	... 48 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration': Unsatisfied dependency expressed through method 'setContentNegotiationStrategy' parameter 0: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:872)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:827)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:413)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:351)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 65 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:864)
+	... 87 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:183)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:72)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:152)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 100 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2015)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1971)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1792)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory$DependencyObjectProvider.resolveStream(DefaultListableBeanFactory.java:2685)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory$DependencyObjectProvider.orderedStream(DefaultListableBeanFactory.java:2679)
+	at org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.configureMessageConverters(WebMvcAutoConfiguration.java:250)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurerComposite.configureMessageConverters(WebMvcConfigurerComposite.java:147)
+	at org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration.configureMessageConverters(DelegatingWebMvcConfiguration.java:126)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.createMessageConverters(WebMvcConfigurationSupport.java:873)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.addDefaultHttpMessageConverters(WebMvcConfigurationSupport.java:920)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getMessageConverters(WebMvcConfigurationSupport.java:855)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getDefaultMediaTypes(WebMvcConfigurationSupport.java:411)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.mvcContentNegotiationManager(WebMvcConfigurationSupport.java:402)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:155)
+	... 103 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 129 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:351)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 143 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2008)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1971)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 155 more
+Caused by: org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.bind(ConfigurationPropertiesBindingPostProcessor.java:104)
+	at org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.postProcessBeforeInitialization(ConfigurationPropertiesBindingPostProcessor.java:84)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:426)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1809)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 173 more
+Caused by: org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.jackson.serialization' to java.util.Map&lt;tools.jackson.databind.SerializationFeature, java.lang.Boolean&gt;
+	at org.springframework.boot.context.properties.bind.Binder.handleBindError(Binder.java:418)
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:377)
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$0(Binder.java:505)
+	at org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:127)
+	at org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:115)
+	at org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:71)
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$2(Binder.java:508)
+	at org.springframework.boot.context.properties.bind.Binder.fromDataObjectBinders(Binder.java:517)
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$1(Binder.java:507)
+	at org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:632)
+	at org.springframework.boot.context.properties.bind.Binder$Context.withDataObject(Binder.java:618)
+	at org.springframework.boot.context.properties.bind.Binder.bindDataObject(Binder.java:509)
+	at org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:445)
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:373)
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:360)
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:287)
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:274)
+	at org.springframework.boot.context.properties.ConfigurationPropertiesBinder.bind(ConfigurationPropertiesBinder.java:96)
+	at org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.bind(ConfigurationPropertiesBindingPostProcessor.java:101)
+	... 187 more
+Caused by: org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [tools.jackson.databind.SerializationFeature] for value [write-dates-as-timestamps]
+	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:47)
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:181)
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:113)
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:104)
+	at org.springframework.boot.context.properties.bind.MapBinder$EntryBinder.bindEntries(MapBinder.java:184)
+	at org.springframework.boot.context.properties.bind.MapBinder.bindAggregate(MapBinder.java:76)
+	at org.springframework.boot.context.properties.bind.AggregateBinder.bind(AggregateBinder.java:59)
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindAggregate$2(Binder.java:469)
+	at org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:632)
+	at org.springframework.boot.context.properties.bind.Binder.bindAggregate(Binder.java:470)
+	at org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:430)
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:373)
+	... 204 more
+Caused by: java.lang.IllegalArgumentException: No enum constant tools.jackson.databind.SerializationFeature.write-dates-as-timestamps
+	at org.springframework.boot.convert.LenientObjectToEnumConverterFactory$LenientToEnumConverter.findEnum(LenientObjectToEnumConverterFactory.java:95)
+	at org.springframework.boot.convert.LenientObjectToEnumConverterFactory$LenientToEnumConverter.convert(LenientObjectToEnumConverterFactory.java:82)
+	at org.springframework.boot.convert.LenientObjectToEnumConverterFactory$LenientToEnumConverter.convert(LenientObjectToEnumConverterFactory.java:63)
+	at org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter.convert(GenericConversionService.java:407)
+	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41)
+	... 215 more
+Cause 1: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'filterChain' defined in class path resource [pe/edu/untels/securities/WebSecurityConfig.class]: Unsatisfied dependency expressed through method 'filterChain' parameter 0: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration': Unsatisfied dependency expressed through method 'setContentNegotiationStrategy' parameter 0: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:872)
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:827)
+	at app//org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1218)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1184)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at app//org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
+	at app//org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at app//org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at app//org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at app//org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at app//org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$2(SpringBootContextLoader.java:155)
+	at app//org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at app//org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at app//org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1465)
+	at app//org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:600)
+	at app//org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:155)
+	at app//org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:114)
+	at app//org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:247)
+	at app//org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.lambda$loadContext$0(DefaultCacheAwareContextLoaderDelegate.java:167)
+	at app//org.springframework.test.context.cache.DefaultContextCache.put(DefaultContextCache.java:214)
+	at app//org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:160)
+	at app//org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:128)
+	at app//org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
+	at app//org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
+	at app//org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at app//org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:210)
+	at java.base@17.0.14/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.14/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.14/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base@17.0.14/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.14/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base@17.0.14/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.14/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.14/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.14/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.14/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.14/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.14/java.util.Optional.orElseGet(Optional.java:364)
+	at java.base@17.0.14/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.14/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'filterChain' defined in class path resource [pe/edu/untels/securities/WebSecurityConfig.class]: Unsatisfied dependency expressed through method 'filterChain' parameter 0: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration': Unsatisfied dependency expressed through method 'setContentNegotiationStrategy' parameter 0: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2008)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1971)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1863)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1833)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:864)
+	... 48 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.HttpSecurityConfiguration': Unsatisfied dependency expressed through method 'setContentNegotiationStrategy' parameter 0: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:872)
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:827)
+	at app//org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:493)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:413)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:351)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 65 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcContentNegotiationManager' defined in class path resource [org/springframework/boot/webmvc/autoconfigure/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:864)
+	... 87 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.accept.ContentNegotiationManager]: Factory method 'mvcContentNegotiationManager' threw exception with message: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:183)
+	at app//org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:72)
+	at app//org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:152)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 100 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jacksonJsonHttpMessageConvertersCustomizer' defined in class path resource [org/springframework/boot/http/converter/autoconfigure/JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConverterConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonHttpMessageConvertersCustomizer' parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2015)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1971)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1792)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory$DependencyObjectProvider.resolveStream(DefaultListableBeanFactory.java:2685)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory$DependencyObjectProvider.orderedStream(DefaultListableBeanFactory.java:2679)
+	at app//org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.configureMessageConverters(WebMvcAutoConfiguration.java:250)
+	at app//org.springframework.web.servlet.config.annotation.WebMvcConfigurerComposite.configureMessageConverters(WebMvcConfigurerComposite.java:147)
+	at app//org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration.configureMessageConverters(DelegatingWebMvcConfiguration.java:126)
+	at app//org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.createMessageConverters(WebMvcConfigurationSupport.java:873)
+	at app//org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.addDefaultHttpMessageConverters(WebMvcConfigurationSupport.java:920)
+	at app//org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getMessageConverters(WebMvcConfigurationSupport.java:855)
+	at app//org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getDefaultMediaTypes(WebMvcConfigurationSupport.java:411)
+	at app//org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.mvcContentNegotiationManager(WebMvcConfigurationSupport.java:402)
+	at java.base@17.0.14/java.lang.reflect.Method.invoke(Method.java:569)
+	at app//org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:155)
+	... 103 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 129 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:351)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 143 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'standardJsonMapperBuilderCustomizer' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration$JacksonJsonMapperBuilderCustomizerConfiguration.class]: Unsatisfied dependency expressed through method 'standardJsonMapperBuilderCustomizer' parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2008)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1971)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1863)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1833)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 155 more
+Caused by: org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+	at app//org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.bind(ConfigurationPropertiesBindingPostProcessor.java:104)
+	at app//org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.postProcessBeforeInitialization(ConfigurationPropertiesBindingPostProcessor.java:84)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:426)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1809)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at app//org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at app//org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at app//org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at app//org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at app//org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at app//org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 173 more
+Caused by: org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.jackson.serialization' to java.util.Map&lt;tools.jackson.databind.SerializationFeature, java.lang.Boolean&gt;
+	at app//org.springframework.boot.context.properties.bind.Binder.handleBindError(Binder.java:418)
+	at app//org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:377)
+	at app//org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$0(Binder.java:505)
+	at app//org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:127)
+	at app//org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:115)
+	at app//org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:71)
+	at app//org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$2(Binder.java:508)
+	at app//org.springframework.boot.context.properties.bind.Binder.fromDataObjectBinders(Binder.java:517)
+	at app//org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$1(Binder.java:507)
+	at app//org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:632)
+	at app//org.springframework.boot.context.properties.bind.Binder$Context.withDataObject(Binder.java:618)
+	at app//org.springframework.boot.context.properties.bind.Binder.bindDataObject(Binder.java:509)
+	at app//org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:445)
+	at app//org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:373)
+	at app//org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:360)
+	at app//org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:287)
+	at app//org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:274)
+	at app//org.springframework.boot.context.properties.ConfigurationPropertiesBinder.bind(ConfigurationPropertiesBinder.java:96)
+	at app//org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.bind(ConfigurationPropertiesBindingPostProcessor.java:101)
+	... 187 more
+Caused by: org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [tools.jackson.databind.SerializationFeature] for value [write-dates-as-timestamps]
+	at app//org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:47)
+	at app//org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:181)
+	at app//org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:113)
+	at app//org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:104)
+	at app//org.springframework.boot.context.properties.bind.MapBinder$EntryBinder.bindEntries(MapBinder.java:184)
+	at app//org.springframework.boot.context.properties.bind.MapBinder.bindAggregate(MapBinder.java:76)
+	at app//org.springframework.boot.context.properties.bind.AggregateBinder.bind(AggregateBinder.java:59)
+	at app//org.springframework.boot.context.properties.bind.Binder.lambda$bindAggregate$2(Binder.java:469)
+	at app//org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:632)
+	at app//org.springframework.boot.context.properties.bind.Binder.bindAggregate(Binder.java:470)
+	at app//org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:430)
+	at app//org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:373)
+	... 204 more
+Caused by: java.lang.IllegalArgumentException: No enum constant tools.jackson.databind.SerializationFeature.write-dates-as-timestamps
+	at org.springframework.boot.convert.LenientObjectToEnumConverterFactory$LenientToEnumConverter.findEnum(LenientObjectToEnumConverterFactory.java:95)
+	at org.springframework.boot.convert.LenientObjectToEnumConverterFactory$LenientToEnumConverter.convert(LenientObjectToEnumConverterFactory.java:82)
+	at org.springframework.boot.convert.LenientObjectToEnumConverterFactory$LenientToEnumConverter.convert(LenientObjectToEnumConverterFactory.java:63)
+	at org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter.convert(GenericConversionService.java:407)
+	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41)
+	... 215 more
+
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-failure-contextLoads()">Copy</button>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.4.1</a> at 5 jul. 2026, 7:54:30 p. m.</p>
+</div>
+</div>
+</body>
+</html>

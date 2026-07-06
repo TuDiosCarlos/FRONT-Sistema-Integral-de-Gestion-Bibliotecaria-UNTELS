@@ -2,29 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Prestamoservice } from '../../../services/prestamoservice';
 import { Prestamo } from '../../../models/prestamo';
-// Componentes de Angular Material (Sección 8.3)
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PrestamoRechazarComponent } from '../prestamo-rechazar/prestamo-rechazar.component';
 
 @Component({
-  selector: 'app-prestamo-bandeja', // Cumple regla 'app-' + nombre carpeta
-  standalone: true, // Regla de Oro #3: Siempre standalone
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatDialogModule],
+  selector: 'app-prestamo-bandeja',
+  standalone: true,
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule],
   templateUrl: './prestamo-bandeja.component.html',
   styleUrls: ['./prestamo-bandeja.component.css'],
 })
 export class PrestamoBandejaComponent implements OnInit {
   listaPendientes: Prestamo[] = [];
-  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'motivo', 'acciones'];
+  columnasMostradas: string[] = ['idLibro', 'idEstudiante', 'fecha', 'acciones'];
 
   constructor(
     private prestamoService: Prestamoservice,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +37,7 @@ export class PrestamoBandejaComponent implements OnInit {
   aprobarSolicitud(id: number): void {
     this.prestamoService.aprobar(id).subscribe({
       next: () => {
-        this.mostrarMensaje('El préstamo ha sido APROBADO.');
+        this.mostrarMensaje('Préstamo aprobado correctamente.');
         this.cargarSolicitudesPendientes();
       },
       error: () => this.mostrarMensaje('No se pudo aprobar el préstamo.'),
@@ -49,24 +45,19 @@ export class PrestamoBandejaComponent implements OnInit {
   }
 
   rechazarSolicitud(id: number): void {
-    const dialogRef = this.dialog.open(PrestamoRechazarComponent, {
-      data: { idPrestamo: id },
-    });
+    const motivo = prompt('Por favor, especifique el motivo del rechazo:');
+    if (!motivo) return;
 
-    dialogRef.afterClosed().subscribe((motivo: string | null) => {
-      if (!motivo) return;
-
-      this.prestamoService.rechazar(id, motivo).subscribe({
-        next: () => {
-          this.mostrarMensaje('El préstamo ha sido RECHAZADO.');
-          this.cargarSolicitudesPendientes();
-        },
-        error: () => this.mostrarMensaje('No se pudo rechazar el préstamo.'),
-      });
+    this.prestamoService.rechazar(id, motivo).subscribe({
+      next: () => {
+        this.mostrarMensaje('Préstamo rechazado correctamente.');
+        this.cargarSolicitudesPendientes();
+      },
+      error: () => this.mostrarMensaje('No se pudo rechazar el préstamo.'),
     });
   }
 
   private mostrarMensaje(msg: string): void {
-    this.snackBar.open(msg, 'Ok', { duration: 3000 });
+    this.snackBar.open(msg, 'Cerrar', { duration: 3000 });
   }
 }

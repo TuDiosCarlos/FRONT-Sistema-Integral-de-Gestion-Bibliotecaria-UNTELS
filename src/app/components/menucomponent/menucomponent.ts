@@ -1,53 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { Authservice } from '../../services/authservice';
+
+interface ItemMenu {
+  ruta: string;
+  etiqueta: string;
+  icono: string;
+  roles: string[];
+}
+
+const ITEMS_MENU: ItemMenu[] = [
+  { ruta: '/home', etiqueta: 'Inicio', icono: 'home', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
+  { ruta: '/catalogo', etiqueta: 'Catálogo', icono: 'auto_stories', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO', 'ESTUDIANTE'] },
+  { ruta: '/libros', etiqueta: 'Libros', icono: 'menu_book', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO'] },
+  { ruta: '/prestamos', etiqueta: 'Préstamos', icono: 'swap_horiz', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO'] },
+  { ruta: '/misprestamos', etiqueta: 'Mis préstamos', icono: 'assignment', roles: ['ESTUDIANTE'] },
+  { ruta: '/estudiantes', etiqueta: 'Estudiantes', icono: 'school', roles: ['ADMINISTRADOR', 'BIBLIOTECARIO'] },
+  { ruta: '/usuarios', etiqueta: 'Usuarios', icono: 'manage_accounts', roles: ['ADMINISTRADOR'] },
+  { ruta: '/configuracion', etiqueta: 'Configuración', icono: 'settings', roles: ['ADMINISTRADOR'] },
+];
 
 @Component({
   selector: 'app-menucomponent',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule],
+  imports: [CommonModule, RouterModule, MatIconModule, MatListModule, MatTooltipModule],
   templateUrl: './menucomponent.html',
   styleUrl: './menucomponent.css',
 })
-export class Menucomponent {
+export class Menucomponent implements OnInit {
+  itemsVisibles: ItemMenu[] = [];
+  nombreUsuario = '';
+  rolUsuario = '';
 
-  constructor(
-    private authService: Authservice,
-    private router: Router
-  ) {}
+  constructor(private authService: Authservice) {}
 
-  get autenticado(): boolean {
-    return this.authService.isAuthenticated();
-  }
-
-  get rol(): string | null {
-    return this.authService.getRol();
-  }
-
-  get nombre(): string | null {
-    return this.authService.getNombre();
-  }
-
-  get esAdmin(): boolean {
-    return this.rol === 'ADMIN';
-  }
-
-  get esBibliotecario(): boolean {
-    return this.rol === 'BIBLIOTECARIO';
-  }
-
-  get esEstudiante(): boolean {
-    return this.rol === 'ESTUDIANTE';
+  ngOnInit(): void {
+    const usuario = this.authService.getUsuarioActual();
+    this.rolUsuario = usuario?.rol ?? '';
+    this.nombreUsuario = usuario?.nombre || usuario?.username || '';
+    this.itemsVisibles = ITEMS_MENU.filter((item) => item.roles.includes(this.rolUsuario));
   }
 
   cerrarSesion(): void {
     this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

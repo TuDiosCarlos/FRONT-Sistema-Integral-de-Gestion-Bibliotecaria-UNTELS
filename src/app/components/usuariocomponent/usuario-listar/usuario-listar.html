@@ -14,14 +14,6 @@
 
   <div class="filtros">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Buscar por nombre, username, código o DNI</mat-label>
-      <input matInput [(ngModel)]="textoBusqueda" (keyup.enter)="buscar()">
-      <button mat-icon-button matSuffix (click)="buscar()">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
-
     <span class="texto-filtro">Filtrar por:</span>
 
     <mat-form-field appearance="outline">
@@ -93,14 +85,6 @@
           (click)="editar(u.idUsuario)"
           matTooltip="Editar usuario">
           <mat-icon>edit_square</mat-icon>
-        </button>
-
-        <button
-          mat-icon-button
-          [color]="u.estado === 'ACTIVO' ? 'warn' : 'primary'"
-          (click)="toggleEstado(u)"
-          [matTooltip]="u.estado === 'ACTIVO' ? 'Desactivar usuario' : 'Activar usuario'">
-          <mat-icon>{{ u.estado === 'ACTIVO' ? 'block' : 'check_circle' }}</mat-icon>
         </button>
 
         <button

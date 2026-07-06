@@ -39,14 +39,4 @@ export class Usuarioservice {
   eliminar(id: number): Observable<string> {
     return this.http.delete<string>(`${this.url}/${id}`, { responseType: 'text' as 'json' });
   }
-
-  // PATCH /api/usuarios/{id}/estado
-  cambiarEstado(id: number): Observable<Usuario> {
-    return this.http.patch<Usuario>(`${this.url}/${id}/estado`, {});
-  }
-
-  // GET /api/usuarios/buscar?q=
-  buscar(texto: string): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.url}/buscar`, { params: { q: texto } });
-  }
 }

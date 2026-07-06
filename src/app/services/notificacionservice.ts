@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { Notificacion } from '../models/notificacion';
 
 @Injectable({ providedIn: 'root' })
 export class Notificacionservice {
@@ -10,12 +9,12 @@ export class Notificacionservice {
 
   constructor(private http: HttpClient) {}
 
-  buscarPorEstudiante(idEstudiante: number): Observable<Notificacion[]> {
-    return this.http.get<Notificacion[]>(`${this.url}/estudiante/${idEstudiante}`);
+  buscarPorEstudiante(idEstudiante: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/estudiante/${idEstudiante}`);
   }
 
-  buscarPendientes(idEstudiante: number): Observable<Notificacion[]> {
-    return this.http.get<Notificacion[]>(`${this.url}/estudiante/${idEstudiante}/pendientes`);
+  buscarPendientes(idEstudiante: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/estudiante/${idEstudiante}/pendientes`);
   }
 
   marcarLeidas(idEstudiante: number): Observable<string> {

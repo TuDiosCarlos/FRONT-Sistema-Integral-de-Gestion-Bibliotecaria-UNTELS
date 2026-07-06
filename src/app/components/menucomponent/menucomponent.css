@@ -1,13 +1,114 @@
-.titulo {
-  font-weight: 600;
-  margin-right: 16px;
+.menu-lateral {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: #1e1b4b;
+  color: #e0e7ff;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.menu-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 20px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.usuario-actual {
-  margin-right: 12px;
+.menu-marca mat-icon {
+  color: #a5b4fc;
+}
+
+.menu-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-usuario mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #a5b4fc;
+}
+
+.menu-usuario-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.menu-usuario-info strong {
+  color: #fff;
   font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-usuario-info small {
+  color: #a5b4fc;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.menu-items {
+  flex: 1;
+  padding-top: 12px !important;
+  background: transparent !important;
+}
+
+.menu-items a {
+  color: #c7d2fe !important;
+  border-radius: 10px;
+  margin: 2px 12px;
+  width: calc(100% - 24px) !important;
+}
+
+.menu-items a mat-icon {
+  color: #a5b4fc !important;
+}
+
+.menu-items a:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.menu-items a.menu-item-activo {
+  background: #4f46e5 !important;
+  color: #fff !important;
+}
+
+.menu-items a.menu-item-activo mat-icon {
+  color: #fff !important;
+}
+
+.menu-cerrar-sesion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-radius: 10px;
+  color: #fecaca;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.menu-cerrar-sesion:hover {
+  background: rgba(239, 68, 68, 0.25);
 }

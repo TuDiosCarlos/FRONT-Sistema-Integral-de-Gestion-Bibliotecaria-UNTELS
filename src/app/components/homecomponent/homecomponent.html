@@ -1,37 +1,19 @@
 <div class="home-shell">
   <div class="home-header">
     <div>
-      <p class="subtitle">Bienvenido al sistema de biblioteca</p>
+      <p class="subtitle">Bienvenido, {{ nombreUsuario || 'usuario' }} · {{ rolUsuario }}</p>
       <h2>Panel de control</h2>
     </div>
-    <button class="btn-primary">Actualizar datos</button>
+    <button class="btn-primary" (click)="actualizar()" [disabled]="cargando">
+      {{ cargando ? 'Actualizando...' : 'Actualizar datos' }}
+    </button>
   </div>
 
   <div class="dashboard-grid">
-    <div class="dashboard-card card-primary">
-      <span class="card-label">Libros disponibles</span>
-      <strong>—</strong>
-      <p>Los datos se cargarán desde el backend.</p>
-    </div>
-    <div class="dashboard-card card-secondary">
-      <span class="card-label">Préstamos activos</span>
-      <strong>—</strong>
-      <p>Los datos se cargarán desde el backend.</p>
-    </div>
-    <div class="dashboard-card card-warning">
-      <span class="card-label">Préstamos vencidos</span>
-      <strong>—</strong>
-      <p>Los datos se cargarán desde el backend.</p>
-    </div>
-    <div class="dashboard-card card-success">
-      <span class="card-label">Estudiantes registrados</span>
-      <strong>—</strong>
-      <p>Los datos se cargarán desde el backend.</p>
-    </div>
-    <div class="dashboard-card card-alert">
-      <span class="card-label">Sanciones activas</span>
-      <strong>—</strong>
-      <p>Los datos se cargarán desde el backend.</p>
+    <div class="dashboard-card" *ngFor="let tarjeta of tarjetas" [ngClass]="tarjeta.clase">
+      <span class="card-label">{{ tarjeta.etiqueta }}</span>
+      <strong>{{ cargando ? '—' : tarjeta.valor }}</strong>
+      <p>{{ tarjeta.descripcion }}</p>
     </div>
   </div>
 </div>

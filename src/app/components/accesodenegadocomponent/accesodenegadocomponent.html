@@ -1,0 +1,11 @@
+<div class="denegado-shell">
+  <div class="denegado-card">
+    <span class="codigo-error">403</span>
+    <h2>Acceso denegado</h2>
+    <p>
+      Tu rol actual<ng-container *ngIf="rolUsuario"> (<strong>{{ rolUsuario }}</strong>)</ng-container>
+      no tiene permisos para ver esta página.
+    </p>
+    <button class="btn-primary" (click)="volverAlInicio()">Volver al inicio</button>
+  </div>
+</div>

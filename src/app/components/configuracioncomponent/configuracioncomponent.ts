@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { Configuracionservice } from '../../services/configuracionservice';
-import { Configuracion } from '../../models/configuracion';
+import { ConfiguracionService } from '../../services/configuracionservice';
 
 @Component({
   selector: 'app-configuracioncomponent',
@@ -14,37 +13,37 @@ import { Configuracion } from '../../models/configuracion';
   styleUrls: ['./configuracioncomponent.css'],
 })
 export class Configuracioncomponent implements OnInit {
-
   form: FormGroup;
-  idConfiguracionBiblioteca?: number;
+  cargando = false;
+  guardando = false;
 
   constructor(
     private fb: FormBuilder,
-    private configuracionService: Configuracionservice,
+    private configuracionService: ConfiguracionService,
     private snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
-      diasMaxPrestamo: [null, [Validators.required, Validators.min(1)]],
-      limitePrestamos: [null, [Validators.required, Validators.min(1)]],
-      multaPorDia: [null, [Validators.required, Validators.min(0)]],
-      schedulerActivo: [false],
-      notifEmail: [false],
-      alertaStock: [false],
+      diasMaxPrestamo: [15, [Validators.required, Validators.min(1)]],
+      limitePrestamos: [3, [Validators.required, Validators.min(1)]],
+      multaPorDia: [1, [Validators.required, Validators.min(0)]],
+      schedulerActivo: [true],
+      notifEmail: [true],
+      alertaStock: [true],
       modoMant: [false],
     });
   }
 
   ngOnInit(): void {
-    this.cargarConfiguracion();
-  }
-
-  cargarConfiguracion(): void {
-    this.configuracionService.getConfiguracion().subscribe({
+    this.cargando = true;
+    this.configuracionService.obtener().subscribe({
       next: (config) => {
-        this.idConfiguracionBiblioteca = config.idConfiguracionBiblioteca;
+        this.cargando = false;
         this.form.patchValue(config);
       },
-      error: () => this.snackBar.open('No se pudo cargar la configuración', 'Cerrar', { duration: 3000 })
+      error: () => {
+        this.cargando = false;
+        this.snackBar.open('No se pudo cargar la configuración desde el backend', 'Cerrar', { duration: 4000 });
+      },
     });
   }
 
@@ -54,17 +53,16 @@ export class Configuracioncomponent implements OnInit {
       return;
     }
 
-    const config: Configuracion = {
-      idConfiguracionBiblioteca: this.idConfiguracionBiblioteca,
-      ...this.form.value,
-    };
-
-    this.configuracionService.updateConfiguracion(config).subscribe({
-      next: () => this.snackBar.open('Configuración actualizada correctamente', 'Cerrar', { duration: 3000 }),
-      error: (err) => {
-        const msg = err?.error || 'No se pudo actualizar la configuración';
-        this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
-      }
+    this.guardando = true;
+    this.configuracionService.actualizar(this.form.value).subscribe({
+      next: () => {
+        this.guardando = false;
+        this.snackBar.open('Configuración actualizada correctamente', 'Cerrar', { duration: 3000 });
+      },
+      error: () => {
+        this.guardando = false;
+        this.snackBar.open('Error al guardar la configuración', 'Cerrar', { duration: 4000 });
+      },
     });
   }
 }

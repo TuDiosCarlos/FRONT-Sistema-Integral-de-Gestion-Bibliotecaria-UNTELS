@@ -14,7 +14,7 @@ export class Sancionservice {
     return this.http.get<Sancion[]>(`${this.url}/lista`);
   }
 
-  buscarPorEstado(estado: string): Observable<Sancion[]> {
+  listarPorEstado(estado: string): Observable<Sancion[]> {
     return this.http.get<Sancion[]>(`${this.url}/estado/${estado}`);
   }
 
@@ -23,6 +23,6 @@ export class Sancionservice {
   }
 
   cumplir(idSancion: number): Observable<string> {
-    return this.http.put<string>(`${this.url}/cumplir/${idSancion}`, {});
+    return this.http.put<string>(`${this.url}/cumplir/${idSancion}`, {}, { responseType: 'text' as 'json' });
   }
 }

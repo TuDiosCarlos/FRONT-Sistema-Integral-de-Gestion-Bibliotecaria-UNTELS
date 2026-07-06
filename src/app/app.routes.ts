@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { authguardGuard } from './guards/authguard-guard';
+import { roleGuard } from './guards/role-guard';
 import { Logincomponent } from './components/logincomponent/logincomponent';
 
 import { Estudiantecomponent } from './components/estudiantecomponent/estudiantecomponent';
@@ -16,34 +17,31 @@ import { LibroListar } from './components/librocomponent/libro-listar/libro-list
 import { LibroForm } from './components/librocomponent/libro-form/libro-form';
 
 import { Homecomponent } from './components/homecomponent/homecomponent';
+import { Accesodenegadocomponent } from './components/accesodenegadocomponent/accesodenegadocomponent';
 import { Catalogocomponent } from './components/catalogocomponent/catalogocomponent';
 import { CatalogoListar } from './components/catalogocomponent/catalogo-listar/catalogo-listar';
 import { Misprestamocomponent } from './components/misprestamocomponent/misprestamocomponent';
 import { Configuracioncomponent } from './components/configuracioncomponent/configuracioncomponent';
+import { Landingcomponent } from './components/landingcomponent/landingcomponent';
 
 // TUS NUEVAS IMPORTACIONES (MÓDULO DE JAIR)
 import { Prestamocomponent } from './components/prestamocomponent/prestamocomponent';
 import { PrestamoBandejaComponent } from './components/prestamocomponent/prestamo-bandeja/prestamo-bandeja.component';
 import { PrestamoVigentesComponent } from './components/prestamocomponent/prestamo-vigentes/prestamo-vigentes.component';
 
-import { Sancioncomponent } from './components/sancioncomponent/sancioncomponent';
-import { SancionListar } from './components/sancioncomponent/sancion-listar/sancion-listar';
-
-import { Notificacioncomponent } from './components/notificacioncomponent/notificacioncomponent';
-import { NotificacionPanel } from './components/notificacioncomponent/notificacion-panel/notificacion-panel';
-
-import { Perfilcomponent } from './components/perfilcomponent/perfilcomponent';
-
-const ADMIN = 'ADMIN';
+const ADMIN = 'ADMINISTRADOR';
 const BIBLIOTECARIO = 'BIBLIOTECARIO';
 const ESTUDIANTE = 'ESTUDIANTE';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: Landingcomponent },
+  { path: 'inicio', component: Landingcomponent },
+
   { path: 'login', component: Logincomponent },
 
+  { path: '403', component: Accesodenegadocomponent, canActivate: [authguardGuard] },
+
   { path: 'home', component: Homecomponent, canActivate: [authguardGuard] },
-  { path: 'perfil', component: Perfilcomponent, canActivate: [authguardGuard] },
 
   {
     path: 'catalogo',
@@ -58,22 +56,18 @@ export const routes: Routes = [
   {
     path: 'misprestamos',
     component: Misprestamocomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ESTUDIANTE] }
+    canActivate: [authguardGuard, roleGuard([ESTUDIANTE])],
   },
-
   {
     path: 'configuracion',
     component: Configuracioncomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ADMIN, BIBLIOTECARIO] }
+    canActivate: [authguardGuard, roleGuard([ADMIN])],
   },
 
   {
     path: 'estudiantes',
     component: Estudiantecomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ADMIN, BIBLIOTECARIO] },
+    canActivate: [authguardGuard, roleGuard([ADMIN, BIBLIOTECARIO])],
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: EstudianteListar },
@@ -85,8 +79,7 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: Usuariocomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ADMIN] },
+    canActivate: [authguardGuard, roleGuard([ADMIN])],
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: UsuarioListar },
@@ -98,8 +91,7 @@ export const routes: Routes = [
   {
     path: 'libros',
     component: Librocomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ADMIN, BIBLIOTECARIO] },
+    canActivate: [authguardGuard, roleGuard([ADMIN, BIBLIOTECARIO])],
     children: [
       { path: '', redirectTo: 'listar', pathMatch: 'full' },
       { path: 'listar', component: LibroListar },
@@ -112,33 +104,11 @@ export const routes: Routes = [
   {
     path: 'prestamos',
     component: Prestamocomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ADMIN, BIBLIOTECARIO] },
+    canActivate: [authguardGuard, roleGuard([ADMIN, BIBLIOTECARIO])],
     children: [
       { path: '', redirectTo: 'bandeja', pathMatch: 'full' },
       { path: 'bandeja', component: PrestamoBandejaComponent },
       { path: 'vigentes', component: PrestamoVigentesComponent }
     ]
-  },
-
-  {
-    path: 'sanciones',
-    component: Sancioncomponent,
-    canActivate: [authguardGuard],
-    data: { roles: [ADMIN, BIBLIOTECARIO] },
-    children: [
-      { path: '', redirectTo: 'listar', pathMatch: 'full' },
-      { path: 'listar', component: SancionListar },
-    ]
-  },
-
-  {
-    path: 'notificaciones',
-    component: Notificacioncomponent,
-    canActivate: [authguardGuard],
-    children: [
-      { path: '', redirectTo: 'panel', pathMatch: 'full' },
-      { path: 'panel', component: NotificacionPanel },
-    ]
-  },
+  }
 ];

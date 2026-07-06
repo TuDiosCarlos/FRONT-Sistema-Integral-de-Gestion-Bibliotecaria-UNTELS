@@ -1,0 +1,9 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-contenido {
+  flex: 1;
+  min-width: 0;
+}

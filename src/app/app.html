@@ -1,3 +1,6 @@
-
-<app-menucomponent></app-menucomponent>
-<router-outlet></router-outlet>
+<div class="app-shell">
+  <app-menucomponent *ngIf="mostrarMenu"></app-menucomponent>
+  <main class="app-contenido">
+    <router-outlet></router-outlet>
+  </main>
+</div>

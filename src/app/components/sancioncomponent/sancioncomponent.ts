@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sancioncomponent',
-  standalone: true,
-  imports: [RouterModule],
+  imports: [],
   templateUrl: './sancioncomponent.html',
   styleUrl: './sancioncomponent.css',
 })

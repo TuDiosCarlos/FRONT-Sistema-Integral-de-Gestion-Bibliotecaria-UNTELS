@@ -5,16 +5,16 @@ import { environment } from '../../environments/environment.development';
 import { Configuracion } from '../models/configuracion';
 
 @Injectable({ providedIn: 'root' })
-export class Configuracionservice {
+export class ConfiguracionService {
   private url = `${environment.baseUrl}/api/configuracion`;
 
   constructor(private http: HttpClient) {}
 
-  getConfiguracion(): Observable<Configuracion> {
+  obtener(): Observable<Configuracion> {
     return this.http.get<Configuracion>(this.url);
   }
 
-  updateConfiguracion(config: Configuracion): Observable<string> {
-    return this.http.put<string>(`${this.url}/actualiza`, config);
+  actualizar(config: Configuracion): Observable<string> {
+    return this.http.put<string>(`${this.url}/actualiza`, config, { responseType: 'text' as 'json' });
   }
 }

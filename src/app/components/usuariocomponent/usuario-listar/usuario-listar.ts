@@ -35,7 +35,6 @@ export class UsuarioListar implements OnInit {
 
   filtroRol: string = 'TODOS';
   filtroEstado: string = 'TODOS';
-  textoBusqueda: string = '';
 
   constructor(
     private usuarioService: Usuarioservice,
@@ -65,37 +64,10 @@ export class UsuarioListar implements OnInit {
     });
   }
 
-  buscar(): void {
-    if (!this.textoBusqueda.trim()) {
-      this.cargarUsuarios();
-      return;
-    }
-
-    this.usuarioService.buscar(this.textoBusqueda.trim()).subscribe({
-      next: (data) => {
-        this.usuarios = data;
-        this.aplicarFiltros();
-      },
-      error: () => this.snackBar.open('Error al buscar usuarios', 'Cerrar', { duration: 3000 })
-    });
-  }
-
   editar(id: number | undefined): void {
     if (id != null) {
       this.router.navigate(['/usuarios/editar', id]);
     }
-  }
-
-  toggleEstado(usuario: Usuario): void {
-    if (usuario.idUsuario == null) return;
-
-    this.usuarioService.cambiarEstado(usuario.idUsuario).subscribe({
-      next: (actualizado) => {
-        usuario.estado = actualizado.estado;
-        this.aplicarFiltros();
-      },
-      error: () => this.snackBar.open('Error al cambiar estado', 'Cerrar', { duration: 3000 })
-    });
   }
 
   eliminar(id: number | undefined): void {

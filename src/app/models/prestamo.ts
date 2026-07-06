@@ -7,7 +7,7 @@ export interface Prestamo {
   fechaEntrega?: string;
   fechaConfirmacion?: string;
   fechaDevolucion?: string;
-  estado?: 'solicitado' | 'vigente' | 'rechazado' | 'devuelto' | 'vencido';
+  estado?: string;
   motivo: string;
   curso?: string;
   observaciones?: string;
