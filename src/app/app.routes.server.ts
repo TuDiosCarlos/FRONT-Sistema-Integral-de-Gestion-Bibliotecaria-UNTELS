@@ -1,12 +1,12 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
-// RenderMode.Server (no Prerender): las rutas dependen de sesión/rol en tiempo real
-// (cookies de autenticación), así que cada petición debe renderizarse en el servidor
-// contra la request real. Prerender genera el HTML una sola vez en build/arranque, sin
-// acceso a esas cookies, por lo que los guards siempre verían "sin sesión".
+// RenderMode.Client (no Server ni Prerender): el build es estático (Cloudflare Pages,
+// sin servidor Node corriendo), así que no hay quien renderice en el servidor por
+// petición. Las rutas dependen de sesión/rol en tiempo real (token en el navegador),
+// por lo que se renderizan enteramente en el cliente, donde sí existe esa sesión.
 export const serverRoutes: ServerRoute[] = [
   {
     path: '**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   }
 ];
