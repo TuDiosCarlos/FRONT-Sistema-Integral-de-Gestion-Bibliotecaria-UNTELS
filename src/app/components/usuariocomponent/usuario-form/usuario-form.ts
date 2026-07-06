@@ -29,7 +29,9 @@ export class UsuarioForm implements OnInit {
   modoEdicion = false;
   usuarioId?: number;
 
-  roles = ['ADMIN', 'BIBLIOTECARIO', 'ESTUDIANTE'];
+  // No se permite crear nuevos ADMIN desde la UI ni desde el backend (HUF01.8):
+  // protege la integridad del rol, que solo se asigna por script de BD.
+  roles = ['BIBLIOTECARIO', 'ESTUDIANTE'];
   estados = ['ACTIVO', 'INACTIVO'];
 
   constructor(

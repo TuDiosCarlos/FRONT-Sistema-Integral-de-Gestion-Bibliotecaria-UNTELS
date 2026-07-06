@@ -25,6 +25,9 @@ export class EstudianteForm implements OnInit {
   form!: FormGroup;
   modoEdicion = false;
   estudianteId?: number;
+  // Campos que no están en el formulario pero deben conservarse tal cual
+  // al editar (si no, se perderían o se resetearían en cada guardado).
+  private estudianteOriginal?: Usuario;
 
   constructor(
     private fb: FormBuilder,
@@ -57,6 +60,7 @@ export class EstudianteForm implements OnInit {
   cargarEstudiante(id: number): void {
     this.usuarioService.buscarPorId(id).subscribe({
       next: (usuario) => {
+        this.estudianteOriginal = usuario;
         this.form.patchValue({
           nombre:   usuario.nombre,
           username: usuario.username,
@@ -81,23 +85,28 @@ export class EstudianteForm implements OnInit {
     }
 
     const data = this.form.value;
-    const usuario: Usuario = {
-      username:  data.username,
-      nombre:    data.nombre,
-      codigo:    data.codigo,
-      dni:       data.dni,
-      email:     data.email,
-      carrera:   data.carrera || '',
-      ciclo:     data.ciclo || 1,
-      password:  data.password || '123456',
-      carnet:    '',
-      telefono:  '',
-      rol:       'ESTUDIANTE',
-      estado:    'ACTIVO',
-    };
 
     if (this.modoEdicion && this.estudianteId) {
-      this.usuarioService.actualizar({ ...usuario, idUsuario: this.estudianteId }).subscribe({
+      // En edición se conservan carnet/teléfono/estado tal como están en BD:
+      // el formulario no los expone, así que no se deben sobrescribir con
+      // valores vacíos ni reactivar una cuenta que fue dada de baja.
+      const usuario: Usuario = {
+        ...this.estudianteOriginal!,
+        idUsuario:  this.estudianteId,
+        username:   data.username,
+        nombre:     data.nombre,
+        codigo:     data.codigo,
+        dni:        data.dni,
+        email:      data.email,
+        carrera:    data.carrera || '',
+        ciclo:      data.ciclo || 1,
+        rol:        'ESTUDIANTE',
+      };
+      // Sin campo de contraseña en modo edición: no se debe reenviar
+      // (el backend re-hashea cualquier valor no vacío que reciba).
+      delete usuario.password;
+
+      this.usuarioService.actualizar(usuario).subscribe({
         next: () => {
           this.snackBar.open('Estudiante actualizado correctamente', 'Cerrar', { duration: 3000 });
           this.router.navigate(['/estudiantes']);
@@ -108,6 +117,21 @@ export class EstudianteForm implements OnInit {
         }
       });
     } else {
+      const usuario: Usuario = {
+        username:  data.username,
+        nombre:    data.nombre,
+        codigo:    data.codigo,
+        dni:       data.dni,
+        email:     data.email,
+        carrera:   data.carrera || '',
+        ciclo:     data.ciclo || 1,
+        password:  data.password || '123456',
+        carnet:    '',
+        telefono:  '',
+        rol:       'ESTUDIANTE',
+        estado:    'ACTIVO',
+      };
+
       this.usuarioService.registrar(usuario).subscribe({
         next: () => {
           this.snackBar.open('Estudiante registrado correctamente', 'Cerrar', { duration: 3000 });

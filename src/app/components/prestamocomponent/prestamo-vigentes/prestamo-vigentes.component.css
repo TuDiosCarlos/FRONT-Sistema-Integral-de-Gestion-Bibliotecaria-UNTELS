@@ -35,3 +35,12 @@ table {
   font-size: 12px;
   font-weight: 500;
 }
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.badge-vigente { background: #dbeafe; color: #1e40af; }
+.badge-vencido { background: #fecaca; color: #991b1b; }

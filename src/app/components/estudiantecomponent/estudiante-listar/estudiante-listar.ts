@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Usuarioservice } from '../../../services/usuarioservice';
 import { Usuario } from '../../../models/usuario';
 
@@ -15,7 +16,7 @@ import { Usuario } from '../../../models/usuario';
   imports: [
     CommonModule, RouterModule,
     MatTableModule, MatButtonModule, MatIconModule,
-    MatChipsModule, MatTooltipModule,
+    MatChipsModule, MatTooltipModule, MatSnackBarModule,
   ],
   templateUrl: './estudiante-listar.html',
   styleUrl: './estudiante-listar.css'
@@ -26,7 +27,8 @@ export class EstudianteListar implements OnInit {
 
   constructor(
     private usuarioService: Usuarioservice,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -35,8 +37,11 @@ export class EstudianteListar implements OnInit {
 
   cargarEstudiantes(): void {
     this.usuarioService.buscarPorRol('ESTUDIANTE').subscribe({
+      // Se listan activos e inactivos: si solo se mostraran los activos,
+      // un estudiante dado de baja desaparecería de la lista sin forma
+      // de reactivarlo desde la UI.
       next: (data) => {
-        this.estudiantes = data.filter(u => u.estado === 'ACTIVO');
+        this.estudiantes = data;
       },
       error: (err) => console.error('Error al listar estudiantes', err)
     });
@@ -49,7 +54,22 @@ export class EstudianteListar implements OnInit {
   }
 
   toggleEstado(estudiante: Usuario): void {
+    if (estudiante.idUsuario == null) return;
+
     const nuevoEstado = estudiante.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO';
-    estudiante.estado = nuevoEstado;
+    const actualizado: Usuario = { ...estudiante, estado: nuevoEstado };
+    delete actualizado.password;
+
+    this.usuarioService.actualizar(actualizado).subscribe({
+      next: () => {
+        estudiante.estado = nuevoEstado;
+        this.snackBar.open(
+          nuevoEstado === 'ACTIVO' ? 'Estudiante activado' : 'Estudiante dado de baja',
+          'Cerrar',
+          { duration: 3000 }
+        );
+      },
+      error: () => this.snackBar.open('Error al cambiar el estado', 'Cerrar', { duration: 3000 })
+    });
   }
 }
