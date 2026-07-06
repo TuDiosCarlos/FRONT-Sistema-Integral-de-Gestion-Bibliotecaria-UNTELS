@@ -17,11 +17,11 @@ interface Integrante {
 })
 export class Landingcomponent {
   integrantes: Integrante[] = [
-    { nombre: 'Cesar', rol: 'Backend Developer', imagen: '/integrantes/cesar.jpg' },
-    { nombre: 'Carlos', rol: 'Backend Developer', imagen: '/integrantes/carlos.jpg' },
-    { nombre: 'Christopher', rol: 'Backend Developer', imagen: '/integrantes/christopher.jpg' },
-    { nombre: 'Jair', rol: 'Frontend Developer', imagen: '/integrantes/jair.jpg' },
-    { nombre: 'Nick', rol: 'Backend Developer', imagen: '/integrantes/nick.jpg' },
-    { nombre: 'Nipper', rol: 'Database Administrator', imagen: '/integrantes/nipper.jpg' },
+    { nombre: 'Cesar', rol: 'Product Owner', imagen: '/integrantes/cesar.jpg' },
+    { nombre: 'Carlos', rol: 'Developer', imagen: '/integrantes/carlos.jpg' },
+    { nombre: 'Christopher', rol: 'Developer', imagen: '/integrantes/christopher.jpg' },
+    { nombre: 'Jair', rol: 'Developer', imagen: '/integrantes/jair.jpg' },
+    { nombre: 'Nick', rol: 'Developer', imagen: '/integrantes/nick.jpg' },
+    { nombre: 'Nipper', rol: 'Scrum Master', imagen: '/integrantes/nipper.jpg' },
   ];
 }
