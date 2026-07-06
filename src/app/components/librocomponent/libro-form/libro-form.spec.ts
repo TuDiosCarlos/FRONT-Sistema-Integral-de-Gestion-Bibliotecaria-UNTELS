@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 
 import { LibroForm } from './libro-form';
@@ -32,7 +31,6 @@ describe('LibroForm', () => {
     TestBed.configureTestingModule({
       imports: [LibroForm],
       providers: [
-        provideNoopAnimations(),
         { provide: Libroservice, useValue: libroServiceSpy },
         { provide: Router, useValue: { navigate: routerNavigateSpy } },
         { provide: MatSnackBar, useValue: { open: vi.fn() } },

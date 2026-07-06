@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { of, throwError } from 'rxjs';
 
 import { Logincomponent } from './logincomponent';
@@ -21,7 +20,6 @@ describe('Logincomponent', () => {
     await TestBed.configureTestingModule({
       imports: [Logincomponent],
       providers: [
-        provideNoopAnimations(),
         { provide: Authservice, useValue: authServiceSpy },
         { provide: Router, useValue: { navigate: routerNavigateSpy } },
       ],
