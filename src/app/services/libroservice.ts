@@ -33,9 +33,9 @@ export class Libroservice {
     return this.http.post<Libro>(`${this.url}/nuevo`, libro);
   }
 
-  registrarPorIsbn(isbn: string): Observable<Libro> {
+  autocompletarPorIsbn(isbn: string): Observable<LibroApiExterna> {
     const params = new HttpParams().set('isbn', isbn);
-    return this.http.post<Libro>(`${this.url}/registrar-por-isbn`, null, { params });
+    return this.http.get<LibroApiExterna>(`${this.url}/buscar-isbn-api`, { params });
   }
 
   actualizar(libro: Libro): Observable<string> {

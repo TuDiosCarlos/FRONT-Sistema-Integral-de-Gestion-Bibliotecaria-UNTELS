@@ -80,17 +80,26 @@ export class LibroForm implements OnInit {
     }
 
     this.cargandoIsbn = true;
-    this.libroService.registrarPorIsbn(isbn).subscribe({
-      next: (libro) => {
+    this.libroService.autocompletarPorIsbn(isbn).subscribe({
+      next: (datos) => {
         this.cargandoIsbn = false;
-        this.form.patchValue(libro);
-        this.snackBar.open('Datos cargados desde API externa ✓', 'Cerrar', { duration: 3000 });
-        // Redirigir al listado ya que el backend guardó el libro
-        setTimeout(() => this.router.navigate(['/libros/listar']), 1500);
+        // Solo se rellenan los datos bibliográficos; el bibliotecario revisa,
+        // completa categoría/stock/recurso y confirma con "Registrar".
+        this.form.patchValue({
+          titulo: datos.titulo,
+          autor: datos.autor,
+          editorial: datos.editorial,
+          anio: datos.anio,
+          descripcion: datos.descripcion
+        });
+        this.snackBar.open('Datos cargados desde API externa. Revisa y completa el registro ✓', 'Cerrar', { duration: 3000 });
       },
       error: (err) => {
         this.cargandoIsbn = false;
-        this.snackBar.open('ISBN no encontrado en API externa, completa el formulario manualmente', 'Cerrar', { duration: 4000 });
+        const msg = err.status === 409
+          ? 'Ya existe un libro con ese ISBN en el catálogo'
+          : 'ISBN no encontrado en API externa, completa el formulario manualmente';
+        this.snackBar.open(msg, 'Cerrar', { duration: 4000 });
         console.error(err);
       }
     });
