@@ -1,0 +1,35 @@
+name: CI Frontend (FrontBiblioteca)
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      # Angular 22 / @angular/cli 22 requieren Node ^22.22.3 || ^24.15.0 || >=26.0.0
+      # (node_modules/@angular/cli/package.json -> "engines").
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build de produccion
+        run: npm run build
+
+      # El builder "test" (@angular/build:unit-test) usa Vitest, que corre en
+      # modo headless (jsdom) sin watch por defecto fuera de una TTY; se pasa
+      # --watch=false explicitamente para garantizar que el job termine.
+      - name: Ejecutar tests unitarios
+        run: npm test -- --watch=false
